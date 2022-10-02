@@ -4,7 +4,11 @@ import NavBar from "./components/NavBar.vue";
 </script>
 
 <template>
-  <NavBar/>
+  <NavBar :list="[{
+    name:'asd',
+    icon: 'jore'},{
+    name:'bobob',
+    icon: 'jore'}]"/>
   <div class="content">
     <RouterView/>
   </div>

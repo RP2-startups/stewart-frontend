@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div v-if="visibility">
     <ul class="menu d-inline-flex">
-      <div class="menu-slider" :style="{left: positionToMove , width: sliderWidth}"></div>
+      <div
+        class="menu-slider"
+        :style="{ left: positionToMove, width: sliderWidth }"
+      ></div>
       <li
         class="menu-item d-inline-flex"
         v-for="item in itens"
@@ -30,14 +33,14 @@
 }
 
 .menu-item {
-    padding: 10px;
-    height: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
+  padding: 10px;
+  height: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .menu-item :hover {
-    background-color: var(--color-background-dark-hover)
+  background-color: var(--color-background-dark-hover);
 }
 
 .menu-link {
@@ -59,36 +62,58 @@
 </style>
 
 <script lang="ts">
+  
 import Vue, { defineComponent } from "vue";
+
 export default defineComponent({
+  props:{
+    list : null,
+    visibility: {
+      type: Boolean,
+      default: true
+    }
+  },
+  mounted:function(){
+    this.loadList()
+  },
+
   data() {
-    return {
+      return {
       sliderPosition: 0,
       selectedElementWidth: 0,
       selectedIndex: 0,
       itens: [
-        { id: 1, icon: "jorge", name: "jorginho" },
-        { id: 2, icon: "amadeus", name: "amadeus" },
-        { id: 3, icon: "acaca", name: "acac" },
-        { id: 4, icon: "asdasd", name: "asdsad" },
+          { id: 1, icon: "jorge", name: "jorginho" },
+          { id: 2, icon: "amadeus", name: "amadeus" },
+          { id: 3, icon: "acaca", name: "acac" },
+          { id: 4, icon: "asdasd", name: "asdsad" },
       ],
-    };
+      };
   },
   methods: {
-    sliderIndicator(id: number) {
-      let element = (this.$refs[`menu-item_${id}`] as any)[0];
-      this.sliderPosition = element.offsetLeft;
-      this.selectedElementWidth = element.offsetWidth;
-      this.selectedIndex = id;
-    },
+      sliderIndicator(id: number) {
+      let element = (this.$refs[`menu-item_${id}`] as any)[0]
+      this.sliderPosition = element.offsetLeft
+      this.selectedElementWidth = element.offsetWidth
+      this.selectedIndex = id
+      },
+      loadList(){
+        var count: number = this.itens.length
+        for (let i = 0; i < this.list.length; i++) {
+          const element = this.list[i];
+          var item = {id: ++count,icon:element.icon, name:element.name}
+          this.itens.push(item)
+        }
+      }
   },
   computed: {
-    positionToMove(){
-        return this.sliderPosition+"px"
-    },
-    sliderWidth(){
-        return this.selectedElementWidth+"px"
-    }
+      positionToMove(){
+          return this.sliderPosition+"px"
+      },
+      sliderWidth(){
+          return this.selectedElementWidth+"px"
+      }
   },
+  
 });
 </script>
