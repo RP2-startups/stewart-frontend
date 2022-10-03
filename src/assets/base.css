@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Jost:wght@400;700;800&display=swap');
+
+:root{
+    --color-background: #0F3460;
+    --color-background-dark: #000f22;
+    --color-background-dark-hover: #022553;
+    --color-text-light: #ffffff;
+    --color-pink: #E94560;
+}
+*{
+    box-sizing: border-box !important;
+}
+
+body{
+    background-color: var(--color-background);
+    color: var(--color-text-light);
+}
+
+.title-hammersmith{
+    font-family: 'Hammersmith One', sans-serif;
+    font-weight:normal;
+    text-decoration: none;
+}
