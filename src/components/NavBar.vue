@@ -18,7 +18,7 @@
         </li>
       </ul>
         <button class="btn btn-login">
-          <a class="text-light" href="#">
+          <a class="text-light">
             LOGIN
           </a>
         </button>
@@ -44,6 +44,11 @@
   align-items: center;
 }
 
+.menu :hover {
+  background-color: var(--color-background-dark-hover);
+  cursor: pointer;
+}
+
 #stewart-main-navbar {
   height: 5rem;  
   display: flex;
@@ -67,10 +72,6 @@
   font-size: 1rem;
 }
 
-.menu-item :hover {
-  background-color: var(--color-background-dark-hover);
-}
-
 .menu-link {
   align-items: center;
   text-decoration: none;
@@ -87,16 +88,20 @@
 }
 
 .btn-login {
-  float: inline-end;
-  background-color: rgba(196, 196, 196, 0.15);
-  padding-right: 1.5rem !important;
-  padding-left: 1.5rem !important;
+  background: rgba(196, 196, 196, 0.15);
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  font-size: 0.8rem;
+  border-radius: 10px;
   border-color: #f8f9fa;
 }
 
 .btn-login a {
   font-family: 'Jost', sans-serif;
   text-decoration: none;
+  font-style: bold;
 }
 </style>
 
