@@ -1,6 +1,6 @@
 <template>
   <section id="stewart-main-navbar">
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center p-2 justify-content-between">
       <div id="navbar-logo">
         <a class="title-hammersmith">STEWART</a>
       </div>
@@ -17,11 +17,17 @@
           </a>
         </li>
       </ul>
+        <button class="btn btn-login">
+          <a class="text-light" href="#">
+            LOGIN
+          </a>
+        </button>
     </div>
+
     <div
       class="menu-slider"
-      :style="{ left: positionToMove, width: sliderWidth }"
-    ></div>
+      :style="{ left: positionToMove, width: sliderWidth }">  
+      </div>
   </section>
 </template>
 
@@ -39,15 +45,17 @@
 }
 
 #stewart-main-navbar {
-  height: 9rem;
+  height: 5rem;  
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: .25rem;
+  padding-left: 1.5rem;
 }
 
 #navbar-logo .title-hammersmith {
-  font-size: 3rem;
-  color: white;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255);
 }
 
 .menu-item {
@@ -56,7 +64,7 @@
   margin-left: 0.625rem;
   margin: 0 0.625rem;
   margin-right: 0.625rem;
-  font-size: 1.5625rem;
+  font-size: 1rem;
 }
 
 .menu-item :hover {
@@ -76,6 +84,19 @@
   left: 0;
   transition: all ease 0.3s;
   margin-top: 3rem;
+}
+
+.btn-login {
+  float: inline-end;
+  background-color: rgba(196, 196, 196, 0.15);
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+  border-color: #f8f9fa;
+}
+
+.btn-login a {
+  font-family: 'Jost', sans-serif;
+  text-decoration: none;
 }
 </style>
 

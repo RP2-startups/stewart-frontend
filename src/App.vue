@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
   <NavBar
     :list="[
       {
-        name: 'asd',
+        name: 'Sobre',
         icon: 'jore',
       },
       {
-        name: 'bobob',
+        name: 'Contato',
         icon: 'jore',
       },
     ]"
   />
+  
+  <Footer/>
   <div class="content">
     <RouterView />
   </div>
