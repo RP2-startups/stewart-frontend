@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Jost:wght@400;700;800&display=swap');
 
 :root{
-    --color-background: #16213E;
-    --color-background-dark: #000F22;
+    --color-background: #0F3460;
+    --color-background-dark: #071c35;
     --color-background-dark-hover: #022553;
     --color-text-light: #FFFFFF;
     --color-pink: #E94560;
     --color-cream: #F9F9F9;
-    
+
 }
 *{
     box-sizing: border-box !important;
 }
 
 body{
-    background-color: var(--color-background);
+    background: radial-gradient(#0F3460, #071c35);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--color-text-light);
 }
 
