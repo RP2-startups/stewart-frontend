@@ -26,7 +26,7 @@
 
     <div
       class="menu-slider"
-      :style="{ left: positionToMove, width: sliderWidth }">  
+      :style="{ left: positionToMove, width: sliderWidth }">
       </div>
   </section>
 </template>
@@ -50,12 +50,12 @@
 }
 
 #stewart-main-navbar {
-  height: 5rem;  
+  height: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: .25rem;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 #navbar-logo .title-hammersmith {
