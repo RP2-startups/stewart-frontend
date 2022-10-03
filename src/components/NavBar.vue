@@ -10,7 +10,8 @@
           v-for="item in itens"
           :key="item.id"
           @click="sliderIndicator(item.id)"
-          :ref="'menu-item_' + item.id">
+          :ref="'menu-item_' + item.id"
+        >
           <a class="menu-link d-inline-flex">
             <span>{{ item.name }}</span>
           </a>
@@ -26,6 +27,7 @@
 
 <style scoped>
 @import "../assets/base.css";
+
 .menu {
   padding: 3rem;
   margin: 0;
@@ -42,10 +44,12 @@
   flex-direction: column;
   justify-content: center;
 }
+
 #navbar-logo .title-hammersmith {
   font-size: 3rem;
   color: white;
 }
+
 .menu-item {
   padding: 0.625rem;
   height: 100%;
@@ -54,6 +58,7 @@
   margin-right: 0.625rem;
   font-size: 1.5625rem;
 }
+
 .menu-item :hover {
   background-color: var(--color-background-dark-hover);
 }
@@ -66,17 +71,28 @@
 
 .menu-slider {
   background-color: var(--color-pink);
-  position: relative;
+  position: absolute;
   height: 0.25rem;
   left: 0;
-  bottom: 0;
   transition: all ease 0.3s;
+  margin-top: 3rem;
 }
 </style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
+  props: {
+    list: null,
+    visibility: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  mounted: function () {
+    this.loadList();
+  },
+
   data() {
     return {
       sliderPosition: 0,
@@ -91,6 +107,14 @@ export default defineComponent({
       this.sliderPosition = element.offsetLeft;
       this.selectedElementWidth = element.offsetWidth;
       this.selectedIndex = id;
+    },
+    loadList() {
+      var count: number = this.itens.length;
+      for (let i = 0; i < this.list.length; i++) {
+        const element = this.list[i];
+        var item = { id: ++count, icon: element.icon, name: element.name };
+        this.itens.push(item);
+      }
     },
   },
   computed: {
