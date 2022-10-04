@@ -1,11 +1,11 @@
 <template>
-  <footer class="footer-main pt-3" v-if="visibility">
+  <footer class="footer-main pt-3 w-100">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 brand title-hammersmith">
+      <div class="row footer-body">
+        <div class="col-lg-6 col-sm-3 brand title-hammersmith">
           <h1>STEWART</h1>
         </div>
-        <div class="col-md-2 item">
+        <div class="col-lg-2 col-sm-3 item">
           <strong>Plataforma</strong>
           <ul>
             <li>Visão Geral</li>
@@ -13,15 +13,15 @@
             <li>Sobre nós</li>
           </ul>
         </div>
-        <div class="col-md-2 item">
+        <div class="col-lg-2 col-sm-3 item">
           <strong>Ajuda</strong>
           <ul>
             <li>Como funciona?</li>
-            <li>Informações</li>
+            <li>Documentação</li>
             <li>Assistência</li>
           </ul>
         </div>
-        <div class="col-md-2 item">
+        <div class="col-lg-2 col-sm-3 item">
           <strong>Contatos</strong>
           <ul>
             <li>(11) 99999-9999</li>
@@ -29,21 +29,21 @@
           </ul>
         </div>
       </div>
-      <div class="linha"></div>
+
       <row>
-        <div class="col-md-4 offset-md-10 item-social align-self-end">
+        <div class="col-lg-2 offset-lg-10 col-sm-4 offset-sm-8 item-social align-self-end py-2">
           <ul>
             <li class="d-inline-block">
-              <img src="../assets/facebooklogo.webp" />
+              <img src="../assets/images/facebooklogo.webp" />
             </li>
             <li class="d-inline-block ms-3">
-              <img src="../assets/instagram_icon.webp" />
+              <img src="../assets/images/instagram_icon.webp" />
             </li>
             <li class="d-inline-block ms-3">
-              <img src="../assets/twitter_icon.png" />
+              <img src="../assets/images/twitter_icon.png" />
             </li>
             <li class="d-inline-block ms-3">
-              <img src="../assets/linkedin_icon.png" />
+              <img src="../assets/images/linkedin_icon.png" />
             </li>
           </ul>
         </div>
@@ -61,16 +61,15 @@
 .footer-main {
   font-family: "Jost", sans-serif;
   background-color: var(--color-cream);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   color: #16213e;
+  
 }
 
 .item {
-  text-align: center;
-  padding-bottom: 20px;
+  text-align: left;
+  padding-bottom: 2rem;
   word-wrap: break-word;
+  font-size:small;
 }
 
 ul {
@@ -78,27 +77,17 @@ ul {
 }
 
 .item strong {
-  font-size: 20px;
+  font-size: medium;
   margin-left: 30px;
 }
 
-.linha {
-  background-color: #16213e;
-  height: 0.1rem;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  width: 100%;
-}
-
-.item-social {
-  padding-top: 10px;
-  display: inline-block;
+.footer-body {
+  border-bottom: 0.12rem solid #16213e;
 }
 
 .item-social img {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 </style>
 
@@ -106,10 +95,7 @@ ul {
 import Vue, { defineComponent } from "vue";
 export default defineComponent({
   props: {
-    visibility: {
-      type: Boolean,
-      default: true,
-    },
+    list: null
   },
   data() {
     return {};

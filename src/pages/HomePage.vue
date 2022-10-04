@@ -17,8 +17,9 @@ import FooterItem from "@/components/FooterItem.vue";
       },
     ]"
   />
+  <FooterItem/>
   <div class="content">
     <RouterView />
   </div>
-  <FooterItem />
+  
 </template>

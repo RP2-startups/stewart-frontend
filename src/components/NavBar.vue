@@ -13,7 +13,7 @@
           :ref="'menu-item_' + item.id"
         >
           <a class="menu-link d-inline-flex">
-            <span>{{ item.name }}</span>
+            {{ item.name }}
           </a>
         </li>
       </ul>
@@ -43,8 +43,12 @@
 }
 
 .menu :hover {
-  background-color: var(--color-background-dark-hover);
+  background-color: var(--color-translucent-pink);
   cursor: pointer;
+}
+
+.menu-link:hover {
+  background-color: #00000000;
 }
 
 #stewart-main-navbar {
