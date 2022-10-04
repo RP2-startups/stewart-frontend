@@ -7,7 +7,7 @@
       <ul class="menu d-inline-flex">
         <li
           class="menu-item d-inline-flex"
-          v-for="item in itens"
+          v-for="item in items"
           :key="item.id"
           @click="sliderClicked(item.id)"
           :ref="'menu-item_' + item.id"
@@ -114,7 +114,17 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
-    list: null,
+    list: {
+      default: [{
+        name: 'Início', icon: 'jore',
+      },
+      {
+        name: 'Sobre', icon: 'jore',
+      },
+      {
+        name: 'Contato', icon: 'jore',
+      }],
+    },
     visibility: {
       type: Boolean,
       default: true,
@@ -129,7 +139,7 @@ export default defineComponent({
       sliderPosition: 0,
       selectedElementWidth: 0,
       selectedIndex: 0,
-      itens: [{ id: 1, icon: "", name: "Início" }],
+      items: [{ id: 0, icon: "", name: "" }],
     };
   },
 
@@ -165,11 +175,11 @@ export default defineComponent({
       this.selectedIndex = id;
     },
     loadList() {
-      var count: number = this.itens.length;
-      for (let i = 0; i < this.list.length; i++) {
-        const element = this.list[i];
+      this.items.pop();
+      var count: number = this.items.length;
+      for (const element of this.list) {
         var item = { id: ++count, icon: element.icon, name: element.name };
-        this.itens.push(item);
+        this.items.push(item);
       }
     },
   },

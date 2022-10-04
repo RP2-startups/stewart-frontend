@@ -6,19 +6,8 @@ import ImageCard from "../components/ImageCard.vue";
 </script>
 
 <template>
-  <NavBar
-    :list="[
-      {
-        name: 'Sobre',
-        icon: 'jore',
-      },
-      {
-        name: 'Contato',
-        icon: 'jore',
-      },
-    ]"
-  />
-  <ImageCard text="Evite problemas ao criar sua Startup" 
+  <NavBar/>
+  <ImageCard text="Evite problemas ao criar sua Startup"
   source="https://hub.pme-digital.pt/wp-content/uploads/2019/04/Flat-color-Modern-Isometric-Illustration-design-Startup.png"
 />
 <ImageCard text="Agilidade de Criação"
@@ -30,5 +19,4 @@ reverse/>
   <div class="content">
     <RouterView />
   </div>
-  
 </template>
