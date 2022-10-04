@@ -2,10 +2,10 @@
     <footer class="footer-main pt-3" v-if="visibility">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 brand">
-                    <h1>Stewart</h1>
+                <div class="col-md-6 brand title-hammersmith">
+                    <h1>STEWART</h1>
                 </div>
-                <div class="col-md-3 item">
+                <div class="col-md-2 item">
                     <strong>Plataforma</strong>
                     <ul>
                         <li>Visão Geral</li>
@@ -13,19 +13,19 @@
                         <li>Sobre nós</li>
                     </ul>
                 </div>
-                <div class="col-md-3 item">
+                <div class="col-md-2 item">
                     <strong>Ajuda</strong>
                     <ul>
                         <li>Como funciona?</li>
-                        <li>Pagamento</li>
+                        <li>Informações</li>
                         <li>Assistência</li>
                     </ul>
                 </div>
                 <div class="col-md-2 item">
                     <strong>Contatos</strong>
                     <ul>
-                        <li>(11) 999-999-999</li>
-                        <li>gabriel_braga_lagrotaria_de_oliveira@usp.br</li>
+                        <li>(11) 99999-9999</li>
+                        <li>email@usp.br</li>
                     </ul>
                 </div>
             </div>
@@ -45,12 +45,13 @@
 </template>
 
 <style>
-
+@import "../assets/base.css";
     .brand{
         align-items: initial;
     }
 
     .footer-main{
+        font-family: 'Jost', sans-serif;
         background-color: var(--color-cream);
         position: fixed;
         bottom: 0;
