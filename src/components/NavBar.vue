@@ -72,6 +72,8 @@
   margin: 0 0.625rem;
   margin-right: 0.625rem;
   font-size: 1rem;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .menu-link {
@@ -105,6 +107,7 @@
   text-decoration: none;
   font-style: bold;
 }
+
 </style>
 
 <script lang="ts">
