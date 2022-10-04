@@ -17,22 +17,20 @@
           </a>
         </li>
       </ul>
-        <button class="btn btn-login">
-          <a class="text-light">
-            LOGIN
-          </a>
-        </button>
+      <button class="btn btn-login">
+        <a class="text-light"> LOGIN </a>
+      </button>
     </div>
 
     <div
       class="menu-slider"
-      :style="{ left: positionToMove, width: sliderWidth }">
-      </div>
+      :style="{ left: positionToMove, width: sliderWidth }"
+    ></div>
   </section>
 </template>
 
 <style scoped>
-@import "../assets/base.css";
+@import "../assets/styles/base.css";
 
 .menu {
   padding: 3rem;
@@ -99,7 +97,7 @@
 }
 
 .btn-login a {
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
   text-decoration: none;
   font-style: bold;
 }

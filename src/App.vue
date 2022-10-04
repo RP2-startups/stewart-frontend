@@ -1,24 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
-import Footer from "./components/Footer.vue";
+// import NavBar from "./components/NavBar.vue";
+// import FooterItem from "./components/FooterItem.vue";
+// import ProjectRegister from "./pages/ProjectRegister.vue";
 </script>
 
 <template>
-  <NavBar
-    :list="[
-      {
-        name: 'Sobre',
-        icon: 'jore',
-      },
-      {
-        name: 'Contato',
-        icon: 'jore',
-      },
-    ]"
-  />
-  <div class="content">
-    <RouterView />
-  </div>
-  <Footer/>
+  <RouterView />
 </template>

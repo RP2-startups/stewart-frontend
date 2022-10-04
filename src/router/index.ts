@@ -1,13 +1,21 @@
+import ProjectRegister from "@/pages/ProjectRegister.vue";
+import HomePage from "@/pages/HomePage.vue";
+
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
-    // {
-    //   path: "/",
-    //   name: "home",
-    //   component: HomeView,
-    // },
+    {
+      path: "/register-project",
+      name: "Register Project",
+      component: ProjectRegister,
+    },
+    {
+      path: "/",
+      name: "Home page",
+      component: HomePage,
+    },
     // {
     //   path: "/about",
     //   name: "about",
