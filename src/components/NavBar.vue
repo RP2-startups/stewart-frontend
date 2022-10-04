@@ -59,7 +59,7 @@
 }
 
 #navbar-logo .title-hammersmith {
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   color: rgba(255, 255, 255);
 }
 
