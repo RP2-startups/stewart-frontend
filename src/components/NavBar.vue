@@ -9,7 +9,7 @@
           class="menu-item d-inline-flex"
           v-for="item in itens"
           :key="item.id"
-          @click="sliderIndicator(item.id)"
+          @click="sliderClicked(item.id)"
           :ref="'menu-item_' + item.id"
         >
           <a class="menu-link d-inline-flex">
@@ -129,7 +129,32 @@ export default defineComponent({
       itens: [{ id: 1, icon: "", name: "Início" }],
     };
   },
+
+  created: function() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  destroyed: function() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+
   methods: {
+    handleResize() {
+      if(!this.selectedIndex) {
+        return;
+      }
+      let element = document.getElementsByClassName("menu-slider")[0];
+      let transitionValue = window.getComputedStyle(element).getPropertyValue("transition-duration");
+      if(transitionValue != "0s")
+        element.setAttribute("style", "transition-duration: 0s");
+      this.sliderIndicator(this.selectedIndex);
+    },
+    sliderClicked(id: number) {
+      let element = document.getElementsByClassName("menu-slider")[0];
+      let transitionValue = window.getComputedStyle(element).getPropertyValue("transition-duration");
+      if(transitionValue != "0.3s" && id != this.selectedIndex)
+        element.setAttribute("style", "transition-duration 0.3s;");
+      this.sliderIndicator(id);
+    },
     sliderIndicator(id: number) {
       let element = (this.$refs[`menu-item_${id}`] as any)[0];
       this.sliderPosition = element.offsetLeft;
