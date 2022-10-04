@@ -125,13 +125,24 @@ export default defineComponent({
         name: 'Contato', icon: 'jore',
       }],
     },
+    currentPage: {
+      type: Number,
+      default: 0,
+    },
     visibility: {
       type: Boolean,
       default: true,
     },
   },
-  mounted: function () {
+  created: function () {
+    window.addEventListener("resize", this.handleResize);
     this.loadList();
+  },
+  destroyed: function() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  mounted: function() {
+    if(this.currentPage > 0) this.sliderIndicator(this.currentPage);
   },
 
   data() {
@@ -141,13 +152,6 @@ export default defineComponent({
       selectedIndex: 0,
       items: [{ id: 0, icon: "", name: "" }],
     };
-  },
-
-  created: function() {
-    window.addEventListener("resize", this.handleResize);
-  },
-  destroyed: function() {
-    window.removeEventListener("resize", this.handleResize);
   },
 
   methods: {
