@@ -13,8 +13,9 @@
 <style scoped>
 
     .back-arrow{
-        margin-top: 10px;
-        width: 100px;
+        margin-top: 20px;
+        margin-left: 10px;
+        width: 80px;
         height: 100px;
     }
 </style>
