@@ -1,15 +1,23 @@
 <template>
-  <div class="container image-card"
-  :class="small && 'col-lg-2 image-card-small'">
-  <div class="row mt-2 mb-4 "
-  :class="reverse && 'image-card-reverse'">
-    <div class="col-lg-6 col-sm-12 col-sm-3 p-4 pt-5 ps-5 ms-4"
-    :class="vertical && 'col-lg-12 pt-0'">
-      {{ text }}
+  <div class="container image-card mt-2 pt-4 pb-4 mb-4"
+  :class="(small && 'col-lg-2 image-card-small') || (transparent && 'image-card-transparent')"
+  :style="{ 'font-size': titleSize }">
+
+  <div class="row"
+  :class="(reverse && vertical && 'column-reverse') || (reverse && !vertical && 'row-reverse')">
+
+    <div class="col-lg-6 col-sm-12 col-sm-5 ps-5 card-body"
+    :class="vertical && 'w-100'">
+
+      <text class="card-title">{{ title }}</text>
+      <p class="card-text">{{ body }}</p>
     </div>
-    <div class="col-lg-5 col-sm-12 col-sm-9"
-    :class="vertical && 'col-lg-12 text-center'">
+
+    <div class="col-lg-5 col-sm-12 col-sm-7"
+    :class="vertical && 'w-100 text-center'">
+
       <b-img :src="source" fluid alt="Responsive image"></b-img>
+      
     </div>
   </div>
 </div>
@@ -20,19 +28,35 @@
 .image-card {
   background: linear-gradient(135deg, #3A2369 0%, #78619B 100%);
   border-radius: 25px;
-  font-size: 4rem;
   font-family: 'Jost';
   font-weight: bolder;
   color: white;
   flex-direction: row;
 }
 
-.image-card-reverse {
+.image-card-transparent {
+  background: transparent;
+}
+
+.card-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.column-reverse {
   flex-direction: column-reverse;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
 }
 
 .image-card-small {
   font-size: medium !important;
+}
+
+.image-card-small text {
+  font-size: 1rem;
 }
 
 </style>
@@ -40,13 +64,21 @@
   import Vue, { defineComponent } from "vue";
   export default defineComponent({
   props: {
-    text: {
+    title: {
       type: String,
       required: true
+    },
+    body: {
+      type: String,
+      default: ""
     },
     source: {
       type: String,
       required: true
+    },
+    titleSize: {
+      type: String,
+      default: "5rem"
     },
     reverse: {
       type: Boolean,
@@ -57,6 +89,10 @@
       default: false
     },
     small: {
+      type: Boolean,
+      default: false
+    },
+    transparent: {
       type: Boolean,
       default: false
     }
