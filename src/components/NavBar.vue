@@ -18,7 +18,7 @@
         </li>
       </ul>
       <button class="btn btn-login">
-        <a class="text-light"> LOGIN </a>
+        <router-link to="/login" class="text-light"> LOGIN </router-link>
       </button>
     </div>
 
