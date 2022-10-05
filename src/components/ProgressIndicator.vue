@@ -1,49 +1,60 @@
 <template>
-  <div class="progress-indicator-container row">
-    <div class="progress-item col-3">
-      <img src="../assets/icons/progress-indicator-screen.svg" />
-      <button class="progress-item-button"></button>
+  <nav class="progress-indicator">
+    <div class="progress-item progress-item-selected">
+      <img
+        class="progress-item-icon"
+        src="../assets/icons/progress-indicator-screen.svg"
+      />
+      <span class="mt-2">Configurações</span>
+      <!-- <button
+          class="progress-item-button progress-item-button-selected"
+        ></button> -->
     </div>
-    <div class="progress-item col-3">
-      <img src="../assets/icons/progress-indicator-screen.svg" />
-      <button class="progress-item-button"></button>
+    <div class="progress-item">
+      <img
+        class="progress-item-icon"
+        src="../assets/icons/progress-indicator-screen.svg"
+      />
+      <span class="mt-2">Dados</span>
+      <!-- <button class="progress-item-button"></button> -->
     </div>
-    
-  </div>
+  </nav>
 </template>
 <style>
 @import "../assets/styles/base.css";
 
-.progress-indicator-container {
+.progress-indicator {
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--color-light-blue);
-  width: 100%;
-  height: 6rem;
+  background-color: var(--color-textonwhite);
+  padding: 2rem;
+  border-radius: 0 0 1.5rem 1.5rem;
 }
 
 .progress-item {
+  padding: 1rem;
+  min-width: 8rem;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: var(--color-purple);
+  border-bottom: 0.5rem solid transparent;
 }
-.progress-item-button {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background-color: var(--color-cream);
+
+.progress-item-icon {
+  width: 2rem;
+}
+
+.progress-item-selected {
+  border-bottom: 0.5rem solid var(--color-pink);
 }
 </style>
-<script lang="ts">
-export default {
-  data() {
-    return;
-  },
-};
-</script>
+
 <!-- <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({

@@ -107,7 +107,6 @@
   text-decoration: none;
   font-style: bold;
 }
-
 </style>
 
 <script lang="ts">
@@ -115,15 +114,20 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     list: {
-      default: [{
-        name: 'Início', icon: 'jore',
-      },
-      {
-        name: 'Sobre', icon: 'jore',
-      },
-      {
-        name: 'Contato', icon: 'jore',
-      }],
+      default: [
+        {
+          name: "Início",
+          icon: "jore",
+        },
+        {
+          name: "Sobre",
+          icon: "jore",
+        },
+        {
+          name: "Contato",
+          icon: "jore",
+        },
+      ],
     },
     currentPage: {
       type: Number,
@@ -138,11 +142,11 @@ export default defineComponent({
     window.addEventListener("resize", this.handleResize);
     this.loadList();
   },
-  destroyed: function() {
+  unmounted: function () {
     window.removeEventListener("resize", this.handleResize);
   },
-  mounted: function() {
-    if(this.currentPage > 0) this.sliderIndicator(this.currentPage);
+  mounted: function () {
+    if (this.currentPage > 0) this.sliderIndicator(this.currentPage);
   },
 
   data() {
@@ -156,19 +160,23 @@ export default defineComponent({
 
   methods: {
     handleResize() {
-      if(!this.selectedIndex) {
+      if (!this.selectedIndex) {
         return;
       }
       let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window.getComputedStyle(element).getPropertyValue("transition-duration");
-      if(transitionValue != "0s")
+      let transitionValue = window
+        .getComputedStyle(element)
+        .getPropertyValue("transition-duration");
+      if (transitionValue != "0s")
         element.setAttribute("style", "transition-duration: 0s");
       this.sliderIndicator(this.selectedIndex);
     },
     sliderClicked(id: number) {
       let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window.getComputedStyle(element).getPropertyValue("transition-duration");
-      if(transitionValue != "0.3s" && id != this.selectedIndex)
+      let transitionValue = window
+        .getComputedStyle(element)
+        .getPropertyValue("transition-duration");
+      if (transitionValue != "0.3s" && id != this.selectedIndex)
         element.setAttribute("style", "transition-duration 0.3s;");
       this.sliderIndicator(id);
     },
