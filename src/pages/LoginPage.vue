@@ -6,16 +6,26 @@ import { RouterView } from "vue-router";
   <div class="row">
     <div class="col-md-4 col-sd-12 nopadding form">
       <img
-        src="../assets/images/arrow-back-white.png"
-        class="back-arrow d-none d-md-block"
+        src="../assets/images/arrow-back-black.png"
+        class="btn back-arrow d-none d-md-block"
+        @click="$router.back()"
       />
-      <div class="col-md-6 offset-md-3 col-sm-3 offset-sm-3 form-wrapper">
-        <h2 class="text-center mb-5 title-login">Faça o login</h2>
+      <div
+        class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space"
+      >
+        <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
         <b-form>
           <!-- EMAIL -->
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> Email </label>
-            <input type="text" class="form-control " :class="{'is-invalid':!emailValid}" placeholder="jorginho@gameplays.com" required>
+            <input
+              type="text"
+              class="form-control"
+              :class="{ 'is-invalid': !emailValid }"
+              placeholder="jorginho@gameplays.com"
+              v-model="email"
+              required
+            />
           </b-form-group>
 
           <p
@@ -32,11 +42,19 @@ import { RouterView } from "vue-router";
               Senha
               <small><a href="#">Esqueceu sua senha?</a></small>
             </label>
-            <input type="password" class="form-control" :class="{'is-invalid':!passwordValid}" required>
+            <input
+              type="password"
+              class="form-control"
+              :class="{ 'is-invalid': !passwordValid }"
+              v-model="password"
+              required
+            />
           </b-form-group>
-          <p class="errorMessage" :class="{disable:passwordValid}">Senha precisa ter mais de 8 caracteres</p>
+          <p class="errorMessage" :class="{ disable: passwordValid }">
+            Senha precisa ter mais de 8 caracteres
+          </p>
           <div class="noHover btn btn-wrapper-login p-0">
-            <button class="btn btn-login">ENTRAR</button>
+            <button class="btn btn-login" @click="login">ENTRAR</button>
           </div>
           <hr />
           <router-link
@@ -72,7 +90,12 @@ import { RouterView } from "vue-router";
 .form {
   background-color: var(--color-cream);
 }
-
+@media screen and (max-width: 767px) {
+  .mobile-space {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
 .form-wrapper {
   justify-content: center;
   align-items: center;
@@ -125,8 +148,12 @@ import { RouterView } from "vue-router";
 .back-arrow {
   margin-top: 20px;
   margin-left: 10px;
-  width: 70px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+}
+
+.back-arrow :hover {
+  cursor: pointer;
 }
 
 .title-login {
@@ -152,8 +179,18 @@ export default defineComponent({
   data() {
     return {
       emailValid: true,
-      passwordValid:true
+      passwordValid: true,
+      password: "",
+      email: "",
     };
+  },
+  methods: {
+    login() {
+      this.email == "" ? (this.emailValid = false) : (this.emailValid = true);
+      this.password == "" || this.password.length < 8
+        ? (this.passwordValid = false)
+        : (this.passwordValid = true);
+    },
   },
 });
 </script>
