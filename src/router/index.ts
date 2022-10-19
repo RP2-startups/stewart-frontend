@@ -1,6 +1,7 @@
 import ProjectRegister from "@/pages/ProjectRegister.vue";
 import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
+import SearchPage from "@/pages/SearchPage.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -22,6 +23,11 @@ const router = createRouter({
       name: "Login",
       component: LoginPage,
     },
+    {
+      path: "/search",
+      name: "Search Page",
+      component: SearchPage,
+    }
     // {
     //   path: "/about",
     //   name: "about",
