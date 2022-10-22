@@ -139,11 +139,13 @@ export default defineComponent({
     },
   },
   created: function () {
-    window.addEventListener("resize", this.handleResize);
     this.loadList();
+    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("pageshow", this.handlePageShow);
   },
   unmounted: function () {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("pageshow", this.handlePageShow);
   },
   mounted: function () {
     if (this.currentPage > 0) this.sliderIndicator(this.currentPage);
@@ -159,10 +161,11 @@ export default defineComponent({
   },
 
   methods: {
+    handlePageShow() {
+      if(this.selectedIndex) this.sliderIndicator(this.selectedIndex);
+    },
     handleResize() {
-      if (!this.selectedIndex) {
-        return;
-      }
+      if (!this.selectedIndex) return;
       let element = document.getElementsByClassName("menu-slider")[0];
       let transitionValue = window
         .getComputedStyle(element)
