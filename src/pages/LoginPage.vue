@@ -73,6 +73,7 @@ import { RouterView } from "vue-router";
           src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg"
         />
       </div>
+
     </div>
 </template>
 
@@ -208,3 +209,4 @@ export default defineComponent({
   },
 });
 </script>
+
