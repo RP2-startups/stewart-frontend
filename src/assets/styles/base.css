@@ -7,7 +7,6 @@
     --color-background-dark-hover: #022553;
     --color-text-light: #FFFFFF;
     --color-pink: #E94560;
-    --color-translucent-pink: #E9456081;
     --color-cream: #F9F9F9;
     --color-textonwhite: #16213E;
     --color-light-blue:#375E97;
@@ -26,6 +25,8 @@ body{
     background: radial-gradient(#0F3460, #071c35);
     background-repeat: no-repeat;
     background-attachment: fixed;
+    height: 100%;
+    min-height: 100%;
     color: var(--color-text-light);
 }
 

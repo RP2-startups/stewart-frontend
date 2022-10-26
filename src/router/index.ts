@@ -1,9 +1,11 @@
 import ProjectRegister from "@/pages/ProjectRegister.vue";
 import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
+import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,6 +24,13 @@ const router = createRouter({
       path: "/login",
       name: "Login",
       component: LoginPage,
+      props: true
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: RegisterPage,
+      props: true
     },
     {
       path: "/search",
