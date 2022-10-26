@@ -17,7 +17,7 @@
           </a>
         </li>
       </ul>
-      <router-link to="/login" >
+      <router-link :to="{name: 'Login', params: {page : currentPage}}" >
         <button class="btn btn-login text-light">LOGIN</button>
       </router-link>
     </div>

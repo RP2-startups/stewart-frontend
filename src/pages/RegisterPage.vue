@@ -3,13 +3,13 @@ import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <div class="row">
-    <div class="col-md-5 col-sd-12 nopadding form">
-      <img
-        src="../assets/images/arrow-back-black.png"
-        class="btn back-arrow d-none d-md-block"
-        @click="$router.back()"
-      />
+  <div class="row asa" :style="{'height': `${screenHeigth}px`}">
+    <div class="col-md-6 col-sd-12 nopadding form">
+      <router-link to="/" >
+        <img
+          src="../assets/images/arrow-back-black.png"
+          class="btn back-arrow d-none d-md-block"/>
+      </router-link>
       <div class="col-md-6 offset-md-3 col-sm-3 offset-sm-3 form-wrapper mobile-space">
         <h2 class="text-center mb-5 title-login">REGISTRE-SE</h2>
         <b-form>
@@ -48,10 +48,10 @@ import { RouterView } from "vue-router";
         </b-form>
       </div>
     </div>
-    <div class="col-7 nopadding d-none d-md-block">
+    <div class="col-6 nopadding d-none d-md-block">
       <img
         class="login_image"
-        src="https://m.media-amazon.com/images/I/61nRIORTp4L._AC_SX425_.jpg"
+        src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg"
       />
     </div>
   </div>
@@ -62,6 +62,10 @@ import { RouterView } from "vue-router";
 .login_image {
   width: 100%;
   height: 100%;
+}
+
+.asa{
+  overflow: hidden;
 }
 
 .nopadding {
@@ -83,6 +87,7 @@ import { RouterView } from "vue-router";
 .form-wrapper {
   justify-content: center;
   align-items: center;
+  margin-top: 150px;
   height: 100%;
   text-align: center;
   color: var(--color-textonwhite);
@@ -161,13 +166,21 @@ export default defineComponent({
       emailValid: true,
       passwordValid:true,
       password: "" ,
-      email: ""
+      email: "",
+      screenHeigth: innerHeight,
+      prevPage: ""
     };
+  }, 
+  mounted: function(){
+    window.addEventListener('resize', this.adjustHeight);
   },
   methods:{
     login(){
       this.email == "" ?  this.emailValid = false : this.emailValid = true
       this.password == "" || this.password.length < 8  ? this.passwordValid = false : this.passwordValid = true
+    },
+    adjustHeight(){
+      this.screenHeigth = window.innerHeight
     }
   }
 });
