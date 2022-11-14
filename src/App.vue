@@ -7,5 +7,5 @@ import FooterItem from "@/components/FooterItem.vue";
 <template>
     <NavBar :currentPage.number="1"/>
     <RouterView />
-    <FooterItem/>
+    <FooterItem />
 </template>

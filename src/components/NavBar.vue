@@ -6,7 +6,7 @@
   <section id="stewart-main-navbar">
     <div class="d-flex align-items-center p-2 justify-content-between">
       <div id="navbar-logo">
-        <a class="title-hammersmith">STEWART</a>
+        <RouterLink class="title-hammersmith" to=" ">STEWART</RouterLink>
       </div>
       <ul class="menu d-inline-flex">
         <li
@@ -56,6 +56,7 @@
 }
 
 #stewart-main-navbar {
+  z-index: 2;
   height: 5rem;
   display: flex;
   flex-direction: column;
@@ -122,7 +123,7 @@ export default defineComponent({
         {
           name: "Início",
           icon: "jore",
-          comp: "home",
+          comp: "/",
         },
         {
           name: "Sobre",

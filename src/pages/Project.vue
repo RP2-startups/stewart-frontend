@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import ImageCard from "../components/ImageCard.vue";
+import ProjectHeader from "@/components/ProjectHeader.vue";
 </script>
 
 <template>
-
-  <ImageCard title="Esta página NÃO vai ficar na navbar, ta aqui só pra teste!!!!!" 
-  source="https://hub.pme-digital.pt/wp-content/uploads/2019/04/Flat-color-Modern-Isometric-Illustration-design-Startup.png"
-/>
+    <ProjectHeader />
 </template>
