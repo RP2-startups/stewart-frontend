@@ -3,6 +3,7 @@ import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
+import Project from "@/pages/Project.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -21,6 +22,11 @@ const router = createRouter({
       component: HomePage,
     },
     {
+        path: "/home",
+        name: "Home page",
+        component: HomePage,
+    },
+    {
       path: "/login",
       name: "Login",
       component: LoginPage,
@@ -36,6 +42,11 @@ const router = createRouter({
       path: "/search",
       name: "Search Page",
       component: SearchPage,
+    },
+    {
+      path: "/project",
+      name: "Project Page",
+      component: Project,
     }
     // {
     //   path: "/about",

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+    import { RouterLink } from 'vue-router'
+</script>
+
 <template>
   <section id="stewart-main-navbar">
     <div class="d-flex align-items-center p-2 justify-content-between">
@@ -12,9 +16,9 @@
           @click="sliderClicked(item.id)"
           :ref="'menu-item_' + item.id"
         >
-          <a class="menu-link d-inline-flex">
+          <RouterLink class="menu-link d-inline-flex" :to="item.comp">
             {{ item.name }}
-          </a>
+          </RouterLink>
         </li>
       </ul>
       <router-link :to="{name: 'Login', params: {page : currentPage}}" >
@@ -118,14 +122,22 @@ export default defineComponent({
         {
           name: "Início",
           icon: "jore",
+          comp: "home",
         },
         {
           name: "Sobre",
           icon: "jore",
+          comp: "home",
         },
         {
           name: "Contato",
           icon: "jore",
+          comp: "home",
+        },
+        {
+          name: "Projeto",
+          icon: "jore",
+          comp: "project",
         },
       ],
     },
@@ -156,7 +168,7 @@ export default defineComponent({
       sliderPosition: 0,
       selectedElementWidth: 0,
       selectedIndex: 0,
-      items: [{ id: 0, icon: "", name: "" }],
+      items: [{ id: 0, icon: "", name: "" , comp: ""}],
     };
   },
 
@@ -193,7 +205,7 @@ export default defineComponent({
       this.items.pop();
       var count: number = this.items.length;
       for (const element of this.list) {
-        var item = { id: ++count, icon: element.icon, name: element.name };
+        var item = { id: ++count, icon: element.icon, name: element.name , comp: element.comp};
         this.items.push(item);
       }
     },
