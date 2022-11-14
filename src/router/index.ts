@@ -4,6 +4,8 @@ import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
+import About from "@/pages/About.vue";
+import Contact from "@/pages/Contact.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -47,6 +49,16 @@ const router = createRouter({
       path: "/project",
       name: "Project Page",
       component: Project,
+    },
+    {
+      path: "/about",
+      name: "About Page",
+      component: About,
+    },
+    {
+      path: "/contact",
+      name: "Contact Page",
+      component: Contact,
     }
     // {
     //   path: "/about",

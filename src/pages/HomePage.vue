@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-import FooterItem from "@/components/FooterItem.vue";
 import ImageCard from "../components/ImageCard.vue";
 </script>
 
@@ -47,9 +45,4 @@ reverse
 transparent
 titleSize="2.5rem"
 />
-
-  <FooterItem/>
-  <div class="content">
-    <RouterView />
-  </div>
 </template>

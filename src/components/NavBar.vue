@@ -127,12 +127,12 @@ export default defineComponent({
         {
           name: "Sobre",
           icon: "jore",
-          comp: "home",
+          comp: "about",
         },
         {
           name: "Contato",
           icon: "jore",
-          comp: "home",
+          comp: "contact",
         },
         {
           name: "Projeto",
