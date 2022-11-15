@@ -1,4 +1,4 @@
-<template>
+<template propV="">
     <!--banner-->
     <img src="https://i.seadn.io/gae/0A54WU7el_5PyPxVWe5MQWkZqTXyRulMMyVLFbbaoEsIiTDg1dbJO-2HEM3t8GSP0qjYBZA78lsO1kCq18cI0Sy9BnZuQxe555Cf?auto=format&w=1920" 
     class="img-fluid" id="proj-banner" alt="banner" />
@@ -13,7 +13,7 @@
 
             <!--nome do projeto-->
             <div class="col">
-                <p id="proj-title" class="fs-2 align-middle">O Véio Safado</p>
+                <p id="proj-title" class="fs-2 align-middle">{{ propV[0] }}</p>
             </div>
             
             <!--estatisticas do projeto-->
@@ -40,7 +40,7 @@
 
             <!--descricao do projeto-->
             <div class="col">
-                <p class="fs-4">Breve descrição do projeto... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.o</p>
+                <p class="fs-4">{{ propV[1] }}Breve descrição do projeto... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.o</p>
             </div>
 
         </div>
@@ -126,6 +126,12 @@ export default defineComponent({
         },
       ],
     },
+    propV: {
+        default: [
+        'projname',
+        'proj-desc'
+    ],
+  },
   },
   created: function () {
     this.loadAttr();
