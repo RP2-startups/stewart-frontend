@@ -21,7 +21,7 @@
           </RouterLink>
         </li>
       </ul>
-      <router-link :to="{name: 'Login', params: {page : currentPage}}" >
+      <router-link to="/login" >
         <button class="btn btn-login text-light">LOGIN</button>
       </router-link>
     </div>
@@ -124,16 +124,6 @@ export default defineComponent({
           name: "Início",
           icon: "jore",
           comp: "/",
-        },
-        {
-          name: "Sobre",
-          icon: "jore",
-          comp: "about",
-        },
-        {
-          name: "Contato",
-          icon: "jore",
-          comp: "contact",
         },
         {
           name: "Projeto",

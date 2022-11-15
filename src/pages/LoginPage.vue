@@ -7,9 +7,7 @@
         <router-link to= "/" >
           <img
             src="../assets/images/arrow-back-black.png"
-            class="btn back-arrow d-none d-md-block"
-            @click="$router.back()"
-          />
+            class="btn back-arrow d-none d-md-block"/>
       </router-link>
         <div
           class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space"
@@ -194,6 +192,7 @@ export default defineComponent({
   },
   mounted: function(){
     window.addEventListener('resize', this.adjustHeight)
+    this.$emit('changeVisibility',false)
   },
   methods: {
     login() {
