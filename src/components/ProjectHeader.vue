@@ -12,7 +12,7 @@
         <div class="row">
 
             <div class="col">
-                <p class="mt-5">Véio Safado</p>
+                <p class="mt-5">O Véio Safado</p>
             </div>
             
             <div class="col d-flex justify-content-center">
