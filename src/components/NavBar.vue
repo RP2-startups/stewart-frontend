@@ -8,28 +8,13 @@
       <div id="navbar-logo">
         <RouterLink class="title-hammersmith" to=" ">STEWART</RouterLink>
       </div>
-      <ul class="menu d-inline-flex">
-        <li
-          class="menu-item d-inline-flex"
-          v-for="item in items"
-          :key="item.id"
-          @click="sliderClicked(item.id)"
-          :ref="'menu-item_' + item.id"
-        >
-          <RouterLink class="menu-link d-inline-flex" :to="item.comp">
-            {{ item.name }}
-          </RouterLink>
-        </li>
-      </ul>
+      <div>
+        <SearchBar/>
+      </div>
       <router-link to="/login" >
         <button class="btn btn-login text-light">LOGIN</button>
       </router-link>
     </div>
-
-    <div
-      class="menu-slider"
-      :style="{ left: positionToMove, width: sliderWidth }"
-    ></div>
   </section>
 </template>
 
@@ -116,98 +101,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import SearchBar from './SearchBar.vue';
 export default defineComponent({
-  props: {
-    list: {
-      default: [
-        {
-          name: "Início",
-          icon: "jore",
-          comp: "/",
+    props: {
+        currentPage: {
+            type: Number,
+            default: 0,
         },
-        {
-          name: "Projeto",
-          icon: "jore",
-          comp: "project",
+        visibility: {
+            type: Boolean,
+            default: true,
         },
-      ],
     },
-    currentPage: {
-      type: Number,
-      default: 0,
-    },
-    visibility: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  created: function () {
-    this.loadList();
-    window.addEventListener("resize", this.handleResize);
-    window.addEventListener("pageshow", this.handlePageShow);
-  },
-  unmounted: function () {
-    window.removeEventListener("resize", this.handleResize);
-    window.removeEventListener("pageshow", this.handlePageShow);
-  },
-  mounted: function () {
-    if (this.currentPage > 0) this.sliderIndicator(this.currentPage);
-  },
-
-  data() {
-    return {
-      sliderPosition: 0,
-      selectedElementWidth: 0,
-      selectedIndex: 0,
-      items: [{ id: 0, icon: "", name: "" , comp: ""}],
-    };
-  },
-
-  methods: {
-    handlePageShow() {
-      if(this.selectedIndex) this.sliderIndicator(this.selectedIndex);
-    },
-    handleResize() {
-      if (!this.selectedIndex) return;
-      let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window
-        .getComputedStyle(element)
-        .getPropertyValue("transition-duration");
-      if (transitionValue != "0s")
-        element.setAttribute("style", "transition-duration: 0s");
-      this.sliderIndicator(this.selectedIndex);
-    },
-    sliderClicked(id: number) {
-      let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window
-        .getComputedStyle(element)
-        .getPropertyValue("transition-duration");
-      if (transitionValue != "0.3s" && id != this.selectedIndex)
-        element.setAttribute("style", "transition-duration 0.3s;");
-      this.sliderIndicator(id);
-    },
-    sliderIndicator(id: number) {
-      let element = (this.$refs[`menu-item_${id}`] as any)[0];
-      this.sliderPosition = element.offsetLeft;
-      this.selectedElementWidth = element.offsetWidth;
-      this.selectedIndex = id;
-    },
-    loadList() {
-      this.items.pop();
-      var count: number = this.items.length;
-      for (const element of this.list) {
-        var item = { id: ++count, icon: element.icon, name: element.name , comp: element.comp};
-        this.items.push(item);
-      }
-    },
-  },
-  computed: {
-    positionToMove() {
-      return this.sliderPosition + "px";
-    },
-    sliderWidth() {
-      return this.selectedElementWidth + "px";
-    },
-  },
+    
+    components: { SearchBar }
 });
 </script>
