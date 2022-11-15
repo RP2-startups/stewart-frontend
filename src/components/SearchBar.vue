@@ -1,30 +1,25 @@
 <template>
   <input type="text" v-model="input" placeholder="Procurar..." />
-
-  <div class="found-box" v-if="input != ''">
-    <div class=" " v-for="items in filterList">
-      <p class="found">{{ items }}</p>
-    </div>
-
-    <div class="error" v-if="isFound && filterList.length == 0">
-      <p>No results found!</p>
-    </div>
+  <div class="item found" v-for="items in listFound" >
+    <p></p>
+  </div>
+  <div class="item error" v-if="isFound&& listFound.length == 0">
+    <p>No results found!</p>
   </div>
 </template>
 
 <style scoped>
 @import "../assets/styles/base.css";
-body {
-  position: relative;
-  padding: 20px;
-  min-height: 100vh;
-  background-color: rgb(234, 242, 255);
-}
+  body {
+    padding: 20px;
+    min-height: 100vh;
+    background-color: rgb(234, 242, 255);
+  }
 
-input {
-  display: inline-block;
-  vertical-align: top;
+  input {
+  display: block;
   width: 540px;
+  margin: 20px auto;
   padding: 10px 45px;
   background: white url("../assets/images/search.png") no-repeat 15px center;
   background-size: 15px 15px;
@@ -32,35 +27,26 @@ input {
   border: solid;
   border-color: var(--color-light-blue);
   border-radius: 30px;
-  position: relative;
+ 
 }
 
-.found-box{
-  width: 540px;
-  background-color: var(--color-cream);
-  border-radius: 12px;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: absolute;
-  bottom: top;
+.item {
+  width: 350px;
+  margin: 0 auto 10px auto;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
-
-
 
 .found {
+  background-color: var(--color-cream);
   cursor: pointer;
-  color: #000;
-  padding-left: 20px;
-}
-
-.found:hover {
-  background-color: var(--color-cream-hover);
 }
 
 .error {
-  color: tomato;
-  padding-left: 20px;
+  background-color: tomato;
 }
 </style>
 
@@ -69,24 +55,13 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
-      isFound: false,
+      isFound : false,
       input: "",
-      listAll: new Array<String>(),
+      listFound: new Array<String>()
     };
   },
-  mounted: function name() {
-    this.listAll.push("aa","aba ");
-  },
-  computed: {
-    filterList() {
-      var list = this.listAll.filter((item) =>
-        item.toLowerCase().includes(this.input.toLowerCase())
-      );
-      this.isFound = list.length == 0 && this.input != "";
-
-
-      return list.slice(0,10);
-    },
-  },
+  mounted : function() {
+   
+  }
 });
 </script>
