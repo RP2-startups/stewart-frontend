@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
+    import LoginModal from "../pages/LoginPage.vue";
 </script>
 
 <template>
@@ -21,9 +22,9 @@
           </RouterLink>
         </li>
       </ul>
-      <router-link to="/login" >
-        <button class="btn btn-login text-light">LOGIN</button>
-      </router-link>
+      <!---<router-link to="/login" -->
+        <button class="btn btn-login text-light" @click="open = true">LOGIN</button>
+      <!--</router-link>-->
     </div>
 
     <div
@@ -31,11 +32,27 @@
       :style="{ left: positionToMove, width: sliderWidth }"
     ></div>
   </section>
+  <Transition name="modal">
+    <div v-if="open" class="modal">
+      <LoginModal
+      @close="open = false"/>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
 @import "../assets/styles/base.css";
-
+.modal {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
 .menu {
   padding: 3rem;
   margin: 0;
@@ -160,6 +177,7 @@ export default defineComponent({
       selectedElementWidth: 0,
       selectedIndex: 0,
       items: [{ id: 0, icon: "", name: "" , comp: ""}],
+      open: false,
     };
   },
 
