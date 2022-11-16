@@ -112,8 +112,7 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
-    },
-    
+    },    
     components: { SearchBar }
 });
 </script>
