@@ -6,14 +6,14 @@
   <div class="row"
   :class="(reverse && vertical && 'column-reverse') || (reverse && !vertical && 'row-reverse')">
 
-    <div class="col-lg-6 col-sm-12 col-sm-5 ps-5 card-body"
+    <div class="col-lg-6 col-sm-12 ps-5 card-body"
     :class="vertical && 'w-100'">
 
       <text class="card-title">{{ title }}</text>
       <p class="card-text">{{ body }}</p>
     </div>
 
-    <div class="col-lg-5 col-sm-12 col-sm-7"
+    <div class="col-lg-5 col-sm-12"
     :class="vertical && 'w-100 text-center'">
 
       <b-img :src="source" fluid alt="Responsive image"></b-img>
@@ -24,7 +24,10 @@
 </template>
 <style>
 @import "../assets/styles/base.css";
-
+.card-title {
+  margin: 0;
+  padding: 0;
+}
 .image-card {
   background: linear-gradient(135deg, #3A2369 0%, #78619B 100%);
   border-radius: 25px;
