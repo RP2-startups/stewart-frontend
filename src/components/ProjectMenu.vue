@@ -1,4 +1,3 @@
-
 <template>
   <div class="container-fluid">
     <ul class="menu d-inline-flex">
