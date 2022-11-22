@@ -5,20 +5,28 @@ import Members from "@/subpages/Members.vue";
 </script>
 
 <template>
-  <!--topo da pagina do porojeto (contem o banner, icone, estatisticas e descricao)-->
-  <ProjectHeader :propV="['veio risonho', 'texto ae ']" />
+    <div id="proj-page-wrapper">
+        <!--topo da pagina do projeto (contem o banner, icone, estatisticas e descricao)-->
+        <ProjectHeader :propV="['veio risonho', 'texto ae ']" />
 
-  <ProjectMenu />
+        <!--permite navegação para as páginas publicações, integrantes e documentos-->
+        <ProjectMenu />
 
-  <!--conteúdo da subpagina "integrantes" (contem os cards de todos os integrantes do projeto)-->
-  <div class="proj-page-content">
-    <Members />
-  </div>
+        <!--conteúdo da subpagina "integrantes" (contem os cards de todos os integrantes do projeto)-->
+        <div id="proj-page-content">
+            <Members />
+        </div>
+
+    </div>
 </template>
 
 <style scoped>
-.proj-page-content {
-  margin-top: 1.0rem;
-  margin-inline: min(10vw, 100px);
+
+#proj-page-wrapper {
+    margin-inline: min(10vw, 100px);
+}
+
+#proj-page-content {
+    margin-top: 1.0rem;
 }
 </style>
