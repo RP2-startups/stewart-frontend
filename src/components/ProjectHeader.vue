@@ -25,10 +25,10 @@
                     :key="item.id"
                     :ref="'menu-item_' + item.id"
                     >
-                        <p class="proj-stat-item fs-2">
+                        <p class="proj-stat-item fs-4">
                             {{ item.value }}
                         </p>
-                        <p class="fs-5">
+                        <p class="fs-6">
                             {{ item.name }}
                         </p>
                     </li>
@@ -58,11 +58,7 @@
 #proj-icon {
     height: max(15vh, 20vw);
     width: auto;
-    margin: min(15vw, 660px) 0 0 min(10vw, 100px);
-}
-
-#proj-header {
-    margin-inline: min(10vw, 100px);
+    margin-top: min(15vw, 660px);
 }
 
 #proj-top-row {

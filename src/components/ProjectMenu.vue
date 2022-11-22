@@ -27,25 +27,16 @@
         </ul>
       </div>
     </ul>
-    <div class="divider"></div>
   </div>
 </template>
 
 <style scoped>
 @import "@/assets/styles/base.css";
 
-.divider{
-  background-color: var(--color-text-light);
-  height: 0.3rem;
-  margin: 0 auto !important;
-  width: 90%;
-  left: 0;
-  margin-top: 3rem;
-}
 
 .menu {
-  padding: 2rem;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   list-style-type: none;
   font-family: "Jost", "sans-serif";
   font-weight: bold;
@@ -67,7 +58,7 @@
 .menu-item {
   padding: 0.625rem;
   height: 100%;
-  margin-left: 0.625rem;
+  margin-inline: -0.625rem;
   margin: 0 0.625rem;
   margin-right: 0.625rem;
   font-size: 1rem;
@@ -76,7 +67,7 @@
 }
 
 .menu .active {
-  margin-left: -0.625rem;
+  margin-inline: -0.625rem;
   padding: 0.625rem;
   background-color: var(--color-light-blue);
 }
@@ -92,8 +83,7 @@
 
 .item-social {
   position: absolute;
-  right: 0;
-  margin-right: 50px;
+  right: min(10vw, 100px);
 }
 .item-social ul {
     display: inline-block; 
