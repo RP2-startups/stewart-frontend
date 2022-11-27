@@ -4,6 +4,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
+import Members from "@/subpages/Members.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
 
@@ -44,6 +45,24 @@ const router = createRouter({
       path: "/project",
       name: "Project Page",
       component: Project,
+      children: [
+        {
+            path: "posts",
+            component: About
+        },
+        {
+            path: "members",
+            component: Members
+        },
+        {
+            path: "oc",
+            components: Contact
+        },
+        {   
+            path: "ac",
+            components: About
+        },
+      ]
     },
     {
       path: "/about",

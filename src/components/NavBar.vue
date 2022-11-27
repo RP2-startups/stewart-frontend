@@ -128,7 +128,7 @@ export default defineComponent({
         {
           name: "Projeto",
           icon: "jore",
-          comp: "project",
+          comp: "/project/posts",
         },
       ],
     },

@@ -1,3 +1,4 @@
+
 <template>
   <div class="container-fluid">
     <ul class="menu d-inline-flex">
@@ -8,12 +9,13 @@
         @click="sliderClicked(item.id)"
         :ref="'menu-item_' + item.id"
       >
-        <div
+        <RouterLink
           class="menu-link d-inline-flex"
           :class="{ active: item.id == selectedIndex }"
+          :to="item.comp"
         >
           {{ item.name }}
-        </div>
+        </RouterLink>
       </li>
       <div
         class="menu-slider"
@@ -69,7 +71,6 @@
 .menu .active {
   margin-inline: -0.625rem;
   padding: 0.625rem;
-  background-color: var(--color-light-blue);
 }
 
 .menu-slider {
@@ -129,17 +130,17 @@ export default defineComponent({
         {
           id: 1,
           name: "Publicações",
-          route: "/publicacoes",
+          comp: "posts",
         },
         {
           id: 2,
           name: "Integrantes",
-          route: "/membros",
+          comp: "members",
         },
         {
           id: 3,
           name: "Documentos",
-          route: "/documentos",
+          comp: "posts",
         },
       ],
       itemsSocial: [
