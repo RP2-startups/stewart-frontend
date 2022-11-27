@@ -1,3 +1,4 @@
+
 <template>
   <div class="container-fluid">
     <ul class="menu d-inline-flex">
@@ -139,7 +140,7 @@ export default defineComponent({
         {
           id: 3,
           name: "Documentos",
-          comp: "files",
+          comp: "posts",
         },
       ],
       itemsSocial: [
