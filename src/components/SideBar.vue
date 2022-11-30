@@ -19,19 +19,19 @@
     <div class="menu">
       <router-link class="button" to="/">
         <span class=""
-          ><img src="../assets/images/facebooklogo.webp" class="icon"
+          ><img src="../assets/icons/home_outline.svg" class="icon"
         /></span>
         <span class="menu-text" :class="`${is_expanded ? 'show' : ''}`"
-          >Facetoba</span
+          >Home</span
         >
       </router-link>
 
       <router-link class="button" to="/project">
         <span class=""
-          ><img src="../assets/images/instagram_icon.webp" class="icon"
+          ><img src="../assets/icons/project_icon.svg" class="icon"
         /></span>
         <span class="menu-text" :class="`${is_expanded ? 'show' : ''}`"
-          >Instabunda</span
+          >Projetos</span
         >
       </router-link>
     </div>
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   color: var(--color-text-light);
 }
 
