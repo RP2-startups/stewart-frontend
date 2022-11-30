@@ -4,33 +4,17 @@
 </script>
 
 <template>
-  <section id="stewart-main-navbar">
-    <div class="d-flex align-items-center p-2 justify-content-between">
+  <section id="stewart-main-navbar" ref="menu">
+    <div class="d-inline-flex align-items-center p-2 justify-content-between">
+      
       <div id="navbar-logo">
-        <RouterLink class="title-hammersmith" to=" ">STEWART</RouterLink>
+        <RouterLink class="title-hammersmith" to="/">STEWART</RouterLink>
       </div>
-      <ul class="menu d-inline-flex">
-        <li
-          class="menu-item d-inline-flex"
-          v-for="item in items"
-          :key="item.id"
-          @click="sliderClicked(item.id)"
-          :ref="'menu-item_' + item.id"
-        >
-          <RouterLink class="menu-link d-inline-flex" :to="item.comp">
-            {{ item.name }}
-          </RouterLink>
-        </li>
-      </ul>
-      <!---<router-link to="/login" -->
-        <button class="btn btn-login text-light" @click="open = true">LOGIN</button>
-      <!--</router-link>-->
+      <div>
+        <SearchBar />
+      </div>
+      <button class="btn btn-login text-light" @click="open = true">LOGIN</button>
     </div>
-
-    <div
-      class="menu-slider"
-      :style="{ left: positionToMove, width: sliderWidth }"
-    ></div>
   </section>
   <Transition name="modal">
     <div v-if="open" class="modal">
@@ -63,29 +47,29 @@
   align-items: center;
 }
 
-.menu :hover {
-  background-color: var(--color-translucent-pink);
-  cursor: pointer;
-}
-
-.menu-link:hover {
-  background-color: #00000000;
-}
 
 #stewart-main-navbar {
   z-index: 2;
   height: 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-background-dark-hover);
 }
 
 #navbar-logo .title-hammersmith {
   font-size: 1.6rem;
   color: rgba(255, 255, 255);
 }
+
+
 
 .menu-item {
   padding: 0.625rem;
@@ -133,22 +117,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import SearchBar from "./SearchBar.vue";
 export default defineComponent({
   props: {
-    list: {
-      default: [
-        {
-          name: "Início",
-          icon: "jore",
-          comp: "/",
-        },
-        {
-          name: "Projeto",
-          icon: "jore",
-          comp: "project",
-        },
-      ],
-    },
     currentPage: {
       type: Number,
       default: 0,
@@ -158,19 +129,10 @@ export default defineComponent({
       default: true,
     },
   },
-  created: function () {
-    this.loadList();
-    window.addEventListener("resize", this.handleResize);
-    window.addEventListener("pageshow", this.handlePageShow);
+  components: { SearchBar },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
   },
-  unmounted: function () {
-    window.removeEventListener("resize", this.handleResize);
-    window.removeEventListener("pageshow", this.handlePageShow);
-  },
-  mounted: function () {
-    if (this.currentPage > 0) this.sliderIndicator(this.currentPage);
-  },
-
   data() {
     return {
       sliderPosition: 0,
@@ -182,50 +144,14 @@ export default defineComponent({
   },
 
   methods: {
-    handlePageShow() {
-      if(this.selectedIndex) this.sliderIndicator(this.selectedIndex);
-    },
-    handleResize() {
-      if (!this.selectedIndex) return;
-      let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window
-        .getComputedStyle(element)
-        .getPropertyValue("transition-duration");
-      if (transitionValue != "0s")
-        element.setAttribute("style", "transition-duration: 0s");
-      this.sliderIndicator(this.selectedIndex);
-    },
-    sliderClicked(id: number) {
-      let element = document.getElementsByClassName("menu-slider")[0];
-      let transitionValue = window
-        .getComputedStyle(element)
-        .getPropertyValue("transition-duration");
-      if (transitionValue != "0.3s" && id != this.selectedIndex)
-        element.setAttribute("style", "transition-duration 0.3s;");
-      this.sliderIndicator(id);
-    },
-    sliderIndicator(id: number) {
-      let element = (this.$refs[`menu-item_${id}`] as any)[0];
-      this.sliderPosition = element.offsetLeft;
-      this.selectedElementWidth = element.offsetWidth;
-      this.selectedIndex = id;
-    },
-    loadList() {
-      this.items.pop();
-      var count: number = this.items.length;
-      for (const element of this.list) {
-        var item = { id: ++count, icon: element.icon, name: element.name , comp: element.comp};
-        this.items.push(item);
+    handleScroll(){
+      var element = this.$refs.menu as any
+      if(window.scrollY > element.offsetTop){
+        element.classList.add("sticky")
+      } else {
+        element.classList.remove("sticky")
       }
-    },
-  },
-  computed: {
-    positionToMove() {
-      return this.sliderPosition + "px";
-    },
-    sliderWidth() {
-      return this.selectedElementWidth + "px";
-    },
-  },
+    }
+  }
 });
 </script>

@@ -46,6 +46,10 @@
   border-bottom: 0.5rem solid transparent;
 }
 
+.progress-item:hover {
+  cursor: pointer;
+}
+
 .progress-item-icon {
   width: 2rem;
 }

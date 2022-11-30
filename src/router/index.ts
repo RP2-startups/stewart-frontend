@@ -54,6 +54,11 @@ const router = createRouter({
       path: "/contact",
       name: "Contact Page",
       component: Contact,
+    },
+    {
+      path: "/projectregister",
+      name: "Project Register",
+      component: ProjectRegister
     }
     // {
     //   path: "/about",
