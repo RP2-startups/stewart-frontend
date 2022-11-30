@@ -1,85 +1,78 @@
 <script setup lang="ts">
+import RegisterModal from "../pages/RegisterPage.vue";
 </script>
 
 <template>
-    <div class="row asa" :style="{'height': `${screenHeigth}px`}">
-      <div class="col-md-5 col-sd-12 nopadding form">
-        <button @click="$emit('close')">
-          <img
-            src="../assets/images/arrow-back-black.png"
-            class="btn back-arrow d-none d-md-block"/>
-        </button>
-        <div
-          class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space"
-        >
-          <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
-          <b-form>
-            <!-- EMAIL -->
-            <b-form-group label-for="email">
-              <label class="d-flex justify-content-between"> Email </label>
-              <input
-                type="text"
-                class="form-control"
-                :class="{ 'is-invalid': !emailValid }"
-                placeholder="jorginho@gameplays.com"
-                v-model="email"
-                required
-              />
-            </b-form-group>
+  <div class="row asa" :style="{ 'height': `${screenHeigth}px` }">
+    <div class="col-md-5 col-sd-12 nopadding form">
+      <button @click="$emit('close')">
+        <img src="../assets/images/arrow-back-black.png" class="btn back-arrow d-none d-md-block" />
+      </button>
+      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
+        <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
+        <b-form>
+          <!-- EMAIL -->
+          <b-form-group label-for="email">
+            <label class="d-flex justify-content-between"> Email </label>
+            <input type="text" class="form-control" :class="{ 'is-invalid': !emailValid }"
+              placeholder="jorginho@gameplays.com" v-model="email" required />
+          </b-form-group>
 
-            <p
-              class="errorMessage"
-              :class="{
-                disable: emailValid,
-              }"
-            >
-              Insira um email válido
-            </p>
-            <!-- SENHA -->
-            <b-form-group label-for="password">
-              <label class="d-flex justify-content-between">
-                Senha
-                <small><a href="#">Esqueceu sua senha?</a></small>
-              </label>
-              <input
-                type="password"
-                class="form-control"
-                :class="{ 'is-invalid': !passwordValid }"
-                v-model="password"
-                required
-              />
-            </b-form-group>
-            <p class="errorMessage" :class="{ disable: passwordValid }">
-              Senha precisa ter mais de 8 caracteres
-            </p>
-            <div class="noHover btn btn-wrapper-login p-0">
-              <button class="btn btn-login" @click="login">ENTRAR</button>
+          <p class="errorMessage" :class="{
+            disable: emailValid,
+          }">
+            Insira um email válido
+          </p>
+          <!-- SENHA -->
+          <b-form-group label-for="password">
+            <label class="d-flex justify-content-between">
+              Senha
+              <small><a href="#">Esqueceu sua senha?</a></small>
+            </label>
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+              required />
+          </b-form-group>
+          <p class="errorMessage" :class="{ disable: passwordValid }">
+            Senha precisa ter mais de 8 caracteres
+          </p>
+          <div class="noHover btn btn-wrapper-login p-0">
+            <button class="btn btn-login" @click="login">ENTRAR</button>
+          </div>
+          <hr />
+          
+            <button class="btn btn-register" @click="open = true">REGISTRAR-SE</button>
+          <Transition name="modal">
+            <div v-if="open" class="modal">
+              <RegisterModal @close="open = false" />
             </div>
-            <hr />
-            <router-link to="/register"
-              class="noHover btn btn-wrapper-register p-0"
-            >
-              <button class="btn btn-register">REGISTRAR-SE</button>
-            </router-link>
-          </b-form>
-        </div>
+          </Transition>
+        </b-form>
       </div>
-      <div class="col-7 nopadding d-none d-md-block">
-        <img
-          class="login_image"
-          src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg"
-        />
-      </div>
-
     </div>
+    <div class="col-7 nopadding d-none d-md-block">
+      <img class="login_image"
+        src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg" />
+    </div>
+
+  </div>
 </template>
 
 <style scoped>
-/* page css */
-
-.asa{
+.modal {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+.asa {
   overflow: hidden;
 }
+
 .login_image {
   width: 100%;
   height: 100%;
@@ -93,12 +86,14 @@
 .form {
   background-color: var(--color-cream);
 }
+
 @media screen and (max-width: 767px) {
   .mobile-space {
     padding-left: 40px;
     padding-right: 40px;
   }
 }
+
 .form-wrapper {
   justify-content: center;
   align-items: center;
@@ -188,12 +183,12 @@ export default defineComponent({
       email: "",
       screenHeigth: innerHeight,
       prevPage: "",
-      open : false,
+      open: false,
     };
   },
-  mounted: function(){
+  mounted: function () {
     window.addEventListener('resize', this.adjustHeight)
-    this.$emit('changeVisibility',false)
+    this.$emit('changeVisibility', false)
   },
   methods: {
     login() {
@@ -202,7 +197,7 @@ export default defineComponent({
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
     },
-    adjustHeight(){
+    adjustHeight() {
       this.screenHeigth = window.innerHeight
     },
   },

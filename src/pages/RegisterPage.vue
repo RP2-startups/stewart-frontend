@@ -1,29 +1,33 @@
 <script setup lang="ts">
 </script>
-
+<!-- name email photo pass about -->
 <template>
-  <div class="row asa" :style="{'height': `${screenHeigth}px`}">
-    <div class="col-md-6 col-sd-12 nopadding form">
-      <router-link to="/" >
-        <img
-          src="../assets/images/arrow-back-black.png"
-          class="btn back-arrow d-none d-md-block"/>
-      </router-link>
-      <div class="col-md-6 offset-md-3 col-sm-3 offset-sm-3 form-wrapper mobile-space">
+  <div class="row asa">
+    <div class="col-md-5 col-sd-12 nopadding form">
+      <button @click="$emit('close')">
+        <img src="../assets/images/arrow-back-black.png" class="btn back-arrow" />
+      </button>
+      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
         <h2 class="text-center mb-5 title-login">REGISTRE-SE</h2>
         <b-form>
+          <!-- NOME -->
+          <b-form-group label-for="name">
+            <label class="d-flex justify-content-between">
+              Nome
+            </label>
+            <input type="text" class="form-control" :class="{'is-invalid':!nameValid}" v-model="name" required>
+          </b-form-group>
+          <p class="errorMessage" :class="{ disable: nameValid, }">
+            Insira um nome válido
+          </p>
+
           <!-- EMAIL -->
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> Email </label>
             <input type="text" class="form-control " :class="{'is-invalid':!emailValid}" placeholder="jorginho@gameplays.com" v-model="email" required>
           </b-form-group>
 
-          <p
-            class="errorMessage"
-            :class="{
-              disable: emailValid,
-            }"
-          >
+          <p class="errorMessage" :class="{ disable: emailValid, }">
             Insira um email válido
           </p>
           <!-- SENHA -->
@@ -34,16 +38,14 @@
             <input type="password" class="form-control" :class="{'is-invalid':!passwordValid}" v-model="password" required>
           </b-form-group>
           <p class="errorMessage" :class="{disable:passwordValid}">Senha precisa ter mais de 8 caracteres</p>
+
+          
+
           <div class="noHover btn btn-wrapper-login p-0">
             <button class="btn btn-login" @click="login">CADASTRAR</button>
           </div>
           <hr />
-          <router-link
-            to="/login"
-            class="noHover btn btn-wrapper-register p-0"
-          >
-            <button class="btn btn-register">VOLTAR AO LOGIN</button>
-          </router-link>
+            <button class="btn btn-register" @click="$emit('close')">VOLTAR AO LOGIN</button>
         </b-form>
       </div>
     </div>
@@ -162,8 +164,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
+      nameValid: true,
       emailValid: true,
       passwordValid:true,
+      name: "",
       password: "" ,
       email: "",
       screenHeigth: innerHeight,
@@ -175,6 +179,7 @@ export default defineComponent({
   },
   methods:{
     login(){
+      this.name == "" && !this.name.includes("@") ? this.nameValid = false : this.nameValid = true
       this.email == "" ?  this.emailValid = false : this.emailValid = true
       this.password == "" || this.password.length < 8  ? this.passwordValid = false : this.passwordValid = true
     },
