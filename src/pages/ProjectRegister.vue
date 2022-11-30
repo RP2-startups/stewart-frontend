@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SearchBar from "@/components/SearchBar.vue";
 import ProgressIndicator from "../components/ProgressIndicator.vue";
 </script>
 <template>
@@ -17,9 +18,7 @@ import ProgressIndicator from "../components/ProgressIndicator.vue";
     </div>
     <div class="row d-flex flex-column align-items-center">
       <div class="col-md-10 col-lg-8 col-sm-12 mt-5">
-        <div class="input-container">
-          <input class="input-register" type="text" />
-        </div>
+          <SearchBar/>
       </div>
       <div class="col-md-2 col-lg-8 col-sm-12 mt-5">
         <button></button>
@@ -30,6 +29,7 @@ import ProgressIndicator from "../components/ProgressIndicator.vue";
 
 <style>
 @import "@/assets/styles/base.css";
+input {}
 .register-container {
   width: 65%;
   min-width: 800px;

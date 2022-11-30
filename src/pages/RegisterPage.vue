@@ -1,98 +1,103 @@
-<script setup lang="ts">
+<script setup>
 </script>
 <!-- name email photo pass about -->
 <template>
-  <div class="row asa">
-    <div class="col-md-5 col-sd-12 nopadding form">
-      <button @click="$emit('close')">
-        <img src="../assets/images/arrow-back-black.png" class="btn back-arrow" />
+  <div class="form">
+    <header class="row">
+      <button @click="$emit('close')" class="col-md-1 btn">
+        <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
       </button>
-      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
-        <h2 class="text-center mb-5 title-login">REGISTRE-SE</h2>
-        <b-form>
-          <!-- NOME -->
-          <b-form-group label-for="name">
-            <label class="d-flex justify-content-between">
-              Nome
-            </label>
-            <input type="text" class="form-control" :class="{'is-invalid':!nameValid}" v-model="name" required>
-          </b-form-group>
-          <p class="errorMessage" :class="{ disable: nameValid, }">
-            Insira um nome válido
-          </p>
+      <h2 class="text-center mb-5 title-login col-md-11 col-sm-8">REGISTRE-SE</h2>
+    </header>
 
+    <b-form>
+      <div class="row">
+        <div class="col-md-5 col-sm-4 form-wrapper mobile-space">
+          <div class="container">
+            <!-- NOME -->
+            <b-form-group label-for="name">
+              <label class="d-flex">
+                Nome
+              </label>
+              <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" 
+              placeholder="Tyler" v-model="name" required>
+            </b-form-group>
+            <p class="errorMessage" :class="{ disable: nameValid, }">
+              Insira um nome válido
+            </p>
+
+            <!-- SOBRE -->
+            <b-form-group label-for="about">
+              <label class="d-flex">
+                Sobre (opcional)
+              </label>
+              <textarea class="form-control" rows="5" v-model="about" placeholder="Um pouco sobre mim..."></textarea>
+            </b-form-group>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 form-wrapper mobile-space">
           <!-- EMAIL -->
           <b-form-group label-for="email">
-            <label class="d-flex justify-content-between"> Email </label>
-            <input type="text" class="form-control " :class="{'is-invalid':!emailValid}" placeholder="jorginho@gameplays.com" v-model="email" required>
+            <label class="d-flex justify-content-between"> E-mail </label>
+            <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }"
+              placeholder="tyler@email.com" v-model="email" required>
           </b-form-group>
 
           <p class="errorMessage" :class="{ disable: emailValid, }">
-            Insira um email válido
+            Insira um e-mail válido
           </p>
+
           <!-- SENHA -->
           <b-form-group label-for="password">
             <label class="d-flex justify-content-between">
               Senha
             </label>
-            <input type="password" class="form-control" :class="{'is-invalid':!passwordValid}" v-model="password" required>
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+              required>
           </b-form-group>
-          <p class="errorMessage" :class="{disable:passwordValid}">Senha precisa ter mais de 8 caracteres</p>
+          <p class="errorMessage" :class="{ disable: passwordValid }">Senha precisa ter mais de 8 caracteres</p>
+        </div>
 
-          
-
-          <div class="noHover btn btn-wrapper-login p-0">
-            <button class="btn btn-login" @click="login">CADASTRAR</button>
+        <div class="col-md-3 col-sm-3 form-wrapper">
+          <div class="d-flex justify-content-center mb-4">
+            <img  class="rounded-circle"
+              alt="Profile avatar" :src="imgSrc" style="width: 10rem; height: 10rem;" />
           </div>
-          <hr />
-            <button class="btn btn-register" @click="$emit('close')">VOLTAR AO LOGIN</button>
-        </b-form>
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-primary btn-rounded">
+              <label class="form-label text-white m-1" for="avatar">Escolher imagem</label>
+              <input type="file" accept="image/*" class="form-control d-none" id="avatar" @change="onFile"/>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-6 nopadding d-none d-md-block">
-      <img
-        class="login_image"
-        src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg"
-      />
-    </div>
+      <div class="noHover btn btn-wrapper-login p-0">
+        <button class="btn btn-login" @click="login">CADASTRAR</button>
+      </div>
+    </b-form>
   </div>
 </template>
 
 <style scoped>
-/* page css */
-.login_image {
-  width: 100%;
-  height: 100%;
+textarea {
+  resize: none;
 }
 
-.asa{
-  overflow: hidden;
-}
-
-.nopadding {
-  padding: 0 !important;
-}
-
-/* form css */
 .form {
   background-color: var(--color-cream);
-}
-
-@media screen and (max-width: 767px) {
-  .mobile-space {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
+  width: 80%;
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
 }
 
 .form-wrapper {
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
-  height: 100%;
   text-align: center;
   color: var(--color-textonwhite);
-  padding-bottom: 2rem;
 }
 
 .btn-login {
@@ -115,35 +120,15 @@
   color: var(--color-text-light) !important;
 }
 
-.btn-register {
-  background: rgba(255, 255, 255, 0.15);
-  padding-right: 2rem !important;
-  padding-left: 2rem !important;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  font-size: 0.8rem;
-  border-radius: 10px;
-  border-color: #1c1d1f;
-  font-family: "Jost", sans-serif;
-  text-decoration: none;
-  font-style: bold;
-  color: var(--color-textonwhite);
-}
-
-.btn-wrapper-register :hover {
-  background: rgba(80, 80, 80, 0.15) !important;
-  color: var(--color-cream);
-}
-
 .back-arrow {
-  margin-top: 20px;
-  margin-left: 10px;
-  width: 90px;
-  height: 90px;
+  border: 0px;
+  width: 40px;
+  height: 40px;
+  margin-left: 30px;
 }
 
 .title-login {
-  margin-top: 50px;
+  margin-top: 40px;
   color: var(--color-textonwhite);
 }
 
@@ -157,6 +142,22 @@
 .disable {
   display: none;
 }
+
+@media screen and (max-width: 767px) {
+  .title-login {
+    margin-top: 0px;
+  }
+  .mobile-space {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .back-arrow {
+    margin: 0;
+  }
+  .row {
+    display: flex;
+  }
+}
 </style>
 
 <script lang="ts">
@@ -166,25 +167,33 @@ export default defineComponent({
     return {
       nameValid: true,
       emailValid: true,
-      passwordValid:true,
+      passwordValid: true,
       name: "",
-      password: "" ,
+      about: "",
+      password: "",
       email: "",
+      imgSrc: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
       screenHeigth: innerHeight,
       prevPage: ""
     };
-  }, 
-  mounted: function(){
+  },
+  mounted: function () {
     window.addEventListener('resize', this.adjustHeight);
   },
-  methods:{
-    login(){
-      this.name == "" && !this.name.includes("@") ? this.nameValid = false : this.nameValid = true
-      this.email == "" ?  this.emailValid = false : this.emailValid = true
-      this.password == "" || this.password.length < 8  ? this.passwordValid = false : this.passwordValid = true
+  methods: {
+    login() {
+      this.name == "" ? this.nameValid = false : this.nameValid = true,
+        this.email == "" || !this.email.includes("@") ? this.emailValid = false : this.emailValid = true,
+        this.password == "" || this.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
     },
-    adjustHeight(){
+    adjustHeight() {
       this.screenHeigth = window.innerHeight
+    },
+    onFile(e: any) {
+      const file = e.target.files[0]
+      if (file) {
+        this.imgSrc = URL.createObjectURL(file)
+      }
     }
   }
 });

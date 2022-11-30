@@ -40,10 +40,10 @@ import RegisterModal from "../pages/RegisterPage.vue";
           </div>
           <hr />
           
-            <button class="btn btn-register" @click="open = true">REGISTRAR-SE</button>
+            <button class="btn btn-register" @click="(openReg = true)">REGISTRAR-SE</button>
           <Transition name="modal">
-            <div v-if="open" class="modal">
-              <RegisterModal @close="open = false" />
+            <div v-if="openReg" class="modal">
+              <RegisterModal @close="openReg = false" />
             </div>
           </Transition>
         </b-form>
@@ -174,6 +174,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { emit } from "process";
 export default defineComponent({
   data() {
     return {
@@ -184,6 +185,7 @@ export default defineComponent({
       screenHeigth: innerHeight,
       prevPage: "",
       open: false,
+      openReg: false
     };
   },
   mounted: function () {
