@@ -1,17 +1,18 @@
 <script setup lang="ts">
-    import { RouterLink } from 'vue-router'
+import { RouterLink } from "vue-router";
 </script>
 
 <template>
-  <section id="stewart-main-navbar">
-    <div class="d-flex align-items-center p-2 justify-content-between">
+  <section id="stewart-main-navbar" ref="menu">
+    <div class="d-inline-flex align-items-center p-2 justify-content-between">
+      
       <div id="navbar-logo">
-        <RouterLink class="title-hammersmith" to=" ">STEWART</RouterLink>
+        <RouterLink class="title-hammersmith" to="/">STEWART</RouterLink>
       </div>
       <div>
-        <SearchBar/>
+        <SearchBar />
       </div>
-      <router-link to="/login" >
+      <router-link to="/login">
         <button class="btn btn-login text-light">LOGIN</button>
       </router-link>
     </div>
@@ -21,39 +22,30 @@
 <style scoped>
 @import "../assets/styles/base.css";
 
-.menu {
-  padding: 3rem;
-  margin: 0;
-  list-style-type: none;
-  font-family: "Jost", "sans-serif";
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-}
 
-.menu :hover {
-  background-color: var(--color-translucent-pink);
-  cursor: pointer;
-}
-
-.menu-link:hover {
-  background-color: #00000000;
-}
 
 #stewart-main-navbar {
   z-index: 2;
   height: 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-background-dark-hover);
 }
 
 #navbar-logo .title-hammersmith {
   font-size: 1.6rem;
   color: rgba(255, 255, 255);
 }
+
+
 
 .menu-item {
   padding: 0.625rem;
@@ -101,18 +93,31 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SearchBar from './SearchBar.vue';
+import SearchBar from "./SearchBar.vue";
 export default defineComponent({
-    props: {
-        currentPage: {
-            type: Number,
-            default: 0,
-        },
-        visibility: {
-            type: Boolean,
-            default: true,
-        },
-    },    
-    components: { SearchBar }
+  props: {
+    currentPage: {
+      type: Number,
+      default: 0,
+    },
+    visibility: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  components: { SearchBar },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll(){
+      var element = this.$refs.menu as any
+      if(window.scrollY > element.offsetTop){
+        element.classList.add("sticky")
+      } else {
+        element.classList.remove("sticky")
+      }
+    }
+  }
 });
 </script>
