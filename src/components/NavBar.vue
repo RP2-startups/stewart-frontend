@@ -6,7 +6,7 @@
 <template>
   <section id="stewart-main-navbar" ref="menu">
     <div class="d-inline-flex align-items-center p-2 justify-content-between">
-      
+
       <div id="navbar-logo">
         <RouterLink class="title-hammersmith" to="/">STEWART</RouterLink>
       </div>
@@ -120,10 +120,6 @@ import { defineComponent } from "vue";
 import SearchBar from "./SearchBar.vue";
 export default defineComponent({
   props: {
-    currentPage: {
-      type: Number,
-      default: 0,
-    },
     visibility: {
       type: Boolean,
       default: true,

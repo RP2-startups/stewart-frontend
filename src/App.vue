@@ -7,7 +7,7 @@ import SideBar from "./components/SideBar.vue";
 
 <template>
     <SideBar/>
-    <NavBar :currentPage.number="1"/>
+    <NavBar />
     <RouterView />
     <FooterItem />
 </template>
