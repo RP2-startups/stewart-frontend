@@ -2,7 +2,6 @@ import ProjectRegister from "@/pages/ProjectRegister.vue";
 import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
-import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
 import Members from "@/subpages/Members.vue";
 import About from "@/pages/About.vue";
@@ -38,11 +37,6 @@ const router = createRouter({
       name: "Register",
       component: RegisterPage,
       props: true
-    },
-    {
-      path: "/search",
-      name: "Search Page",
-      component: SearchPage,
     },
     {
       path: "/project",
@@ -88,7 +82,7 @@ const router = createRouter({
       component: Contact,
     },
     {
-      path: "/projectlista/:input",
+      path: "/search/:input",
       name: "ProjectList",
       component: ProjectList,
       props: true

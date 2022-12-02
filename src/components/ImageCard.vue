@@ -1,5 +1,5 @@
 <template>
-  <div class="container image-card mt-2 pt-4 pb-4 mb-4"
+  <div class="image-card mt-2 pt-4 pb-4 mb-4"
   :class="(small && 'col-lg-2 image-card-small') || (transparent && 'image-card-transparent')"
   :style="{ 'font-size': titleSize }">
 
@@ -16,8 +16,8 @@
     <div class="col-lg-5 col-sm-12"
     :class="vertical && 'w-100 text-center'">
 
-      <b-img :src="source" fluid alt="Responsive image"></b-img>
-      
+      <img :src="source" width="100" height="100" fluid alt="Responsive image">
+
     </div>
   </div>
 </div>
@@ -29,7 +29,7 @@
   padding: 0;
 }
 .image-card {
-  background: linear-gradient(135deg, #3A2369 0%, #78619B 100%);
+  background: var(--color-purple);
   border-radius: 25px;
   font-family: 'Jost';
   font-weight: bolder;
@@ -39,6 +39,11 @@
 
 .image-card-transparent {
   background: transparent;
+}
+
+.card-text {
+  font-size: 1.2rem;
+  font-weight: normal;
 }
 
 .card-text {
