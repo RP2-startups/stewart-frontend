@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="input" placeholder="Procurar..." />
+  <input type="text" v-model="input" @keyup.enter="searchEnter()" placeholder="Procurar..." />
 
   <div class="found-box" v-if="input != ''">
     <div class=" " v-for="items in filterList">
@@ -45,15 +45,11 @@ input {
   position: absolute;
   bottom: top;
 }
-
-
-
 .found {
   cursor: pointer;
   color: #000;
   padding-left: 20px;
 }
-
 .found:hover {
   background-color: var(--color-cream-hover);
 }
@@ -76,6 +72,14 @@ export default defineComponent({
   },
   mounted: function name() {
     this.listAll.push("aa","aba ");
+  },
+  methods: {
+    searchEnter(){
+      this.$router.push({
+        name: "ProjectList",
+        params: {input: this.input} 
+      })
+    }
   },
   computed: {
     filterList() {

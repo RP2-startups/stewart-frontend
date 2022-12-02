@@ -9,7 +9,7 @@
           @click="toogleMenu()"
         >
           <img
-            src="../assets/images/arrow-back-white.png"
+            src="../assets/images/arrow_sidebar.png"
             alt="expand/shrink sidebar"
           />
         </button>
