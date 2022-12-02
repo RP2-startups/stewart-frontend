@@ -6,8 +6,10 @@ import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
+import ProjectList from "@/pages/ProjectList.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
+
 
 
 const router = createRouter({
@@ -56,9 +58,10 @@ const router = createRouter({
       component: Contact,
     },
     {
-      path: "/projectregister",
-      name: "Project Register",
-      component: ProjectRegister
+      path: "/projectlista/:input",
+      name: "ProjectList",
+      component: ProjectList,
+      props: true
     }
     // {
     //   path: "/about",

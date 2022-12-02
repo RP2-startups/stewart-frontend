@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <row>
+      <div class="row">
         <div class="col-lg-2 offset-lg-10 col-sm-4 offset-sm-8 item-social align-self-end py-2">
           <ul>
             <li class="d-inline-block">
@@ -47,7 +47,7 @@
             </li>
           </ul>
         </div>
-      </row>
+      </div>
     </div>
   </footer>
 </template>

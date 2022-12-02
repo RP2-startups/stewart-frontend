@@ -1,6 +1,5 @@
-<script setup>
+<script setup lang="ts">
 import ImageCard from "../components/ImageCard.vue";
-import SearchBar from "../components/SearchBar.vue";
 </script>
 
 <template>
@@ -64,11 +63,3 @@ import SearchBar from "../components/SearchBar.vue";
   font-size: 2rem;
 }
 </style>
-methods: {
-<script>
-//import api from "../services/api.js" conexão com backend
-export default {
-  methods: {
-  }
-}
-</script>

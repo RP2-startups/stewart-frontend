@@ -1,15 +1,15 @@
 <template v-if="open">
   <div class="wrapper" :class="`${is_expanded ? 'expanded' : ''}`">
     <div class="header">
-      <!--<h5 class="title" :class="`${is_expanded ? '' : 'hide'}`">STEWART</h5>-->
+      <h5 class="title" :class="`${is_expanded ? '' : 'hide'}`">STEWART</h5>
       <div class="toggle">
         <button
           class="menu-toggle-wrap"
-          :class="`${is_expanded ? '' : 'rotate'}`"
+          :class="`${is_expanded ? 'rotate' : ''}`"
           @click="toogleMenu()"
         >
           <img
-            src="../assets/images/arrow-back-white.png"
+            src="../assets/images/arrow_sidebar.png"
             alt="expand/shrink sidebar"
           />
         </button>
@@ -19,19 +19,19 @@
     <div class="menu">
       <router-link class="button" to="/">
         <span class=""
-          ><img src="../assets/images/facebooklogo.webp" class="icon"
+          ><img src="../assets/icons/home_outline.svg" class="icon"
         /></span>
         <span class="menu-text" :class="`${is_expanded ? 'show' : ''}`"
-          >Facebook</span
+          >Home</span
         >
       </router-link>
 
       <router-link class="button" to="/project">
         <span class=""
-          ><img src="../assets/images/instagram_icon.webp" class="icon"
+          ><img src="../assets/icons/project_icon.svg" class="icon"
         /></span>
         <span class="menu-text" :class="`${is_expanded ? 'show' : ''}`"
-          >Instagram</span
+          >Projetos</span
         >
       </router-link>
     </div>
@@ -49,7 +49,7 @@
   overflow: hidden;
   left: 0;
   width: calc(2rem + 40px);
-  background: radial-gradient(#0F3460, #071c35);
+  background-color: var(--color-background-dark-hover);
   transition: 0.3s ease-out;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .menu-toggle-wrap {
-  background: transparent;
+  background-color: var(--color-background-dark-hover);
   margin-bottom: 1rem;
   border: 0px;
   transition: 0.5 ease-out;
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   color: var(--color-text-light);
 }
 
