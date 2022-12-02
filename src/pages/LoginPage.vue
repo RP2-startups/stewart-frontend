@@ -5,8 +5,8 @@ import RegisterModal from "../pages/RegisterPage.vue";
 <template>
   <div class="row asa" :style="{ 'height': `${screenHeigth}px` }">
     <div class="col-md-5 col-sd-12 nopadding form">
-      <button @click="$emit('close')">
-        <img src="../assets/images/arrow-back-black.png" class="btn back-arrow d-none d-md-block" />
+      <button @click="$emit('close')" class="btn">
+        <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
       </button>
       <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
         <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
