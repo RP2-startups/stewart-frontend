@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
     import LoginModal from "../pages/LoginPage.vue";
+    import SearchBar from "./SearchBar.vue";
 </script>
 
 <template>
@@ -117,7 +118,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SearchBar from "./SearchBar.vue";
 export default defineComponent({
   props: {
     visibility: {
@@ -125,7 +125,6 @@ export default defineComponent({
       default: true,
     },
   },
-  components: { SearchBar },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
