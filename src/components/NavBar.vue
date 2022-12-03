@@ -37,7 +37,7 @@ import { RouterLink } from "vue-router";
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--color-background-dark-hover);
+  background-color: #071f35f8
 }
 
 #navbar-logo .title-hammersmith {
