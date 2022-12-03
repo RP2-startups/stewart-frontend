@@ -1,75 +1,72 @@
 <template>
-  <div class="image-card mt-2 pt-4 pb-4 mb-4"
-  :class="(small && 'col-lg-2 image-card-small') || (transparent && 'image-card-transparent')"
-  :style="{ 'font-size': titleSize }">
-
-  <div class="row"
-  :class="(reverse && vertical && 'column-reverse') || (reverse && !vertical && 'row-reverse')">
-
-    <div class="col-lg-6 col-sm-12 ps-5 card-body"
-    :class="vertical && 'w-100'">
-
-      <text class="card-title">{{ title }}</text>
-      <p class="card-text">{{ body }}</p>
+  <div ref="card" class="image-card mt-2 mb-4">
+    <div>
+      <!--<img class="image-banner" :src="source2" fluid>-->
+      <img class="image" :class="{ 'img-thumbnail': imageBorder }" :src="source" fluid alt="Responsive image">
     </div>
-
-    <div class="col-lg-5 col-sm-12"
-    :class="vertical && 'w-100 text-center'">
-
-      <img :src="source" width="100" height="100" fluid alt="Responsive image">
-
-    </div>
-  </div>
+    <p class="card-title" :style="{ 'font-size': titleSize }"> {{ title }} </p>
+    <p ref="body" class="card-body"> {{ bodyText }} </p>
 </div>
 </template>
+
 <style>
 @import "../assets/styles/base.css";
-.card-title {
-  margin: 0;
-  padding: 0;
-}
+
 .image-card {
   background: var(--color-purple);
-  border-radius: 25px;
+  border-radius: 3px;
+  width: 280px;
+  height: 400px;
   font-family: 'Jost';
+}
+
+/*
+.images-parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image-banner {
+  position: relative;
+  top: 0;
+  left: 0;
+  max-width: 200%;
+  min-height: auto;
+}
+*/
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  min-width: 120px;
+  width: 45%;
+}
+
+.card-title {
   font-weight: bolder;
-  color: white;
-  flex-direction: row;
+  text-align: center;
+  margin-top: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  white-space: nowrap;
 }
 
-.image-card-transparent {
-  background: transparent;
-}
-
-.card-text {
-  font-size: 1.2rem;
-  font-weight: normal;
-}
-
-.card-text {
-  font-size: 1.2rem;
-  font-weight: normal;
-}
-
-.column-reverse {
-  flex-direction: column-reverse;
-}
-
-.row-reverse {
-  flex-direction: row-reverse;
-}
-
-.image-card-small {
-  font-size: medium !important;
-}
-
-.image-card-small text {
-  font-size: 1rem;
+.card-body {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: justify;
+  overflow: hidden;
+  margin-top: 3px;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 </style>
+
 <script lang="ts">
-  import Vue, { defineComponent } from "vue";
+  import { defineComponent } from "vue";
   export default defineComponent({
   props: {
     title: {
@@ -84,31 +81,58 @@
       type: String,
       required: true
     },
+    source2: {
+      type: String,
+      default: ''
+    },
     titleSize: {
       type: String,
-      default: "5rem"
+      default: "29px"
     },
-    reverse: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    transparent: {
+    imageBorder: {
       type: Boolean,
       default: false
     }
   },
   data() {
-    return {};
+    return {
+      bodyText: this.body
+    };
   },
-  methods: {},
+  mounted() {
+    if(this.bodyText.length != 0) {
+      this.handleTextOverflow();
+      window.addEventListener("resize", this.handleTextOverflow);
+    }
+  },
+  methods: {
+    handleTextOverflow() {
+      let fontSize = 15;
+      let lineHeight = 20;
+      let cardEl = this.$refs.card as Element;
+      let cardWidthStr = window.getComputedStyle(cardEl).getPropertyValue('width');
+      let cardWidth: number = +cardWidthStr.slice(0, cardWidthStr.indexOf('p'));
+      let cardHeightStr = window.getComputedStyle(cardEl).getPropertyValue('height');
+      //let cardHeight: number = +cardHeightStr.slice(0, cardHeightStr.indexOf('p'));
+
+      let lineCount = 1, lineStartIndex = 0, pixelCount = 0;
+      for(let i = 0; i < this.body.length; i++) {
+        pixelCount += fontSize;
+        if(pixelCount >= cardWidth) {
+          lineCount++;
+          if(lineCount * lineHeight >= 320) {
+            this.bodyText = this.body.slice(0, lineStartIndex);
+            this.bodyText += "..."
+            return
+          }
+          lineStartIndex = i;
+          pixelCount = 0;
+        }
+      }
+
+      this.bodyText = this.body;
+    }
+  },
   computed: {},
 });
 </script>
