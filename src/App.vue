@@ -7,8 +7,10 @@ import SideBar from "./components/SideBar.vue";
 
 <template>
     <SideBar/>
-    <NavBar :currentPage.number="1"/>
-    <RouterView />
+    <NavBar />
+    <div style="margin-left: 72px">
+        <RouterView />
+    </div>
     <FooterItem />
 </template>
 

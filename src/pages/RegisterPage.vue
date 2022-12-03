@@ -20,7 +20,7 @@
                 Nome
               </label>
               <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" 
-              placeholder="Tyler" v-model="name" required>
+              placeholder="Tyler" v-model="user.name" required>
             </b-form-group>
             <p class="errorMessage" :class="{ disable: nameValid, }">
               Insira um nome válido
@@ -31,7 +31,7 @@
               <label class="d-flex">
                 Sobre (opcional)
               </label>
-              <textarea class="form-control" rows="5" v-model="about" placeholder="Um pouco sobre mim..."></textarea>
+              <textarea class="form-control" rows="5" v-model="user.about" placeholder="Um pouco sobre mim..."></textarea>
             </b-form-group>
           </div>
         </div>
@@ -41,7 +41,7 @@
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> E-mail </label>
             <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }"
-              placeholder="tyler@email.com" v-model="email" required>
+              placeholder="tyler@email.com" v-model="user.email" required>
           </b-form-group>
 
           <p class="errorMessage" :class="{ disable: emailValid, }">
@@ -53,7 +53,7 @@
             <label class="d-flex justify-content-between">
               Senha
             </label>
-            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required>
           </b-form-group>
           <p class="errorMessage" :class="{ disable: passwordValid }">Senha precisa ter mais de 8 caracteres</p>
@@ -62,7 +62,7 @@
         <div class="col-md-3 col-sm-3 form-wrapper">
           <div class="d-flex justify-content-center mb-4">
             <img  class="rounded-circle"
-              alt="Profile avatar" :src="imgSrc" style="width: 10rem; height: 10rem;" />
+              alt="Profile avatar" :src="user.profile_picture" style="width: 10rem; height: 10rem;" />
           </div>
           <div class="d-flex justify-content-center">
             <div class="btn btn-primary btn-rounded">
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="noHover btn btn-wrapper-login p-0">
-        <button class="btn btn-login" @click="login">CADASTRAR</button>
+        <button class="btn btn-login" @click="saveUser">CADASTRAR</button>
       </div>
     </b-form>
   </div>
@@ -162,29 +162,50 @@ textarea {
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import UserDataService from "../services/UserDataService";
+
 export default defineComponent({
   data() {
     return {
       nameValid: true,
       emailValid: true,
       passwordValid: true,
-      name: "",
-      about: "",
-      password: "",
-      email: "",
-      imgSrc: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
-      screenHeigth: innerHeight,
-      prevPage: ""
+      user: {
+        id: null,
+        name: "",
+        email: "",
+        profile_picture: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
+        about: "",
+        password: ""
+      },
+      screenHeigth: innerHeight
     };
   },
   mounted: function () {
     window.addEventListener('resize', this.adjustHeight);
   },
   methods: {
-    login() {
-      this.name == "" ? this.nameValid = false : this.nameValid = true,
-        this.email == "" || !this.email.includes("@") ? this.emailValid = false : this.emailValid = true,
-        this.password == "" || this.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
+    saveUser() {
+      this.user.name == "" ? this.nameValid = false : this.nameValid = true,
+      this.user.email == "" || !this.user.email.includes("@") ? this.emailValid = false : this.emailValid = true,
+      this.user.password == "" || this.user.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
+
+      var data = {
+        name: this.user.name,
+        email: this.user.email,
+        profile_picture: this.user.profile_picture,
+        about: this.user.about,
+        password: this.user.password
+      };
+
+      UserDataService.create(data)
+        .then((response: { data: { id: null; }; }) => {
+          this.user.id = response.data.id;
+          console.log(response.data);
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
@@ -192,7 +213,7 @@ export default defineComponent({
     onFile(e: any) {
       const file = e.target.files[0]
       if (file) {
-        this.imgSrc = URL.createObjectURL(file)
+        this.user.profile_picture = URL.createObjectURL(file)
       }
     }
   }

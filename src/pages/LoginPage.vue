@@ -15,7 +15,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> Email </label>
             <input type="text" class="form-control" :class="{ 'is-invalid': !emailValid }"
-              placeholder="jorginho@gameplays.com" v-model="email" required />
+              placeholder="jorginho@gameplays.com" v-model="user.email" required />
           </b-form-group>
 
           <p class="errorMessage" :class="{
@@ -29,7 +29,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
               Senha
               <small><a href="#">Esqueceu sua senha?</a></small>
             </label>
-            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required />
           </b-form-group>
           <p class="errorMessage" :class="{ disable: passwordValid }">
@@ -180,10 +180,14 @@ export default defineComponent({
     return {
       emailValid: true,
       passwordValid: true,
-      password: "",
-      email: "",
+      user: {
+        name: "",
+        email: "",
+        profile_picture: "",
+        about: "",
+        password: ""
+      },
       screenHeigth: innerHeight,
-      prevPage: "",
       open: false,
       openReg: false
     };
@@ -194,8 +198,8 @@ export default defineComponent({
   },
   methods: {
     login() {
-      this.email == "" ? (this.emailValid = false) : (this.emailValid = true);
-      this.password == "" || this.password.length < 8
+      this.user.email == "" ? (this.emailValid = false) : (this.emailValid = true);
+      this.user.password == "" || this.user.password.length < 8
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
     },
