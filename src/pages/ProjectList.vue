@@ -24,6 +24,7 @@
     font-family: 'Jost';
     font-weight: bolder;
     margin-bottom: 2rem;
+    overflow: hidden;
   }
 
   .section-title {
