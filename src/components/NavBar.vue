@@ -1,12 +1,13 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
     import LoginModal from "../pages/LoginPage.vue";
+    import SearchBar from "./SearchBar.vue";
 </script>
 
 <template>
   <section id="stewart-main-navbar" ref="menu">
     <div class="d-inline-flex align-items-center p-2 justify-content-between">
-      
+
       <div id="navbar-logo">
         <RouterLink class="title-hammersmith" to="/">STEWART</RouterLink>
       </div>
@@ -61,7 +62,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--color-background-dark-hover);
+  background-color: #071f35f8
 }
 
 #navbar-logo .title-hammersmith {
@@ -117,7 +118,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SearchBar from "./SearchBar.vue";
 export default defineComponent({
   components: { SearchBar },
   created() {
