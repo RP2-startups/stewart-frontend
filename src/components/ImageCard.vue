@@ -1,10 +1,9 @@
 <template>
-  <div ref="card" class="image-card mt-2 mb-4">
+  <div ref="card" class="image-card mt-2 mb-4" :style="cssProps">
     <div>
-      <!--<img class="image-banner" :src="source2" fluid>-->
       <img class="image" :class="{ 'img-thumbnail': imageBorder }" :src="source" fluid alt="Responsive image">
     </div>
-    <p class="card-title" :style="{ 'font-size': titleSize }"> {{ title }} </p>
+    <p class="card-title" :style="{ 'font-size': titleFontSize }"> {{ title }} </p>
     <p ref="body" class="card-body"> {{ bodyText }} </p>
 </div>
 </template>
@@ -15,25 +14,11 @@
 .image-card {
   background: var(--color-purple);
   border-radius: 3px;
-  width: 280px;
-  height: 400px;
+  min-width: var(--width);
+  min-height: var(--height);
   font-family: 'Jost';
 }
 
-/*
-.images-parent {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.image-banner {
-  position: relative;
-  top: 0;
-  left: 0;
-  max-width: 200%;
-  min-height: auto;
-}
-*/
 .image {
   display: block;
   margin-left: auto;
@@ -50,6 +35,8 @@
   padding-left: 8px;
   padding-right: 8px;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .card-body {
@@ -57,7 +44,6 @@
   font-weight: bold;
   line-height: 20px;
   text-align: justify;
-  overflow: hidden;
   margin-top: 3px;
   margin-left: 1rem;
   margin-right: 1rem;
@@ -69,6 +55,14 @@
   import { defineComponent } from "vue";
   export default defineComponent({
   props: {
+    width: {
+      type: Number,
+      required: true
+    },
+    height: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -85,7 +79,7 @@
       type: String,
       default: ''
     },
-    titleSize: {
+    titleFontSize: {
       type: String,
       default: "29px"
     },
@@ -96,43 +90,31 @@
   },
   data() {
     return {
-      bodyText: this.body
+      bodyText: this.body,
+      maxDescLength: 280,
     };
   },
   mounted() {
-    if(this.bodyText.length != 0) {
+    if(this.bodyText.length > this.maxDescLength)
       this.handleTextOverflow();
-      window.addEventListener("resize", this.handleTextOverflow);
-    }
   },
   methods: {
     handleTextOverflow() {
-      let fontSize = 15;
-      let lineHeight = 20;
-      let cardEl = this.$refs.card as Element;
-      let cardWidthStr = window.getComputedStyle(cardEl).getPropertyValue('width');
-      let cardWidth: number = +cardWidthStr.slice(0, cardWidthStr.indexOf('p'));
-      let cardHeightStr = window.getComputedStyle(cardEl).getPropertyValue('height');
-      //let cardHeight: number = +cardHeightStr.slice(0, cardHeightStr.indexOf('p'));
-
-      let lineCount = 1, lineStartIndex = 0, pixelCount = 0;
-      for(let i = 0; i < this.body.length; i++) {
-        pixelCount += fontSize;
-        if(pixelCount >= cardWidth) {
-          lineCount++;
-          if(lineCount * lineHeight >= 320) {
-            this.bodyText = this.body.slice(0, lineStartIndex);
-            this.bodyText += "..."
-            return
-          }
-          lineStartIndex = i;
-          pixelCount = 0;
-        }
-      }
-
-      this.bodyText = this.body;
+      let charsUntilNewspace = 0;
+      for(let i = this.maxDescLength; this.body[i] != ' '; i--)
+        charsUntilNewspace++
+      this.bodyText = this.body.slice(0, this.maxDescLength - charsUntilNewspace);
+      this.bodyText += "..."
+      console.log(this.title, this.bodyText)
     }
   },
-  computed: {},
+  computed: {
+    cssProps() {
+      return {
+        '--width': this.width + 'px',
+        '--height': this.height + 'px',
+      }
+    }
+  },
 });
 </script>
