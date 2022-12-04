@@ -4,13 +4,13 @@ import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
+import Members from "@/subpages/Members.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
 import ProjectList from "@/pages/ProjectList.vue";
+import Files from "@/subpages/Files.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
-
-
 
 const router = createRouter({
   history: createWebHistory(),
@@ -29,13 +29,13 @@ const router = createRouter({
       path: "/login",
       name: "Login",
       component: LoginPage,
-      props: true
+      props: true,
     },
     {
       path: "/register",
       name: "Register",
       component: RegisterPage,
-      props: true
+      props: true,
     },
     {
       path: "/search",
@@ -46,6 +46,28 @@ const router = createRouter({
       path: "/project",
       name: "Project Page",
       component: Project,
+      children: [
+        {
+          path: "posts",
+          component: About,
+        },
+        {
+          path: "members",
+          component: Members,
+        },
+        {
+          path: "files",
+          component: Files,
+        },
+        {
+          path: "oc",
+          components: Contact,
+        },
+        {
+          path: "ac",
+          components: About,
+        },
+      ],
     },
     {
       path: "/about",
@@ -66,8 +88,8 @@ const router = createRouter({
       path: "/projectlista/:input",
       name: "ProjectList",
       component: ProjectList,
-      props: true
-    }
+      props: true,
+    },
     // {
     //   path: "/about",
     //   name: "about",

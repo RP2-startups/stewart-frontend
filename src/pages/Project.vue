@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { RouterView } from "vue-router";
 import ProjectHeader from "@/components/ProjectHeader.vue";
 import ProjectMenu from "@/components/ProjectMenu.vue";
-import Members from "@/subpages/Members.vue";
 </script>
 
 <template>
@@ -14,7 +14,7 @@ import Members from "@/subpages/Members.vue";
 
         <!--conteúdo da subpagina "integrantes" (contem os cards de todos os integrantes do projeto)-->
         <div id="proj-page-content">
-            <Members />
+            <RouterView />
         </div>
 
     </div>
