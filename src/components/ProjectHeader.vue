@@ -13,7 +13,7 @@
 
             <!--nome do projeto-->
             <div class="col">
-                <p id="proj-title" class="fs-2 align-middle">{{ propV[0] }}</p>
+                <p id="proj-title" class="fs-1 align-middle">{{ propV[0] }}</p>
             </div>
             
             <!--estatisticas do projeto-->
@@ -25,10 +25,10 @@
                     :key="item.id"
                     :ref="'menu-item_' + item.id"
                     >
-                        <p class="proj-stat-item fs-4">
+                        <p class="proj-stat-num fs-2">
                             {{ item.value }}
                         </p>
-                        <p class="fs-6">
+                        <p class="proj-stat-desc fs-5">
                             {{ item.name }}
                         </p>
                     </li>
@@ -40,7 +40,7 @@
 
             <!--descricao do projeto-->
             <div class="col">
-                <p class="fs-4">{{ propV[1] }}Breve descrição do projeto... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.o</p>
+                <p class="fs-5">{{ propV[1] }}Breve descrição do projeto... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.o</p>
             </div>
 
         </div>
@@ -56,7 +56,7 @@
 }
 
 #proj-icon {
-    height: max(15vh, 20vw);
+    height: max(10vh, 15vw);
     width: auto;
     margin-top: min(15vw, 660px);
 }
@@ -71,6 +71,9 @@
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
+    font-family: jost;
+    font-size: medium;
+    font-weight: bold;
     margin: 0;
 }
 
@@ -88,8 +91,15 @@
     -ms-transform: translateY(-50%);
 }
 
-.proj-stat-item {
+.proj-stat-num {
+    font-family: jost;
+    font-weight: 500;
     margin: 0;
+}
+
+.proj-stat-desc {
+    font-family: jost;
+    font-weight: 300;
 }
 
 #proj-bot-row {
