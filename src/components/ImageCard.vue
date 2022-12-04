@@ -25,7 +25,7 @@
   margin-right: auto;
   margin-top: 20px;
   min-width: 120px;
-  width: 45%;
+  width: 25%;
 }
 
 .card-title {
@@ -40,10 +40,12 @@
 }
 
 .card-body {
-  font-size: 15px;
+  font-size: 0.9rem;
   font-weight: bold;
   line-height: 20px;
   text-align: justify;
+  text-overflow:clip;
+  overflow: auto;
   margin-top: 3px;
   margin-left: 1rem;
   margin-right: 1rem;
@@ -81,7 +83,7 @@
     },
     titleFontSize: {
       type: String,
-      default: "29px"
+      default: "25px"
     },
     imageBorder: {
       type: Boolean,
@@ -91,7 +93,7 @@
   data() {
     return {
       bodyText: this.body,
-      maxDescLength: 280,
+      maxDescLength: 290,
     };
   },
   mounted() {
