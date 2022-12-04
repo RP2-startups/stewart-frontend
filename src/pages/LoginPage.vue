@@ -8,7 +8,10 @@ import RegisterModal from "../pages/RegisterPage.vue";
       <button @click="$emit('close')" class="btn">
         <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
       </button>
-      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
+      <div v-if="openReg">
+              <RegisterModal/>
+      </div>
+      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space" v-if="openLog">
         <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
         <b-form>
           <!-- EMAIL -->
@@ -35,25 +38,20 @@ import RegisterModal from "../pages/RegisterPage.vue";
           <p class="errorMessage" :class="{ disable: passwordValid }">
             Senha precisa ter mais de 8 caracteres
           </p>
+          <p class="errorMessage" :class="{ disable: loginValid }">
+            Email e/ou senha incorretos!
+          </p>
           <div class="noHover btn btn-wrapper-login p-0">
             <button class="btn btn-login" @click="login">ENTRAR</button>
           </div>
           <hr />
           
-            <button class="btn btn-register" @click="(openReg = true)">REGISTRAR-SE</button>
-          <Transition name="modal">
-            <div v-if="openReg" class="modal">
-              <RegisterModal @close="openReg = false" />
-            </div>
-          </Transition>
+            <button class="btn btn-register" @click="openReg = true; openLog = false">REGISTRAR-SE</button>
+            
+            
         </b-form>
       </div>
     </div>
-    <div class="col-7 nopadding d-none d-md-block">
-      <img class="login_image"
-        src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg" />
-    </div>
-
   </div>
 </template>
 
@@ -145,10 +143,10 @@ import RegisterModal from "../pages/RegisterPage.vue";
 }
 
 .back-arrow {
-  margin-top: 20px;
+  margin-top: 15px;
   margin-left: 10px;
-  width: 90px;
-  height: 90px;
+  width: 50px;
+  height: 50px;
 }
 
 .back-arrow :hover {
@@ -175,17 +173,19 @@ import RegisterModal from "../pages/RegisterPage.vue";
 <script lang="ts">
 import { defineComponent } from "vue";
 import UserDataService from "../services/UserDataService";
+
 export default defineComponent({
   data() {
     return {
       emailValid: true,
       passwordValid: true,
+      loginValid: true,
       user: {
         email: "",
         password: ""
       },
       screenHeigth: innerHeight,
-      open: false,
+      openLog: true,
       openReg: false
     };
   },
@@ -200,23 +200,22 @@ export default defineComponent({
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
 
-      const login = new FormData();
-      login.append("email", this.user.email);
-      login.append("password", this.user.password);
+      const login = {
+        email: this.user.email,
+        password: this.user.password
+      }
       
       UserDataService.login(login)
         .then(response => {
-          console.log("logado");
-            this.user.email = ""
-            this.user.password = ""
+            this.$emit("close");
         })
         .catch((e: any) => {
-          console.log(e);
+          this.loginValid = false;
         });
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
-    },
+    }
   },
 });
 </script>

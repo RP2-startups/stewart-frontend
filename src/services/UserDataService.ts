@@ -5,7 +5,7 @@ class UserDataService {
     return http.get("/user");
   }
 
-  login(login: FormData) {
+  login(login: {}) {
     return http.post("/login", login);
   }
 
