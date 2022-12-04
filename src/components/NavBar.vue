@@ -119,16 +119,6 @@
 import { defineComponent } from "vue";
 import SearchBar from "./SearchBar.vue";
 export default defineComponent({
-  props: {
-    currentPage: {
-      type: Number,
-      default: 0,
-    },
-    visibility: {
-      type: Boolean,
-      default: true,
-    },
-  },
   components: { SearchBar },
   created() {
     window.addEventListener("scroll", this.handleScroll);

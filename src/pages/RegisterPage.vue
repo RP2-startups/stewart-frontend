@@ -7,7 +7,7 @@
 
     <b-form>
       <div class="row">
-        <div class="col-md-9 col-sm-8 form-wrapper mobile-space">
+        <div class="col-md-8 col-sm-8 form-wrapper mobile-space">
           <div class="container">
             <!-- NOME -->
             <b-form-group label-for="name">
@@ -51,7 +51,7 @@
           <p class="errorMessage" :class="{ disable: passwordValid }">Senha precisa ter mais de 8 caracteres</p>
         </div>
       </div>
-        <div class="col-md-3 col-sm-3 form-wrapper">
+        <div class="col-md-4 col-sm-4 form-wrapper">
           <div class="d-flex justify-content-center mb-4">
             <img  class="rounded-circle profile"
               alt="Profile avatar" :src="profile_src" style="width: 10rem; height: 10rem;" />
@@ -70,7 +70,7 @@
       variant="success"
     >Cadastrado com sucesso!</b-alert>
       <div class="noHover btn btn-wrapper-login p-0 d-flex justify-content-center">
-        <button class="btn btn-login" @click="saveUser">CADASTRAR</button>
+        <button class="btn btn-login mt-2" @click="saveUser">CADASTRAR</button>
       </div>
     </b-form>
   </div>
@@ -167,7 +167,6 @@ export default defineComponent({
       emailValid: true,
       passwordValid: true,
       user: {
-        id: null,
         name: "",
         email: "",
         password: "",
