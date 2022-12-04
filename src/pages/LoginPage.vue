@@ -174,17 +174,14 @@ import RegisterModal from "../pages/RegisterPage.vue";
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { emit } from "process";
+import UserDataService from "../services/UserDataService";
 export default defineComponent({
   data() {
     return {
       emailValid: true,
       passwordValid: true,
       user: {
-        name: "",
         email: "",
-        profile_picture: "",
-        about: "",
         password: ""
       },
       screenHeigth: innerHeight,
@@ -202,6 +199,20 @@ export default defineComponent({
       this.user.password == "" || this.user.password.length < 8
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
+
+      const login = new FormData();
+      login.append("email", this.user.email);
+      login.append("password", this.user.password);
+      
+      UserDataService.login(login)
+        .then(response => {
+          console.log("logado");
+            this.user.email = ""
+            this.user.password = ""
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight

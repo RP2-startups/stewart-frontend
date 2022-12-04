@@ -61,8 +61,8 @@
 
         <div class="col-md-3 col-sm-3 form-wrapper">
           <div class="d-flex justify-content-center mb-4">
-            <img  class="rounded-circle"
-              alt="Profile avatar" :src="user.profile_picture" style="width: 10rem; height: 10rem;" />
+            <img  class="rounded-circle profile"
+              alt="Profile avatar" :src="profile_src" style="width: 10rem; height: 10rem;" />
           </div>
           <div class="d-flex justify-content-center">
             <div class="btn btn-primary btn-rounded">
@@ -72,6 +72,7 @@
           </div>
         </div>
       </div>
+      <b-alert variant="success" :show="registerSucess">Cadastrado com sucesso!</b-alert>
       <div class="noHover btn btn-wrapper-login p-0">
         <button class="btn btn-login" @click="saveUser">CADASTRAR</button>
       </div>
@@ -174,11 +175,13 @@ export default defineComponent({
         id: null,
         name: "",
         email: "",
-        profile_picture: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
+        profile_picture: "",        
         about: "",
         password: ""
       },
-      screenHeigth: innerHeight
+      profile_src: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
+      screenHeigth: innerHeight,
+      registerSucess: false
     };
   },
   mounted: function () {
@@ -190,22 +193,26 @@ export default defineComponent({
       this.user.email == "" || !this.user.email.includes("@") ? this.emailValid = false : this.emailValid = true,
       this.user.password == "" || this.user.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
 
-      var data = {
-        name: this.user.name,
-        email: this.user.email,
-        profile_picture: this.user.profile_picture,
-        about: this.user.about,
-        password: this.user.password
-      };
-
+      const data = new FormData();
+      data.append("name", this.user.name);
+      data.append("email", this.user.email);
+      data.append("profileImage", this.user.profile_picture);
+      data.append("password", this.user.password);
+      data.append("about", this.user.about);
+      
       UserDataService.create(data)
-        .then((response: { data: { id: null; }; }) => {
-          this.user.id = response.data.id;
-          console.log(response.data);
+        .then(response => {
+            this.user.name = ""
+            this.user.email = ""
+            this.user.password = ""
+            this.user.profile_picture = ""
+            this.user.about = ""
+            this.registerSucess = true
         })
         .catch((e: any) => {
           console.log(e);
         });
+        
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
@@ -213,7 +220,8 @@ export default defineComponent({
     onFile(e: any) {
       const file = e.target.files[0]
       if (file) {
-        this.user.profile_picture = URL.createObjectURL(file)
+        this.user.profile_picture = file;
+        this.profile_src = URL.createObjectURL(file)
       }
     }
   }

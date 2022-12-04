@@ -5,11 +5,11 @@ class UserDataService {
     return http.get("/user");
   }
 
-  get(id: String) {
-    return http.get(`/user/${id}`);
+  login(login: FormData) {
+    return http.post("/login", login);
   }
 
-  create(data: {}) {
+  create(data: FormData) {
     return http.post("/user", data);
   }
 
