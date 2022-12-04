@@ -5,12 +5,14 @@ import RegisterPage from "@/pages/RegisterPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
 import Project from "@/pages/Project.vue";
 import Members from "@/subpages/Members.vue";
+import Posts from "@/subpages/Posts.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
 import ProjectList from "@/pages/ProjectList.vue";
 import Files from "@/subpages/Files.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -95,5 +97,6 @@ const router = createRouter({
     // },
   ],
 });
+
 
 export default router;
