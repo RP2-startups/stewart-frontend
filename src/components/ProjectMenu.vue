@@ -136,12 +136,7 @@ export default defineComponent({
           id: 2,
           name: "Integrantes",
           comp: "members",
-        },
-        {
-          id: 3,
-          name: "Documentos",
-          comp: "posts",
-        },
+        }
       ],
       itemsSocial: [
         {
