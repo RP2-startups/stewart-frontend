@@ -35,7 +35,6 @@
 <style scoped>
 @import "@/assets/styles/base.css";
 
-
 .menu {
   padding: 0;
   margin: 0;
