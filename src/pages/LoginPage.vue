@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import RegisterModal from "../pages/RegisterPage.vue";
+import  {loginStore}  from "@/store/loginStore";
 </script>
 
 <template>
@@ -198,6 +199,7 @@ export default defineComponent({
       this.password == "" || this.password.length < 8
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
+        loginStore.value.setLogged()
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
