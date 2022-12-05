@@ -14,11 +14,11 @@
         <div class="item-buttons">
           <img
             src="@/assets/icons/correct.svg"
-            @click="inviteResponse(true)"
+            @click="inviteResponse(true,item.id)"
           />
           <img
             src="@/assets/icons/alpha-x-circle-outline.svg"
-            @click="inviteResponse(false)"
+            @click="inviteResponse(false,item.id)"
           />
         </div>
       </li>
@@ -28,7 +28,6 @@
 
 <style scoped>
 @import "../assets/styles/base.css";
-
 
 .list-item {
   padding: 1rem;
@@ -85,6 +84,7 @@
 </style>
 
 <script lang="ts">
+import ProjectDataService from "@/services/ProjectDataService";
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
@@ -125,12 +125,25 @@ export default defineComponent({
     };
   },
   methods : {
-    inviteResponse(isAccepted : boolean){
+    inviteResponse(isAccepted : boolean, projectId : number){
+        const project = {project_id: projectId}
         if(isAccepted){
+            ProjectDataService.accept(project).
+            then(resp => { 
 
-        } else[
-            
-        ]
+            })
+            .catch(e =>{ 
+                console.log(e)
+            })
+        } else{
+            ProjectDataService.reject(project).
+            then(resp => { 
+
+            })
+            .catch(e =>{ 
+                console.log(e)
+            })
+        }
     }
   }
 });

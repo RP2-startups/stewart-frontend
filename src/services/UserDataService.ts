@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class UserDataService {
-  logout(login: {}) {
-    return http.post("/logout", login);
+  logout() {
+    return http.post("/logout");
   }
 
   login(login: {}) {
@@ -11,6 +11,10 @@ class UserDataService {
 
   create(data: FormData) {
     return http.post("/user", data);
+  }
+
+  user(){
+    return http.get("/user")
   }
 
   
