@@ -2,7 +2,7 @@
 import { RouterLink } from "vue-router";
 import LoginModal from "../pages/LoginPage.vue";
 import SearchBar from "./SearchBar.vue";
-import {loginStore } from "@/store/loginStore"
+import { loginStore } from "@/store/loginStore"
 </script>
 
 <template>
@@ -17,14 +17,14 @@ import {loginStore } from "@/store/loginStore"
       <button v-if="!loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
-      <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()"/>
+      <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
     </div>
   </section>
   <div class="dropdown-logged" v-if="dropdownView" :class="`${isSticked ? 'down' : ''}`">
     <div class=" ">
       <p class="dropdown-item">Meu Perfil</p>
       <p class="dropdown-item">Meus Projetos</p>
-      <hr/>
+      <hr />
       <p class="dropdown-item text-danger" @click="logout()"><b>Deslogar</b></p>
     </div>
   </div>
@@ -37,17 +37,27 @@ import {loginStore } from "@/store/loginStore"
 
 <style scoped>
 @import "../assets/styles/base.css";
+
 .modal {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
+position: fixed;
+z-index: 9998;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: table;
 }
+/* Para o <Transition> do Vue */
+.modal-enter-active,
+.modal-leave-active {
+transition: width 0.3s linear, opacity 0.3s linear;
+}
+.modal-enter-from,
+.modal-leave-to {
+width: 0px;
+opacity: 0;
+}
+
 .menu {
   padding: 3rem;
   margin: 0;
@@ -74,11 +84,11 @@ import {loginStore } from "@/store/loginStore"
   background-color: #071f35f8;
 }
 
-.down{
+.down {
   margin-top: 4.5rem;
 }
 
-.dropdown-logged{
+.dropdown-logged {
   width: 20rem;
   background-color: #082846f8;
   position: fixed;
@@ -88,7 +98,7 @@ import {loginStore } from "@/store/loginStore"
   border-radius: 1rem;
 }
 
-.dropdown-item{
+.dropdown-item {
   cursor: pointer;
   padding-left: 1rem;
 }
@@ -125,7 +135,7 @@ import {loginStore } from "@/store/loginStore"
   margin-top: 3rem;
 }
 
-.img-login{
+.img-login {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
@@ -151,14 +161,10 @@ import {loginStore } from "@/store/loginStore"
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import UserDataService from "@/services/UserDataService";
 export default defineComponent({
-  props: {
-    visibility: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  mounted() {
+  components: { SearchBar },
+  created() {
     window.addEventListener("scroll", this.handleScroll);
   },
   data() {
@@ -168,14 +174,14 @@ export default defineComponent({
       selectedIndex: 0,
       items: [{ id: 0, icon: "", name: "", comp: "" }],
       open: false,
-      profilePicture : "",
+      profilePicture: "",
       isSticked: false,
       dropdownView: false
     };
   },
   watch: {
-    $route (to, from){
-       
+    $route(to, from) {
+
     }
   },
 
@@ -190,21 +196,30 @@ export default defineComponent({
           element.classList.remove("sticky");
           this.isSticked = false
         }
-        
+
       }
     },
-    getUrl(path: String){
-       if(path == "") 
+    getUrl(path: String) {
+      if (path == "")
         path = "user-circle-outline.svg"
-       return new URL(`../assets/icons/${path}`, import.meta.url).href
+      return new URL(`../assets/icons/${path}`, import.meta.url).href
     },
-    toggleDropdown(){
+    toggleDropdown() {
       this.dropdownView = !this.dropdownView
-    }, 
-    logout(){
-      loginStore.value.setUnlogged()
-      this.dropdownView = false
-     
+    },
+    logout() {
+      const login = {
+        email: loginStore.value.email
+      }
+      UserDataService.logout(login)
+        .then(response => {
+          loginStore.value.setUnlogged()
+          this.dropdownView = false
+        })
+        .catch((e: any) => {
+          console.log(e)
+        });
+
     }
   }
 });

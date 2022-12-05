@@ -3,16 +3,11 @@
 <!-- name email photo pass about -->
 <template>
   <div class="form">
-    <header class="row">
-      <button @click="$emit('close')" class="col-md-1 btn">
-        <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
-      </button>
-      <h2 class="text-center mb-5 title-login col-md-11 col-sm-8">REGISTRE-SE</h2>
-    </header>
+    <h2 class="text-center mb-5 title-login">REGISTRE-SE</h2>
 
     <b-form>
       <div class="row">
-        <div class="col-md-5 col-sm-4 form-wrapper mobile-space">
+        <div class="col-md-8 col-sm-8 form-wrapper mobile-space">
           <div class="container">
             <!-- NOME -->
             <b-form-group label-for="name">
@@ -20,7 +15,7 @@
                 Nome
               </label>
               <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" 
-              placeholder="Tyler" v-model="name" required>
+              placeholder="Tyler" v-model="user.name" required>
             </b-form-group>
             <p class="errorMessage" :class="{ disable: nameValid, }">
               Insira um nome válido
@@ -31,17 +26,14 @@
               <label class="d-flex">
                 Sobre (opcional)
               </label>
-              <textarea class="form-control" rows="5" v-model="about" placeholder="Um pouco sobre mim..."></textarea>
+              <textarea class="form-control" rows="3" v-model="user.about" placeholder="Um pouco sobre mim..."></textarea>
             </b-form-group>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-4 form-wrapper mobile-space">
+          
           <!-- EMAIL -->
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> E-mail </label>
             <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }"
-              placeholder="tyler@email.com" v-model="email" required>
+              placeholder="tyler@email.com" v-model="user.email" required>
           </b-form-group>
 
           <p class="errorMessage" :class="{ disable: emailValid, }">
@@ -53,16 +45,16 @@
             <label class="d-flex justify-content-between">
               Senha
             </label>
-            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required>
           </b-form-group>
           <p class="errorMessage" :class="{ disable: passwordValid }">Senha precisa ter mais de 8 caracteres</p>
         </div>
-
-        <div class="col-md-3 col-sm-3 form-wrapper">
+      </div>
+        <div class="col-md-4 col-sm-4 form-wrapper">
           <div class="d-flex justify-content-center mb-4">
-            <img  class="rounded-circle"
-              alt="Profile avatar" :src="imgSrc" style="width: 10rem; height: 10rem;" />
+            <img  class="rounded-circle profile"
+              alt="Profile avatar" :src="profile_src" style="width: 10rem; height: 10rem;" />
           </div>
           <div class="d-flex justify-content-center">
             <div class="btn btn-primary btn-rounded">
@@ -72,8 +64,13 @@
           </div>
         </div>
       </div>
-      <div class="noHover btn btn-wrapper-login p-0">
-        <button class="btn btn-login" @click="login">CADASTRAR</button>
+      <b-alert
+      :show="registerSuccess"
+      dismissible
+      variant="success"
+    >Cadastrado com sucesso!</b-alert>
+      <div class="noHover btn btn-wrapper-login p-0 d-flex justify-content-center">
+        <button class="btn btn-login mt-2" @click="saveUser">CADASTRAR</button>
       </div>
     </b-form>
   </div>
@@ -86,10 +83,10 @@ textarea {
 
 .form {
   background-color: var(--color-cream);
-  width: 80%;
+  width: 90%;
   position: relative;
   margin: 10% auto;
-  padding: 5px 20px 13px 20px;
+  padding: 5px 10px 13px 10px;
   border-radius: 10px;
 }
 
@@ -128,7 +125,6 @@ textarea {
 }
 
 .title-login {
-  margin-top: 40px;
   color: var(--color-textonwhite);
 }
 
@@ -162,29 +158,55 @@ textarea {
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import UserDataService from "../services/UserDataService";
+
 export default defineComponent({
   data() {
     return {
       nameValid: true,
       emailValid: true,
       passwordValid: true,
-      name: "",
-      about: "",
-      password: "",
-      email: "",
-      imgSrc: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        profile_picture: "",        
+        about: "",
+      },
+      profile_src: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
       screenHeigth: innerHeight,
-      prevPage: ""
+      registerSuccess: false
     };
   },
   mounted: function () {
     window.addEventListener('resize', this.adjustHeight);
   },
   methods: {
-    login() {
-      this.name == "" ? this.nameValid = false : this.nameValid = true,
-        this.email == "" || !this.email.includes("@") ? this.emailValid = false : this.emailValid = true,
-        this.password == "" || this.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
+    saveUser() {
+      this.user.name == "" ? this.nameValid = false : this.nameValid = true,
+      this.user.email == "" || !this.user.email.includes("@") ? this.emailValid = false : this.emailValid = true,
+      this.user.password == "" || this.user.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
+      if(!this.nameValid || !this.emailValid || !this.passwordValid) return;
+      const data = new FormData();
+      data.append("name", this.user.name);
+      data.append("email", this.user.email);
+      data.append("password", this.user.password);
+      data.append("profileImage", this.user.profile_picture);
+      data.append("about", this.user.about);
+      
+      UserDataService.create(data)
+        .then(response => {
+            this.user.name = ""
+            this.user.email = ""
+            this.user.password = ""
+            this.user.profile_picture = ""
+            this.user.about = ""
+            this.registerSuccess = true
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
+        
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
@@ -192,7 +214,8 @@ export default defineComponent({
     onFile(e: any) {
       const file = e.target.files[0]
       if (file) {
-        this.imgSrc = URL.createObjectURL(file)
+        this.user.profile_picture = file;
+        this.profile_src = URL.createObjectURL(file)
       }
     }
   }

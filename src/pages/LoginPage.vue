@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import RegisterModal from "../pages/RegisterPage.vue";
-import  {loginStore}  from "@/store/loginStore";
 </script>
 
 <template>
   <div class="row asa" :style="{ 'height': `${screenHeigth}px` }">
     <div class="col-md-5 col-sd-12 nopadding form">
-      <button @click="$emit('close')" class="btn">
+      <button @click="handleClose" class="btn">
         <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
       </button>
-      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space">
+      <div v-if="openReg">
+              <RegisterModal ref="registerModal" />
+      </div>
+      <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space" v-if="openLog">
         <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
         <b-form>
           <!-- EMAIL -->
           <b-form-group label-for="email">
             <label class="d-flex justify-content-between"> Email </label>
             <input type="text" class="form-control" :class="{ 'is-invalid': !emailValid }"
-              placeholder="jorginho@gameplays.com" v-model="email" required />
+              placeholder="jorginho@gameplays.com" v-model="user.email" required />
           </b-form-group>
 
           <p class="errorMessage" :class="{
@@ -30,31 +32,23 @@ import  {loginStore}  from "@/store/loginStore";
               Senha
               <small><a href="#">Esqueceu sua senha?</a></small>
             </label>
-            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="password"
+            <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required />
           </b-form-group>
           <p class="errorMessage" :class="{ disable: passwordValid }">
             Senha precisa ter mais de 8 caracteres
           </p>
+          <p class="errorMessage" :class="{ disable: loginValid }">
+            Email e/ou senha incorretos!
+          </p>
           <div class="noHover btn btn-wrapper-login p-0">
             <button class="btn btn-login" @click="login">ENTRAR</button>
           </div>
           <hr />
-          
-            <button class="btn btn-register" @click="(openReg = true)">REGISTRAR-SE</button>
-          <Transition name="modal">
-            <div v-if="openReg" class="modal">
-              <RegisterModal @close="openReg = false" />
-            </div>
-          </Transition>
+            <button class="btn btn-register" @click="openReg = true; openLog = false">REGISTRAR-SE</button>
         </b-form>
       </div>
     </div>
-    <div class="col-7 nopadding d-none d-md-block">
-      <img class="login_image"
-        src="https://as1.ftcdn.net/v2/jpg/01/99/42/28/1000_F_199422875_2RLcAaIQ6S2G0yis7okytByh1SaB2ZNv.jpg" />
-    </div>
-
   </div>
 </template>
 
@@ -146,10 +140,10 @@ import  {loginStore}  from "@/store/loginStore";
 }
 
 .back-arrow {
-  margin-top: 20px;
+  margin-top: 15px;
   margin-left: 10px;
-  width: 90px;
-  height: 90px;
+  width: 50px;
+  height: 50px;
 }
 
 .back-arrow :hover {
@@ -175,17 +169,21 @@ import  {loginStore}  from "@/store/loginStore";
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { emit } from "process";
+import UserDataService from "@/services/UserDataService";
+import  { loginStore }  from "@/store/loginStore";
+
 export default defineComponent({
   data() {
     return {
       emailValid: true,
       passwordValid: true,
-      password: "",
-      email: "",
+      loginValid: true,
+      user: {
+        email: "",
+        password: ""
+      },
       screenHeigth: innerHeight,
-      prevPage: "",
-      open: false,
+      openLog: true,
       openReg: false
     };
   },
@@ -195,15 +193,38 @@ export default defineComponent({
   },
   methods: {
     login() {
-      this.email == "" ? (this.emailValid = false) : (this.emailValid = true);
-      this.password == "" || this.password.length < 8
+      this.user.email == "" ? (this.emailValid = false) : (this.emailValid = true);
+      this.user.password == "" || this.user.password.length < 8
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
-        loginStore.value.setLogged()
+
+      const login = {
+        email: this.user.email,
+        password: this.user.password
+      }
+
+      UserDataService.login(login)
+        .then(response => {
+          loginStore.value.email = this.user.email;
+          loginStore.value.setLogged();
+          this.$emit("close");
+        })
+        .catch((e: any) => {
+          this.loginValid = false;
+        });
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
     },
+    handleClose() {
+      if(this.openReg) {
+        this.openReg = !this.openReg;
+        this.openLog = !this.openLog;
+      }
+      else
+        this.$emit("close");
+      console.log(this.openReg)
+    }
   },
 });
 </script>

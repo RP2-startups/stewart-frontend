@@ -8,7 +8,9 @@ import SideBar from "./components/SideBar.vue";
 <template>
     <SideBar/>
     <NavBar />
-    <RouterView />
+    <div style="margin-left: 72px">
+        <RouterView />
+    </div>
     <FooterItem />
 </template>
 
