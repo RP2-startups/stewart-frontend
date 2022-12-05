@@ -6,6 +6,7 @@
     --color-background-dark: #000F22;
     --color-background-dark-hover: #022553;
     --color-background-dark-hover-hover: #083166;
+    --color-translucent-background-dark: #000f2260;
     --color-text-light: #FFFFFF;
     --color-pink: #E94560;
     --color-translucent-pink: #E9456081;
@@ -14,7 +15,8 @@
     --color-cream-hover: #dfdfdf;
     --color-textonwhite: #16213E;
     --color-light-blue:#375E97;
-    --color-purple:#533483;
+    --color-purple:#5d3483;
+    --color-purple-dark:#442f5f;
 }
 .page-section-title{
     font-size: larger;

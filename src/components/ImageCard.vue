@@ -16,6 +16,7 @@
   border-radius: 3px;
   min-width: var(--width);
   min-height: var(--height);
+  max-height: var(--height);
   font-family: 'Jost';
 }
 
@@ -44,7 +45,7 @@
   font-weight: bold;
   line-height: 20px;
   text-align: justify;
-  text-overflow:clip;
+  text-overflow: clip;
   overflow: auto;
   margin-top: 3px;
   margin-left: 1rem;
@@ -93,7 +94,7 @@
   data() {
     return {
       bodyText: this.body,
-      maxDescLength: 290,
+      maxDescLength: 280,
     };
   },
   mounted() {
@@ -107,7 +108,6 @@
         charsUntilNewspace++
       this.bodyText = this.body.slice(0, this.maxDescLength - charsUntilNewspace);
       this.bodyText += "..."
-      console.log(this.title, this.bodyText)
     }
   },
   computed: {
