@@ -39,15 +39,23 @@ import { loginStore } from "@/store/loginStore"
 @import "../assets/styles/base.css";
 
 .modal {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
+position: fixed;
+z-index: 9998;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: table;
+}
+/* Para o <Transition> do Vue */
+.modal-enter-active,
+.modal-leave-active {
+transition: width 0.3s linear, opacity 0.3s linear;
+}
+.modal-enter-from,
+.modal-leave-to {
+width: 0px;
+opacity: 0;
 }
 
 .menu {
