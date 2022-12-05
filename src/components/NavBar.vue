@@ -14,17 +14,18 @@ import { loginStore } from "@/store/loginStore"
       <div>
         <SearchBar />
       </div>
-      <button v-if="!loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
+      <button v-if="loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
       <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
     </div>
   </section>
   <div class="dropdown-logged" v-if="dropdownView" :class="`${isSticked ? 'down' : ''}`">
-    <div class=" ">
+    <div class="drop">
       <p class="dropdown-item">Meu Perfil</p>
       <p class="dropdown-item">Meus Projetos</p>
-      <hr />
+      <RouterLink to="/notifications" class="link"><p class="dropdown-item"><div class="round">4</div>Notificações</p></RouterLink>
+      <hr/>
       <p class="dropdown-item text-danger" @click="logout()"><b>Deslogar</b></p>
     </div>
   </div>
@@ -88,19 +89,45 @@ opacity: 0;
   margin-top: 4.5rem;
 }
 
-.dropdown-logged {
+.link{
+  text-decoration:none;
+  color: white;
+}
+
+.dropdown-logged{
   width: 20rem;
   background-color: #082846f8;
   position: fixed;
   right: 0;
+ 
   padding: 1rem;
   margin-right: 0.5rem;
   border-radius: 1rem;
 }
 
-.dropdown-item {
+.round{
+  height: 25px;
+  width: 25px;
+  background-color: rgb(5, 92, 223);
+  border-radius: 50%;
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.dropdown-item{
+ 
+  display: flex;
   cursor: pointer;
   padding-left: 1rem;
+  z-index: 999;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.drop :hover{
+  background-color: #13497cf8;
 }
 
 
