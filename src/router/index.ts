@@ -7,6 +7,7 @@ import Project from "@/pages/Project.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
 import ProjectList from "@/pages/ProjectList.vue";
+import Notification from "@/pages/NotificationPage.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -46,6 +47,11 @@ const router = createRouter({
       path: "/project",
       name: "Project Page",
       component: Project,
+    },
+    {
+      path: "/notifications",
+      name: "Notification Page",
+      component: Notification,
     },
     {
       path: "/about",
