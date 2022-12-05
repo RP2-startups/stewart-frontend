@@ -5,11 +5,11 @@ import RegisterModal from "../pages/RegisterPage.vue";
 <template>
   <div class="row asa" :style="{ 'height': `${screenHeigth}px` }">
     <div class="col-md-5 col-sd-12 nopadding form">
-      <button @click="$emit('close')" class="btn">
+      <button @click="handleClose" class="btn">
         <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
       </button>
       <div v-if="openReg">
-              <RegisterModal/>
+              <RegisterModal ref="registerModal" />
       </div>
       <div class="col-md-6 offset-md-3 col-sm-4 offset-sm-4 form-wrapper mobile-space" v-if="openLog">
         <h2 class="text-center mb-5 title-login">FAÇA O LOGIN</h2>
@@ -45,10 +45,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
             <button class="btn btn-login" @click="login">ENTRAR</button>
           </div>
           <hr />
-          
             <button class="btn btn-register" @click="openReg = true; openLog = false">REGISTRAR-SE</button>
-            
-            
         </b-form>
       </div>
     </div>
@@ -205,7 +202,7 @@ export default defineComponent({
         email: this.user.email,
         password: this.user.password
       }
-      
+
       UserDataService.login(login)
         .then(response => {
           loginStore.value.email = this.user.email;
@@ -218,6 +215,15 @@ export default defineComponent({
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
+    },
+    handleClose() {
+      if(this.openReg) {
+        this.openReg = !this.openReg;
+        this.openLog = !this.openLog;
+      }
+      else
+        this.$emit("close");
+      console.log(this.openReg)
     }
   },
 });
