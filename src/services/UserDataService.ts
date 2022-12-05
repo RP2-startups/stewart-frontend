@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class UserDataService {
-  getAll() {
-    return http.get("/user");
+  logout(login: {}) {
+    return http.post("/logout", login);
   }
 
   login(login: {}) {

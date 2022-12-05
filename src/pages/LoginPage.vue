@@ -172,7 +172,8 @@ import RegisterModal from "../pages/RegisterPage.vue";
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import UserDataService from "../services/UserDataService";
+import UserDataService from "@/services/UserDataService";
+import  { loginStore }  from "@/store/loginStore";
 
 export default defineComponent({
   data() {
@@ -207,7 +208,9 @@ export default defineComponent({
       
       UserDataService.login(login)
         .then(response => {
-            this.$emit("close");
+          loginStore.value.email = this.user.email;
+          loginStore.value.setLogged();
+          this.$emit("close");
         })
         .catch((e: any) => {
           this.loginValid = false;
