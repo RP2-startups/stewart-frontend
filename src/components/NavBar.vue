@@ -14,7 +14,7 @@ import { loginStore } from "@/store/loginStore"
       <div>
         <SearchBar />
       </div>
-      <button v-if="!loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
+      <button v-if="loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
       <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
@@ -90,7 +90,8 @@ import { loginStore } from "@/store/loginStore"
   background-color: #071f35f8;
 }
 
-.down {
+.down{
+
   margin-top: 4.5rem;
 }
 
