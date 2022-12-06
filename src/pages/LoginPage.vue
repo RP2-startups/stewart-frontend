@@ -30,7 +30,6 @@ import RegisterModal from "../pages/RegisterPage.vue";
           <b-form-group label-for="password">
             <label class="d-flex justify-content-between">
               Senha
-              <small><a href="#">Esqueceu sua senha?</a></small>
             </label>
             <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required />
@@ -41,7 +40,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
           <p class="errorMessage" :class="{ disable: loginValid }">
             E-mail e/ou senha incorretos!
           </p>
-          <div class="noHover btn btn-wrapper-login p-0">
+          <div class="btn btn-wrapper-login p-0">
             <button class="btn btn-login" @click="login">ENTRAR</button>
           </div>
           <hr />
@@ -204,11 +203,9 @@ export default defineComponent({
 
       UserDataService.login(login)
         .then(response => {
-          UserDataService.getLogin().then(response => {
-            console.log(response)
-          }).catch((e: any) => console.log(e));
           loginStore.value.setLogged();
           this.$emit("close");
+          this.$emit("getUserdata")
         })
         .catch((e: any) => {
           this.loginValid = false;

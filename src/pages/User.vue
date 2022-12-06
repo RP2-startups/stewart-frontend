@@ -9,8 +9,7 @@
                 <label class="mb-1">
                     Nome
                 </label>
-                <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" v-model="name"
-                    required>
+                <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" v-model="name">
                 <p class="errorMessage" v-if="!nameValid">
                     Campo Nome é obrigatório!
                 </p>
@@ -18,8 +17,7 @@
                 <label class="mb-1">
                     E-mail
                 </label>
-                <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }"
-                    placeholder="tyler@email.com" v-model="email" required>
+                <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }" v-model="email">
 
                 <p class="errorMessage" v-if="!emailValid" >
                     Insira um e-mail válido

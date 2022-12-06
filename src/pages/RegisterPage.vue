@@ -66,7 +66,7 @@
       dismissible
       variant="success"
     >Cadastrado com sucesso!</b-alert>
-      <div class="noHover btn btn-wrapper-register p-0 d-flex justify-content-center">
+      <div class="btn btn-wrapper-register p-0 d-flex justify-content-center">
         <button class="btn btn-register mt-2" @click="saveUser">CADASTRAR</button>
       </div>
     </b-form>

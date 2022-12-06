@@ -70,13 +70,12 @@
         </div>
       </div>
       
-      <button class="row btn-register btn mt-2 mb-4" @click="">CADASTRAR</button>
+      <button class="btn-register mt-2 mb-4" @click="">CADASTRAR</button>
     </div>
   </div>
 </template>
 
 <style>
-@import "@/assets/styles/base.css";
 
 .btn-register {
   background: #533483;
@@ -93,6 +92,11 @@
   color: var(--color-cream);
 }
 
+.btn-register:hover {
+  background: #32007e !important;
+  color: var(--color-text-light) !important;
+}
+
 .register-container {
   width: 65%;
   min-width: 800px;
@@ -100,18 +104,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.input-container {
-  height: 2rem;
-  width: 60%;
-  background-color: white;
-}
-
-.input-register {
-  height: 100%;
-  width: 100%;
-  border: none;
 }
 </style>
 <script lang="ts">

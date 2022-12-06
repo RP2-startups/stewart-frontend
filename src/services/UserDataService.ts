@@ -6,10 +6,7 @@ class UserDataService {
   }
 
   login(login: {}) {
-    return http.post("/login", login)
-    .then(response => {
-      http.get("/user");
-    });
+    return http.post("/login", login);
   }
 
   create(data: FormData) {
