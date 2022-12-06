@@ -5,11 +5,11 @@
 <template>
   <div ref="section" class="section">
     <div class="d-flex section-title" @click="isCollapsed = !isCollapsed" data-bs-toggle="collapse"
-    role="button" data-bs-target="#projectsCollapse" aria-expanded="true" aria-controls="projectsCollapse">
+    role="button" data-bs-target="#boxCollapse" aria-expanded="true" aria-controls="boxCollapse">
       <p class="flex-fill"> {{ title }} </p>
       <img src="../assets/images/arrow-back-white.png" class="collapse-arrow" :class="{'collapsed-arrow': isCollapsed}">
     </div>
-    <div class="collapse show section-hovered" id="projectsCollapse">
+    <div class="collapse show section-hovered" id="boxCollapse">
       <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
         <div class="col" v-for="card in cards">
           <ImageCard class="pt-1" :width="cardWidth" :height="cardHeight"
@@ -64,7 +64,7 @@
     padding-right: 3rem;
     height: 800px;
   }
-  #projectsCollapse {
+  #boxCollapse {
     background-color: var(--color-translucent-background-dark);
     border-width: 2px;
     border-top-width: 0px;
