@@ -8,6 +8,7 @@ import Members from "@/subpages/Members.vue";
 import About from "@/pages/About.vue";
 import Contact from "@/pages/Contact.vue";
 import ProjectList from "@/pages/ProjectList.vue";
+import Notification from "@/pages/NotificationPage.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -65,6 +66,16 @@ const router = createRouter({
             components: About
         },
       ]
+    },
+    {
+      path: "/notifications",
+      name: "Notification Page",
+      component: Notification,
+    },
+    {
+      path: "/notifications",
+      name: "Notification Page",
+      component: Notification,
     },
     {
       path: "/about",

@@ -21,16 +21,20 @@ import { loginStore } from "@/store/loginStore"
     </div>
   </section>
   <div class="dropdown-logged" v-if="dropdownView" :class="`${isSticked ? 'down' : ''}`">
-    <div class=" ">
+    <div class="drop">
       <p class="dropdown-item">Meu Perfil</p>
       <p class="dropdown-item">Meus Projetos</p>
+      <RouterLink to="/notifications" class="link">
+        <p class="dropdown-item">
+        <div class="round">4</div>Notificações</p>
+      </RouterLink>
       <hr />
       <p class="dropdown-item text-danger" @click="logout()"><b>Deslogar</b></p>
     </div>
   </div>
   <Transition name="modal">
     <div v-if="open" class="modal">
-      <LoginModal @close="open = false" />
+      <LoginModal @close="open = false" @getUserdata="getUserData()" />
     </div>
   </Transition>
 </template>
@@ -39,23 +43,25 @@ import { loginStore } from "@/store/loginStore"
 @import "../assets/styles/base.css";
 
 .modal {
-position: fixed;
-z-index: 9998;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-display: table;
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: table;
 }
+
 /* Para o <Transition> do Vue */
 .modal-enter-active,
 .modal-leave-active {
-transition: width 0.3s linear, opacity 0.3s linear;
+  transition: width 0.3s linear, opacity 0.3s linear;
 }
+
 .modal-enter-from,
 .modal-leave-to {
-width: 0px;
-opacity: 0;
+  width: 0px;
+  opacity: 0;
 }
 
 .menu {
@@ -84,8 +90,14 @@ opacity: 0;
   background-color: #071f35f8;
 }
 
-.down {
+.down{
+
   margin-top: 4.5rem;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }
 
 .dropdown-logged {
@@ -93,14 +105,35 @@ opacity: 0;
   background-color: #082846f8;
   position: fixed;
   right: 0;
+
   padding: 1rem;
   margin-right: 0.5rem;
   border-radius: 1rem;
 }
 
+.round {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(5, 92, 223);
+  border-radius: 50%;
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .dropdown-item {
+
+  display: flex;
   cursor: pointer;
   padding-left: 1rem;
+  z-index: 999;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.drop :hover {
+  background-color: #13497cf8;
 }
 
 
@@ -162,6 +195,7 @@ opacity: 0;
 <script lang="ts">
 import { defineComponent } from "vue";
 import UserDataService from "@/services/UserDataService";
+import ProjectDataService from "@/services/ProjectDataService";
 export default defineComponent({
   components: { SearchBar },
   created() {
@@ -181,6 +215,10 @@ export default defineComponent({
   },
   watch: {
     $route(to, from) {
+      if (loginStore.value.isLogged) {
+        this.getUserData()
+        this.getParticipations()
+      }
 
     }
   },
@@ -207,11 +245,20 @@ export default defineComponent({
     toggleDropdown() {
       this.dropdownView = !this.dropdownView
     },
+    getUserData() {
+      UserDataService.user()
+        .then(response => {
+          console.log(response)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     logout() {
       const login = {
         email: loginStore.value.email
       }
-      UserDataService.logout(login)
+      UserDataService.logout()
         .then(response => {
           loginStore.value.setUnlogged()
           this.dropdownView = false
@@ -219,7 +266,15 @@ export default defineComponent({
         .catch((e: any) => {
           console.log(e)
         });
-
+    },
+    getParticipations() {
+      ProjectDataService.participations()
+      .then(response =>{
+        console.log(response)
+      })
+      .catch(e => {
+        console.log(e)
+      })
     }
   }
 });

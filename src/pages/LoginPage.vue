@@ -208,6 +208,7 @@ export default defineComponent({
           loginStore.value.email = this.user.email;
           loginStore.value.setLogged();
           this.$emit("close");
+          this.$emit("getUserdata")
         })
         .catch((e: any) => {
           this.loginValid = false;
@@ -223,7 +224,6 @@ export default defineComponent({
       }
       else
         this.$emit("close");
-      console.log(this.openReg)
     }
   },
 });
