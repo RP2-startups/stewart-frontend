@@ -3,7 +3,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
 </script>
 
 <template>
-  <div class="row asa" :style="{ 'height': `${screenHeigth}px` }">
+  <div class="row overflow-hidden" :style="{ 'height': `${screenHeigth}px` }">
     <div class="col-md-5 col-sd-12 nopadding form">
       <button @click="handleClose" class="btn">
         <img src="../assets/images/arrow-back-black.png" class="back-arrow" />
@@ -16,7 +16,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
         <b-form>
           <!-- EMAIL -->
           <b-form-group label-for="email">
-            <label class="d-flex justify-content-between"> Email </label>
+            <label class="d-flex justify-content-between"> E-mail </label>
             <input type="text" class="form-control" :class="{ 'is-invalid': !emailValid }"
               placeholder="jorginho@gameplays.com" v-model="user.email" required />
           </b-form-group>
@@ -24,7 +24,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
           <p class="errorMessage" :class="{
             disable: emailValid,
           }">
-            Insira um email válido
+            Insira um e-mail válido
           </p>
           <!-- SENHA -->
           <b-form-group label-for="password">
@@ -39,7 +39,7 @@ import RegisterModal from "../pages/RegisterPage.vue";
             Senha precisa ter mais de 8 caracteres
           </p>
           <p class="errorMessage" :class="{ disable: loginValid }">
-            Email e/ou senha incorretos!
+            E-mail e/ou senha incorretos!
           </p>
           <div class="noHover btn btn-wrapper-login p-0">
             <button class="btn btn-login" @click="login">ENTRAR</button>
@@ -63,9 +63,6 @@ import RegisterModal from "../pages/RegisterPage.vue";
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
-}
-.asa {
-  overflow: hidden;
 }
 
 .login_image {
@@ -198,6 +195,8 @@ export default defineComponent({
         ? (this.passwordValid = false)
         : (this.passwordValid = true);
 
+      if (!this.passwordValid || !this.emailValid) return;
+
       const login = {
         email: this.user.email,
         password: this.user.password
@@ -205,13 +204,16 @@ export default defineComponent({
 
       UserDataService.login(login)
         .then(response => {
-          loginStore.value.email = this.user.email;
+          UserDataService.getLogin().then(response => {
+            console.log(response)
+          }).catch((e: any) => console.log(e));
           loginStore.value.setLogged();
           this.$emit("close");
         })
         .catch((e: any) => {
           this.loginValid = false;
         });
+        
     },
     adjustHeight() {
       this.screenHeigth = window.innerHeight
@@ -223,7 +225,6 @@ export default defineComponent({
       }
       else
         this.$emit("close");
-      console.log(this.openReg)
     }
   },
 });

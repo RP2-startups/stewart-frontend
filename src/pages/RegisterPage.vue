@@ -3,7 +3,7 @@
 <!-- name email photo pass about -->
 <template>
   <div class="form">
-    <h2 class="text-center mb-5 title-login">REGISTRE-SE</h2>
+    <h2 class="text-center mb-4 title-register">REGISTRE-SE</h2>
 
     <b-form>
       <div class="row">
@@ -16,10 +16,9 @@
               </label>
               <input type="text" class="form-control" :class="{ 'is-invalid': !nameValid }" 
               placeholder="Tyler" v-model="user.name" required>
+              <p class="errorMessage" v-if="!nameValid">Nome é obrigatório!</p>
             </b-form-group>
-            <p class="errorMessage" :class="{ disable: nameValid, }">
-              Insira um nome válido
-            </p>
+            
 
             <!-- SOBRE -->
             <b-form-group label-for="about">
@@ -34,11 +33,8 @@
             <label class="d-flex justify-content-between"> E-mail </label>
             <input type="text" class="form-control " :class="{ 'is-invalid': !emailValid }"
               placeholder="tyler@email.com" v-model="user.email" required>
+              <p class="errorMessage" v-if="!emailValid">Insira um e-mail válido</p>
           </b-form-group>
-
-          <p class="errorMessage" :class="{ disable: emailValid, }">
-            Insira um e-mail válido
-          </p>
 
           <!-- SENHA -->
           <b-form-group label-for="password">
@@ -47,13 +43,14 @@
             </label>
             <input type="password" class="form-control" :class="{ 'is-invalid': !passwordValid }" v-model="user.password"
               required>
+          <p class="errorMessage" v-if="!passwordValid">Senha precisa ter mais de 8 caracteres</p>
           </b-form-group>
-          <p class="errorMessage" :class="{ disable: passwordValid }">Senha precisa ter mais de 8 caracteres</p>
+
         </div>
       </div>
         <div class="col-md-4 col-sm-4 form-wrapper">
           <div class="d-flex justify-content-center mb-4">
-            <img  class="rounded-circle profile"
+            <img  class="img-fruid img-thumbnail profile"
               alt="Profile avatar" :src="profile_src" style="width: 10rem; height: 10rem;" />
           </div>
           <div class="d-flex justify-content-center">
@@ -69,8 +66,8 @@
       dismissible
       variant="success"
     >Cadastrado com sucesso!</b-alert>
-      <div class="noHover btn btn-wrapper-login p-0 d-flex justify-content-center">
-        <button class="btn btn-login mt-2" @click="saveUser">CADASTRAR</button>
+      <div class="noHover btn btn-wrapper-register p-0 d-flex justify-content-center">
+        <button class="btn btn-register mt-2" @click="saveUser">CADASTRAR</button>
       </div>
     </b-form>
   </div>
@@ -97,7 +94,7 @@ textarea {
   color: var(--color-textonwhite);
 }
 
-.btn-login {
+.btn-register {
   background: #533483;
   padding-right: 2rem !important;
   padding-left: 2rem !important;
@@ -112,7 +109,7 @@ textarea {
   color: var(--color-cream);
 }
 
-.btn-wrapper-login :hover {
+.btn-wrapper-register :hover {
   background: #32007e !important;
   color: var(--color-text-light) !important;
 }
@@ -124,23 +121,19 @@ textarea {
   margin-left: 30px;
 }
 
-.title-login {
+.title-register {
   color: var(--color-textonwhite);
 }
 
 .errorMessage {
   color: var(--color-pink);
   font-size: 1rem;
-  margin-top: 0.5rem !important;
-  margin-bottom: 1.5rem;
-}
-
-.disable {
-  display: none;
+  margin-top: 0.2rem;
+  text-align: left;
 }
 
 @media screen and (max-width: 767px) {
-  .title-login {
+  .title-register {
     margin-top: 0px;
   }
   .mobile-space {
@@ -170,7 +163,7 @@ export default defineComponent({
         name: "",
         email: "",
         password: "",
-        profile_picture: "",        
+        profile_picture: "",
         about: "",
       },
       profile_src: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
@@ -187,6 +180,7 @@ export default defineComponent({
       this.user.email == "" || !this.user.email.includes("@") ? this.emailValid = false : this.emailValid = true,
       this.user.password == "" || this.user.password.length < 8 ? this.passwordValid = false : this.passwordValid = true
       if(!this.nameValid || !this.emailValid || !this.passwordValid) return;
+
       const data = new FormData();
       data.append("name", this.user.name);
       data.append("email", this.user.email);
