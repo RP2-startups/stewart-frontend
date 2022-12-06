@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight" :cardsProp="cards"
-    :notFoundText="'Nenhum projeto encontrado.'" />
+  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight"
+    :cardsProp="cards" title="Projetos:" :notFoundText="'Nenhum projeto encontrado.'" />
 </template>
 
 <style>

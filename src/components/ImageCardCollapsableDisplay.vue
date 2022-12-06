@@ -6,7 +6,7 @@
   <div ref="section" class="section">
     <div class="d-flex section-title" @click="isCollapsed = !isCollapsed" data-bs-toggle="collapse"
     role="button" data-bs-target="#projectsCollapse" aria-expanded="true" aria-controls="projectsCollapse">
-      <p class="flex-fill"> Projetos: </p>
+      <p class="flex-fill"> {{ title }} </p>
       <img src="../assets/images/arrow-back-white.png" class="collapse-arrow" :class="{'collapsed-arrow': isCollapsed}">
     </div>
     <div class="collapse show section-hovered" id="projectsCollapse">
@@ -95,6 +95,10 @@
       },
       cardsProp: {
         type: Array,
+        required: true
+      },
+      title: {
+        type: String,
         required: true
       },
       notFoundText: {
