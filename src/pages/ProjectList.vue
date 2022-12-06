@@ -4,7 +4,9 @@
 
 <template>
   <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight"
-    :cardsProp="cards" title="Projetos:" :notFoundText="'Nenhum projeto encontrado.'" />
+  :cardsProp="cardsProjs" title="Projetos:" notFoundText="Nenhum projeto encontrado." collapseId="collapseProj" />
+  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight"
+  :cardsProp="cardsUsers" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" />
 </template>
 
 <style>
@@ -21,6 +23,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ProjectDataService from "@/services/ProjectDataService";
+import UserDataService from "@/services/UserDataService";
 export default defineComponent({
     created() {
       this.query();
@@ -29,19 +32,34 @@ export default defineComponent({
       return {
         cardWidth: 240,
         cardHeight: 400,
-        cards: [] as Object[],
+        cardsProjs: [] as Object[],
+        cardsUsers: [] as Object[],
         reRender: true,
       };
     },
     methods: {
       query() {
-        this.cards = [];
+        this.cardsProjs = [];
         ProjectDataService.search(this.$route.params.input as string)
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
             let cardObj = { name: r.name, desc: r.description, icon: r.picture };
-            this.cards.push(cardObj);
+            this.cardsProjs.push(cardObj);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+        this.cardsUsers = [];
+        UserDataService.search(this.$route.params.input as string)
+        .then(response => {
+          console.log(response.data);
+          for(let i = 0; i < response.data.length; i++) {
+            let r = response.data[i];
+            let cardObj = { name: r.name, desc: r.about, icon: r.profile_picture };
+            this.cardsUsers.push(cardObj);
           }
         })
         .catch((e) => {
