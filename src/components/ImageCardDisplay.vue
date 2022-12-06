@@ -4,10 +4,10 @@
 
 <template>
   <div ref="section" class="section">
-    <div class="d-flex section-title" data-bs-toggle="collapse" role="button" data-bs-target="#projectsCollapse"
-    aria-expanded="true" aria-controls="projectsCollapse">
+    <div class="d-flex section-title" @click="isCollapsed = !isCollapsed" data-bs-toggle="collapse"
+    role="button" data-bs-target="#projectsCollapse" aria-expanded="true" aria-controls="projectsCollapse">
       <p class="flex-fill"> Projetos: </p>
-      <img src="../assets/images/arrow-back-white.png" class="collapse-arrow">
+      <img src="../assets/images/arrow-back-white.png" class="collapse-arrow" :class="{'collapsed-arrow': isCollapsed}">
     </div>
     <div class="collapse show section-hovered" id="projectsCollapse">
       <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
@@ -51,6 +51,11 @@
     width: 1.92rem;
     height: 2.5rem;
     transform: rotate(270deg);
+    transition: transform 0.1s ease;
+  }
+  .collapsed-arrow {
+    margin-top: 0.25rem;
+    transform: rotate(180deg);
   }
 
   .section-items {
@@ -99,6 +104,7 @@
     },
     data() {
       return {
+        isCollapsed: false,
         cards: [{ name: "", desc: "", icon: "" }],
         rowColsClass: 'row-cols-1',
       };
