@@ -70,7 +70,7 @@
         </div>
       </div>
       
-      <button class="btn-register mt-2 mb-4" @click="">CADASTRAR</button>
+      <button class="btn-register mt-2 mb-4" @click="registerProject">CADASTRAR</button>
     </div>
   </div>
 </template>
@@ -107,11 +107,15 @@
 }
 </style>
 <script lang="ts">
+import ProjectDataService from "@/services/ProjectDataService";
+import { projectStore } from "@/store/projectStore";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
     return {
+      nameValid: true,
+      aboutValid: true,
       project: {
         name: "",
         description: "",
@@ -136,6 +140,25 @@ export default defineComponent({
         this.project.project_picture = file;
         this.project_src = URL.createObjectURL(file)
       }
+    },
+    registerProject() {
+      this.project.name == "" ? (this.nameValid = false) : (this.nameValid = true);
+      this.project.description == "" ? (this.aboutValid = false) : (this.aboutValid = true);
+
+      if (!this.nameValid || !this.aboutValid) return;
+
+      const data = new FormData();
+      data.append("name", this.project.name);
+      data.append("description", this.project.description);
+      data.append("picture", this.project.project_picture);
+      data.append("background_picture", this.project.background_picture);
+
+      ProjectDataService.create(data)
+        .then(response => {
+          projectStore.value.projects;
+        })
+        .catch((e: any) => {
+        });
     }
   }
 })

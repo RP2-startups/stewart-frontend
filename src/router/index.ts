@@ -74,11 +74,6 @@ const router = createRouter({
       component: Notification,
     },
     {
-      path: "/notifications",
-      name: "Notification Page",
-      component: Notification,
-    },
-    {
       path: "/about",
       name: "About Page",
       component: About,

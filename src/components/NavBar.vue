@@ -22,10 +22,14 @@ import { loginStore } from "@/store/loginStore"
   </section>
   <div class="dropdown-logged" v-if="dropdownView" :class="`${isSticked ? 'down' : ''}`">
     <div class="drop">
-      <p class="dropdown-item">Meu Perfil</p>
       <RouterLink to="/user" class="link">
+        <p class="dropdown-item">Meu Perfil</p>
+      </RouterLink>
+
+      <RouterLink to="/project" class="link">
         <p class="dropdown-item">Meus Projetos</p>
       </RouterLink>
+
       <RouterLink to="/notifications" class="link">
         <p class="dropdown-item">
         <div class="round">4</div>Notificações</p>
@@ -92,7 +96,7 @@ import { loginStore } from "@/store/loginStore"
   background-color: #071f35f8;
 }
 
-.down{
+.down {
 
   margin-top: 4.5rem;
 }
@@ -268,12 +272,12 @@ export default defineComponent({
     },
     getParticipations() {
       ProjectDataService.participations()
-      .then(response =>{
-        console.log(response)
-      })
-      .catch(e => {
-        console.log(e)
-      })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 });
