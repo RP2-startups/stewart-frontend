@@ -17,7 +17,9 @@ class UserDataService {
     return http.get("/user")
   }
 
-  
+  search(input: string) {
+    return http.get(`/users?name=${input}`,)
+  }
 }
 
 export default new UserDataService();

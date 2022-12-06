@@ -1,72 +1,71 @@
 <template>
-  <div class="container image-card mt-2 pt-4 pb-4 mb-4"
-  :class="(small && 'col-lg-2 image-card-small') || (transparent && 'image-card-transparent')"
-  :style="{ 'font-size': titleSize }">
-
-  <div class="row"
-  :class="(reverse && vertical && 'column-reverse') || (reverse && !vertical && 'row-reverse')">
-
-    <div class="col-lg-6 col-sm-12 ps-5 card-body"
-    :class="vertical && 'w-100'">
-
-      <text class="card-title">{{ title }}</text>
-      <p class="card-text">{{ body }}</p>
+  <div ref="card" class="image-card mt-2 mb-4" :style="cssProps">
+    <div>
+      <img class="image" :class="{ 'img-thumbnail': imageBorder }" :src="source" fluid alt="Responsive image">
     </div>
-
-    <div class="col-lg-5 col-sm-12"
-    :class="vertical && 'w-100 text-center'">
-
-      <b-img :src="source" fluid alt="Responsive image"></b-img>
-      
-    </div>
-  </div>
+    <p class="card-title" :style="{ 'font-size': titleFontSize }"> {{ title }} </p>
+    <p ref="body" class="card-body"> {{ bodyText }} </p>
 </div>
 </template>
+
 <style>
 @import "../assets/styles/base.css";
-.card-title {
-  margin: 0;
-  padding: 0;
-}
+
 .image-card {
-  background: linear-gradient(135deg, #3A2369 0%, #78619B 100%);
-  border-radius: 25px;
+  background: var(--color-purple);
+  border-radius: 3px;
+  min-width: var(--width);
+  min-height: var(--height);
+  max-height: var(--height);
   font-family: 'Jost';
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  min-width: 120px;
+  width: 25%;
+}
+
+.card-title {
   font-weight: bolder;
-  color: white;
-  flex-direction: row;
+  text-align: center;
+  margin-top: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.image-card-transparent {
-  background: transparent;
-}
-
-.card-text {
-  font-size: 1.2rem;
-  font-weight: normal;
-}
-
-.column-reverse {
-  flex-direction: column-reverse;
-}
-
-.row-reverse {
-  flex-direction: row-reverse;
-}
-
-.image-card-small {
-  font-size: medium !important;
-}
-
-.image-card-small text {
-  font-size: 1rem;
+.card-body {
+  font-size: 13.5px;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: justify;
+  text-overflow: clip;
+  overflow: auto;
+  margin-top: 3px;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 </style>
+
 <script lang="ts">
-  import Vue, { defineComponent } from "vue";
+  import { defineComponent } from "vue";
   export default defineComponent({
   props: {
+    width: {
+      type: Number,
+      required: true
+    },
+    height: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -79,31 +78,45 @@
       type: String,
       required: true
     },
-    titleSize: {
+    source2: {
       type: String,
-      default: "5rem"
+      default: ''
     },
-    reverse: {
-      type: Boolean,
-      default: false
+    titleFontSize: {
+      type: String,
+      default: "25px"
     },
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    transparent: {
+    imageBorder: {
       type: Boolean,
       default: false
     }
   },
   data() {
-    return {};
+    return {
+      bodyText: this.body,
+      maxDescLength: 280,
+    };
   },
-  methods: {},
-  computed: {},
+  mounted() {
+    if(this.bodyText.length > this.maxDescLength)
+      this.handleTextOverflow();
+  },
+  methods: {
+    handleTextOverflow() {
+      let charsUntilNewspace = 0;
+      for(let i = this.maxDescLength; this.body[i] != ' '; i--)
+        charsUntilNewspace++
+      this.bodyText = this.body.slice(0, this.maxDescLength - charsUntilNewspace);
+      this.bodyText += "..."
+    }
+  },
+  computed: {
+    cssProps() {
+      return {
+        '--width': this.width + 'px',
+        '--height': this.height + 'px',
+      }
+    }
+  },
 });
 </script>

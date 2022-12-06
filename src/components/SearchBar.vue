@@ -77,7 +77,7 @@ export default defineComponent({
     searchEnter(){
       this.$router.push({
         name: "ProjectList",
-        params: {input: this.input} 
+        params: {input: this.input}
       })
     }
   },
