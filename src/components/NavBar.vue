@@ -14,7 +14,7 @@ import { loginStore } from "@/store/loginStore"
       <div>
         <SearchBar />
       </div>
-      <button v-if="loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
+      <button v-if="!loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
       <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
