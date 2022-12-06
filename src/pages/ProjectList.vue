@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import UserDataService from "@/services/UserDataService";
+import ProjectDataService from "@/services/ProjectDataService";
 export default defineComponent({
     created() {
       this.query();
@@ -36,7 +36,7 @@ export default defineComponent({
     methods: {
       query() {
         this.cards = [];
-        UserDataService.getProjects(this.$route.params.input as String)
+        ProjectDataService.search(this.$route.params.input as string)
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
