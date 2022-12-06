@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import ImageCardDisplay from "../components/ImageCardDisplay.vue";
+  import ImageCardCollapsableDisplay from "../components/ImageCardCollapsableDisplay.vue";
 </script>
 
 <template>
-  <ImageCardDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight" :cardsProp="cards"
+  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight" :cardsProp="cards"
     :notFoundText="'Nenhum projeto encontrado.'" />
 </template>
 
