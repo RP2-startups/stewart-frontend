@@ -2,9 +2,9 @@ import http from "../http-common";
 
 class ProjectDataService {
 
-create(data: FormData){
-    return http.post("/project", data);
-}
+  create(data: FormData){
+    return http.post("/projects", data);
+  }
 
   search(input: string) {
     return http.get(`/projets?search_term=${input}`,)
