@@ -3,11 +3,11 @@ import http from "../http-common";
 class ProjectDataService {
 
   create(data: FormData){
-    return http.post("/projects", data);
+    return http.post("/project", data);
   }
 
   search(input: string) {
-    return http.get(`/projets?search_term=${input}`,)
+    return http.get(`/projects?search_term=${input}`,)
   }
 
   invite(project: {}) {
