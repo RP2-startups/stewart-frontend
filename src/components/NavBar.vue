@@ -2,7 +2,6 @@
 import { RouterLink } from "vue-router";
 import LoginModal from "../pages/LoginPage.vue";
 import SearchBar from "./SearchBar.vue";
-import { loginStore } from "@/store/loginStore"
 </script>
 
 <template>
@@ -14,7 +13,7 @@ import { loginStore } from "@/store/loginStore"
       <div>
         <SearchBar />
       </div>
-      <button v-if="!loginStore.isLogged" class="btn btn-login text-light" @click="open = true">
+      <button v-if="!isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
       <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
@@ -206,6 +205,13 @@ export default defineComponent({
   components: { SearchBar },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+    UserDataService.getLogin()
+            .then(response => {
+                this.isLogged = true
+            })
+            .catch(e => {
+                this.isLogged = false
+            })
   },
   data() {
     return {
@@ -216,17 +222,9 @@ export default defineComponent({
       open: false,
       profilePicture: "",
       isSticked: false,
-      dropdownView: false
+      dropdownView: false,
+      isLogged: false
     };
-  },
-  watch: {
-    $route(to, from) {
-      if (loginStore.value.isLogged) {
-        this.getUserData()
-        this.getParticipations()
-      }
-
-    }
   },
 
   methods: {
@@ -254,16 +252,17 @@ export default defineComponent({
     getUserData() {
       UserDataService.getLogin()
         .then(response => {
-          console.log(response)
+          this.isLogged = true
         })
         .catch(e => {
-          console.log(e)
+          this.isLogged = false
         })
     },
     logout() {
       UserDataService.logout()
         .then(response => {
-          loginStore.value.setUnlogged()
+          location.reload()
+          this.isLogged = false
           this.dropdownView = false
         })
         .catch((e: any) => {

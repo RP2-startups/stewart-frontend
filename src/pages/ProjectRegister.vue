@@ -108,7 +108,6 @@
 </style>
 <script lang="ts">
 import ProjectDataService from "@/services/ProjectDataService";
-import { projectStore } from "@/store/projectStore";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -155,7 +154,6 @@ export default defineComponent({
 
       ProjectDataService.create(data)
         .then(response => {
-          projectStore.value.projects;
         })
         .catch((e: any) => {
         });

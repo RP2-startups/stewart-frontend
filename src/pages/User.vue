@@ -1,9 +1,11 @@
 <template>
-
-    <section class="container" v-if="dataLoaded" @getUserdata="getUserData()">
+    <section class="container mb-4" v-if="!dataLoaded">
+        <img src="https://freefrontend.com/assets/img/403-forbidden-html-templates/403-Forbidden-HTML.png"/>
+    </section>
+    <section class="container" v-if="dataLoaded">
         <div class="row mt-5 mb-5">
             <div class="col-md-2 col-lg-2 text-center">
-                <img :src="profilePicture" class="img-thumbnail img-fruid" alt="icon">
+                <img :src="user.profilePicture" class="img-thumbnail img-fruid" alt="icon">
                 <div class="btn btn-primary btn-rounded mt-2">
                     <label class="form-label text-white m-1" for="avatar">Escolher imagem</label>
                     <input type="file" accept="image/*" class="form-control d-none" id="avatar" @change="" />
@@ -77,9 +79,9 @@ export default defineComponent({
             user: {
                 name: "",
                 email: "",
-                about: ""
+                about: "",
+                profilePicture: "",
             },
-            profilePicture: "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg",
         }
     },
     mounted() {
@@ -88,6 +90,7 @@ export default defineComponent({
                 this.user.name = response.data.user.name
                 this.user.email = response.data.user.email
                 this.user.about = response.data.user.about
+                this.user.profilePicture = response.data.user.profilePicture
                 this.dataLoaded = true
             })
             .catch(e => {
@@ -95,18 +98,7 @@ export default defineComponent({
             })
     },
     methods: {
-        getUserData() {
-            UserDataService.getLogin()
-                .then(response => {
-                    this.user.name = response.data.user.name
-                    this.user.email = response.data.user.email
-                    this.user.about = response.data.user.about
-                    this.dataLoaded = true
-                })
-                .catch(e => {
-                    this.dataLoaded = false
-                })
-        }
+        
     }
 })
 </script>
