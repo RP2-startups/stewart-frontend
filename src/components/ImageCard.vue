@@ -41,7 +41,7 @@
 }
 
 .card-body {
-  font-size: 0.9rem;
+  font-size: 13.5px;
   font-weight: bold;
   line-height: 20px;
   text-align: justify;

@@ -19,26 +19,26 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import UserDataService from "@/services/UserDataService";
 export default defineComponent({
-    beforeUpdate() {
-        console.log(this.$route.params.input);
+    created() {
+      UserDataService.getProjects(this.$route.params.input as String)
+      .then(response => {
+        for(let i = 0; i < response.data.length; i++) {
+          let r = response.data[i];
+          let cardObj = { name: r.name, desc: r.description, icon: r.picture };
+          this.cards.push(cardObj);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     },
     data() {
       return {
         cardWidth: 240,
         cardHeight: 400,
-        cards: [
-          { name: "Véio Sorridente", desc: "aaaaaaaa aaaaaa aaaaaaaaa Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-          { name: "Véio Sorridente", desc: "Lorem Ipsdum Qui autem omnis ad minima exercitationem ut perferendis maxime et cumque expedita et mollitia ipsa. Qui recusandae quaerat id consequatur placeat et accusamus consequuntur est dolore sint eos ipsa accusantium id molestiae recusandae et laboriosam totam", icon: "https://i.seadn.io/gae/pyp53Pww5B2BvzOhN06mXQQWttj8j6nwj-SK9M6faFS1k-VYKQ_knLCgtwOcE4GHIZlli4xgwJqxBmzoh8K-FwuGOQikyV_7fOKdHA?auto=format&w=256" },
-        ],
+        cards: [] as Object[],
       };
     },
 });

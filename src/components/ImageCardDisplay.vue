@@ -10,11 +10,14 @@
       <img src="../assets/images/arrow-back-white.png" class="collapse-arrow">
     </div>
     <div class="collapse show section-hovered" id="projectsCollapse">
-      <div class="section-items row" :class="rowColsClass">
+      <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
         <div class="col" v-for="card in cards">
           <ImageCard class="pt-1" :width="cardWidth" :height="cardHeight"
             :title="card.name" :body="card.desc" :source="card.icon" image-border />
         </div>
+      </div>
+      <div v-else style="text-align:center;">
+        AMOGUS
       </div>
     </div>
   </div>
@@ -104,7 +107,6 @@
         let availableWidth = sectionEl.clientWidth - 6*remSize;
         let cardsPerRow = Math.floor(availableWidth/this.cardWidth);
         this.rowColsClass = (cardsPerRow <= 6) ? "row-cols-" + cardsPerRow : "row-cols-6"
-        console.log(availableWidth, this.cardWidth, this.rowColsClass);
       },
     }
   });

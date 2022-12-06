@@ -17,7 +17,7 @@ class UserDataService {
     return http.get("/user")
   }
 
-  
+
 }
 
 export default new UserDataService();
