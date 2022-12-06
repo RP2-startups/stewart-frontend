@@ -41,17 +41,7 @@
   .section-title:hover + .section-hovered {
     border-color: var(--color-translucenter-pink) !important;
   }
-  .collapse-arrow {
-    margin-top: 0.3rem;
-    width: 1.92rem;
-    height: 2.5rem;
-    transform: rotate(270deg);
-    transition: transform 0.1s ease;
-  }
-  .collapsed-arrow {
-    margin-top: 0.25rem;
-    transform: rotate(180deg);
-  }
+
   .section-items {
     padding-top: 1rem;
     padding-left: 3rem;
@@ -102,6 +92,7 @@
     data() {
       return {
         isCollapsed: false,
+        cardsPerRow: 1,
         cards: [{ name: "Among Us", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" }],
         rowColsClass: 'row-cols-1',
       };
@@ -118,8 +109,8 @@
         let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let sectionEl = this.$refs.section as Element;
         let availableWidth = sectionEl.clientWidth - 6*remSize;
-        let cardsPerRow = Math.floor(availableWidth/this.cardWidth);
-        this.rowColsClass = (cardsPerRow <= 6) ? "row-cols-" + cardsPerRow : "row-cols-6"
+        this.cardsPerRow = Math.floor(availableWidth/this.cardWidth);
+        this.rowColsClass = (this.cardsPerRow <= 6) ? "row-cols-" + this.cardsPerRow : "row-cols-6"
       },
     },
   });

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import ImageCardCarrossel from "../components/ImageCardCarrossel.vue";
+  import ImageCardCarousel from "../components/ImageCardCarousel.vue";
 </script>
 
 <template>
-  <ImageCardCarrossel :cardWidth="240" :cardHeight="400" title="Projetos Recomendados:" notFoundText="Nenhum projeto encontrado." />
+  <ImageCardCarousel :cardWidth="240" :cardHeight="400" title="Projetos Recomendados:" notFoundText="Nenhum projeto encontrado." />
 </template>
 
 <style>
