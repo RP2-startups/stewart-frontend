@@ -16,8 +16,8 @@
             :title="card.name" :body="card.desc" :source="card.icon" image-border />
         </div>
       </div>
-      <div v-else style="text-align:center;">
-        AMOGUS
+      <div v-else class="query-not-found">
+        {{ notFoundText }}
       </div>
     </div>
   </div>
@@ -65,8 +65,14 @@
     border-top-width: 0px;
     border-style: solid;
     border-color: var(--color-purple-dark);
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+  }
+
+  .query-not-found{
+    padding: 3rem;
+    font-size: 3rem;
+    text-align: center;
   }
 </style>
 
@@ -86,6 +92,10 @@
         type: Array,
         required: true
       },
+      notFoundText: {
+        type: String,
+        required: true
+      }
     },
     data() {
       return {
@@ -108,6 +118,6 @@
         let cardsPerRow = Math.floor(availableWidth/this.cardWidth);
         this.rowColsClass = (cardsPerRow <= 6) ? "row-cols-" + cardsPerRow : "row-cols-6"
       },
-    }
+    },
   });
 </script>

@@ -3,7 +3,8 @@
 </script>
 
 <template>
-  <ImageCardDisplay class="image-card-display" :cardWidth="cardWidth" :cardHeight="cardHeight" :cardsProp="cards" />
+  <ImageCardDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight" :cardsProp="cards"
+    :notFoundText="'Nenhum projeto encontrado.'" />
 </template>
 
 <style>
@@ -22,24 +23,43 @@ import { defineComponent } from "vue";
 import UserDataService from "@/services/UserDataService";
 export default defineComponent({
     created() {
-      UserDataService.getProjects(this.$route.params.input as String)
-      .then(response => {
-        for(let i = 0; i < response.data.length; i++) {
-          let r = response.data[i];
-          let cardObj = { name: r.name, desc: r.description, icon: r.picture };
-          this.cards.push(cardObj);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      this.query();
     },
     data() {
       return {
         cardWidth: 240,
         cardHeight: 400,
         cards: [] as Object[],
+        reRender: true,
       };
     },
+    methods: {
+      query() {
+        this.cards = [];
+        UserDataService.getProjects(this.$route.params.input as String)
+        .then(response => {
+          for(let i = 0; i < response.data.length; i++) {
+            let r = response.data[i];
+            let cardObj = { name: r.name, desc: r.description, icon: r.picture };
+            this.cards.push(cardObj);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      }
+    },
+    watch: {
+      '$route.params.input': {
+        async handler(input) {
+          this.reRender = false;
+          this.query();
+          await this.$nextTick();
+          this.reRender = true;
+        },
+        deep: true,
+
+      }
+    }
 });
 </script>
