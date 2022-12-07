@@ -7,7 +7,11 @@ class ProjectDataService {
   }
 
   search(input: string) {
-    return http.get(`/projects?search_term=${input}`,)
+    return http.get(`/projects?search_term=${input}`,);
+  }
+
+  searchAll() {
+    return http.get("/allprojects");
   }
 
   invite(project: {}) {
@@ -37,7 +41,7 @@ class ProjectDataService {
   getCategories() {
     return http.get("/projectCategories")
   }
-  
+
   get(id : string) {
     return http.get(`/project/${id}`);
   }

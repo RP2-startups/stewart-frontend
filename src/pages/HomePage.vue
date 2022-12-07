@@ -18,18 +18,13 @@
 </style>
 
 <script lang="ts">
+  import ProjectDataService from "@/services/ProjectDataService";
   import { defineComponent } from "vue";
   export default defineComponent({
     data() {
       return {
         cardObj: { id: "", name: "", desc: "", icon: "" },
-        cards: [
-          { id: "1", name: "1", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" },
-          { id: "2", name: "2", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" },
-          { id: "3", name: "3", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" },
-          { id: "4", name: "4", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" },
-          { id: "5", name: "5", desc: "Among Us é um jogo", icon: "https://preview.redd.it/otcm08c8oyy51.jpg?auto=webp&s=7924c636151996440520b3a9c94e70f59792491e" },
-        ],
+        cards: [] as Object[],
       };
     },
     methods: {
@@ -37,6 +32,20 @@
         this.cardObj = card;
         this.$router.push(`/project/${card.id}/posts`)
       }
-    }
+    },
+    created() {
+      this.cards = [];
+      ProjectDataService.searchAll()
+        .then(response => {
+          for(let i = 0; i < response.data.length; i++) {
+            let r = response.data[i];
+            this.cardObj = { id: r.id, name: r.name, desc: r.description, icon: r.picture };
+            this.cards.push(this.cardObj);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   });
 </script>
