@@ -16,7 +16,7 @@ import SearchBar from "./SearchBar.vue";
       <button v-if="!isLogged" class="btn btn-login text-light" @click="open = true">
         LOGIN
       </button>
-      <img v-else :src="getUrl(profilePicture)" class="img-login" @click="toggleDropdown()" />
+      <img v-else :src="('http://localhost:3001'+ profilePicture.replace('.', ''))" class="img-login rounded-circle" @click="toggleDropdown()" />
     </div>
   </section>
   <div class="dropdown-logged" v-if="dropdownView" :class="`${isSticked ? 'down' : ''}`">
@@ -213,7 +213,7 @@ export default defineComponent({
     UserDataService.getLogin()
       .then(response => {
         this.isLogged = true
-        UserDataService
+        this.profilePicture = response.data.user.profile_picture
         ProjectDataService.participations().then(response => {
           this.countNotify = response.data.filter((notification: Notification) => notification.is_accepted == "pending").length
         })
@@ -262,6 +262,7 @@ export default defineComponent({
     getUserData() {
       UserDataService.getLogin()
         .then(response => {
+          this.profilePicture = response.data.user.profile_picture
           this.isLogged = true
         })
         .catch(e => {

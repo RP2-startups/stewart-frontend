@@ -5,7 +5,7 @@
         <img src="@/assets/icons/user-circle-outline.svg" class="item-pic" />
         <div class="item-title">
           <div class="d-flex w-100">
-            <h5>Projeto {{ item.project_id }}</h5>
+            <h5>{{ item.project.name }}</h5>
           </div>
           <p class="mb-1 item-desc">
             {{ item.message }}
@@ -14,11 +14,11 @@
         <div class="item-buttons" v-if="(item.is_accepted == 'pending')">
           <img
             src="@/assets/icons/correct.svg"
-            @click="inviteResponse(true,item.project_id)"
+            @click="inviteResponse(true,item.project.id)"
           />
           <img
             src="@/assets/icons/alpha-x-circle-outline.svg"
-            @click="inviteResponse(false,item.project_id)"
+            @click="inviteResponse(false,item.project.id)"
           />
         </div>
       </li>
@@ -88,7 +88,12 @@ import ProjectDataService from "@/services/ProjectDataService";
 import { defineComponent } from "vue";
 
 type Notification = {
-  project_id: number,
+  project: {
+    id: number,
+    name: string,
+    description: string
+    picture: string
+  },
   message: string;
   is_accepted: string;
 };

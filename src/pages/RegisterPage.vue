@@ -194,6 +194,7 @@ export default defineComponent({
             this.user.email = ""
             this.user.password = ""
             this.user.profile_picture = ""
+            this.profile_src = ""
             this.user.about = ""
             this.registerSuccess = true
         })

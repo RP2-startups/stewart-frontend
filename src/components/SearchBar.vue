@@ -1,15 +1,6 @@
 <template>
   <input type="text" v-model="input" @keyup.enter="searchEnter()" placeholder="Procurar..." />
 
-  <div class="found-box" v-if="input != ''">
-    <div class=" " v-for="items in filterList">
-      <p class="found">{{ items }}</p>
-    </div>
-
-    <div class="error" v-if="isFound && filterList.length == 0">
-      <p>No results found!</p>
-    </div>
-  </div>
 </template>
 
 <style scoped>
@@ -62,35 +53,23 @@ input {
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import ProjectDataService from "@/services/ProjectDataService";
 export default defineComponent({
   data() {
     return {
       isFound: false,
       input: "",
-      listAll: new Array<String>(),
+      listAll: [] as Object[],
     };
   },
-  mounted: function name() {
-    this.listAll.push("aa","aba ");
-  },
+ 
   methods: {
     searchEnter(){
       this.$router.push({
         name: "ProjectList",
-        params: {input: this.input} 
+        params: {input: this.input}
       })
     }
-  },
-  computed: {
-    filterList() {
-      var list = this.listAll.filter((item) =>
-        item.toLowerCase().includes(this.input.toLowerCase())
-      );
-      this.isFound = list.length == 0 && this.input != "";
-
-
-      return list.slice(0,10);
-    },
   },
 });
 </script>

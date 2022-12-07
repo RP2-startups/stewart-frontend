@@ -5,7 +5,7 @@
     <section class="container" v-if="userLogged">
         <div class="row mt-5 mb-5">
             <div class="col-md-2 col-lg-2 text-center">
-                <img :src="user.profilePicture" class="img-thumbnail img-fruid" alt="icon">
+                <img :src="('http://localhost:3001'+ user.profilePicture.replace('.', ''))" class="img-thumbnail img-fruid" alt="icon">
                 <div class="btn btn-primary btn-rounded mt-2">
                     <label class="form-label text-white m-1" for="avatar">Escolher imagem</label>
                     <input type="file" accept="image/*" class="form-control d-none" id="avatar" @change="" />
@@ -36,9 +36,9 @@
             </div>
         </div>
         <b-alert :show="updateSuccess" dismissible variant="success">Salvo com sucesso!</b-alert>
-        <div class="noHover btn-wrapper-save p-0 d-flex justify-content-center">
+        <!--<div class="noHover btn-wrapper-save p-0 d-flex justify-content-center">
             <button class="btn btn-save mt-2 mb-4" @click="">SALVAR</button>
-        </div>
+        </div>-->
     </section>
 
 </template>
@@ -90,7 +90,7 @@ export default defineComponent({
                 this.user.name = response.data.user.name
                 this.user.email = response.data.user.email
                 this.user.about = response.data.user.about
-                this.user.profilePicture = response.data.user.profilePicture
+                this.user.profilePicture = response.data.user.profile_picture
                 this.userLogged = true
             })
             .catch(e => {

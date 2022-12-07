@@ -6,11 +6,28 @@ import SideBar from "./components/SideBar.vue";
 </script>
 
 <template>
-    <SideBar/>
+ 
+  <div class="page">
+    <SideBar />
     <NavBar />
-    <div style="margin-left: 72px">
-        <RouterView />
-    </div>
-    <FooterItem />
+  <div class="content">
+    <RouterView />
+  </div>
+  <FooterItem />
+  </div>
+  
 </template>
 
+<style scoped>
+
+.page{
+  position: relative;
+  min-height: 100vh;
+}
+.content {
+  margin-left: 72px;
+  padding-bottom: 200px;
+}
+
+
+</style>
