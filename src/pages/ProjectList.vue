@@ -134,7 +134,6 @@ export default defineComponent({
         async handler() {
           this.render();
         },
-        deep: true,
       },
       category: {
         handler() {
