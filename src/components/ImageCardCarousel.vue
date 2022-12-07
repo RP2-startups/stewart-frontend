@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import ImageCard from "../components/ImageCard.vue";
   import 'vue3-carousel/dist/carousel.css'
-  import { Carousel, Slide, Navigation } from 'vue3-carousel'
+  import { Carousel, Slide } from 'vue3-carousel'
 </script>
 
 <template>
