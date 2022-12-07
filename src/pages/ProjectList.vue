@@ -73,6 +73,9 @@ export default defineComponent({
     methods: {
       handleClick(card: any) {
         this.cardObj = card;
+        this.$router.push(
+        `/project/${card.id}/posts`
+      )
       },
       getFilters() {
         ProjectDataService.getCategories()
@@ -97,7 +100,6 @@ export default defineComponent({
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            console.log(searchInput, r)
             this.cardObj = { id: r.id, name: r.name, desc: r.description, icon: r.picture };
             this.cardsProjs.push(this.cardObj);
           }
@@ -111,7 +113,8 @@ export default defineComponent({
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: r.profile_picture };
+            let profPath = r.profile_picture.replace(".","http://localhost:3001")
+            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: profPath };
             this.cardsUsers.push(cardObj);
           }
         })
