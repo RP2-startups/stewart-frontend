@@ -29,6 +29,10 @@ class ProjectDataService {
   getCategories() {
     return http.get("/projectCategories")
   }
+  
+  get(id : string) {
+    return http.get(`/project/${id}`);
+  }
 }
 
 export default new ProjectDataService();

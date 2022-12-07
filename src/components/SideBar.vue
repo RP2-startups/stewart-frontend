@@ -34,6 +34,16 @@
           >Projetos</span
         >
       </router-link>
+
+
+      <router-link class="button" to="/register-project">
+        <span class=""
+          ><img src="../assets/icons/baseline-plus.svg" class="icon"
+        /></span>
+        <span class="menu-text" :class="`${is_expanded ? 'show' : ''}`"
+          >Criar Projetos</span
+        >
+      </router-link>
     </div>
   </div>
 </template>
@@ -94,6 +104,7 @@
 }
 
 .menu .button {
+  max-height: 4rem;
   display: flex;
   align-items: center;
   text-decoration: none;
