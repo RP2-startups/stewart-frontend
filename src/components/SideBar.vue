@@ -26,7 +26,7 @@
         >
       </router-link>
 
-      <router-link class="button" to="/project/posts">
+      <router-link class="button" to="/my-projects">
         <span class=""
           ><img src="../assets/icons/project_icon.svg" class="icon"
         /></span>
