@@ -12,7 +12,7 @@
     <div class="boxCollapse collapse show section-hovered" :id="collapseId">
       <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
         <div class="col" v-for="card in cards">
-          <ImageCard @click="emitClicked(card)" class="pt-1" :width="cardWidth" :height="cardHeight"
+          <ImageCard @click="emitClicked(card)" class="img-card pt-1" :width="cardWidth" :height="cardHeight"
             :title="card.name" :body="card.desc" :source="card.icon" image-border />
         </div>
       </div>
@@ -72,6 +72,11 @@
     border-color: var(--color-purple-dark);
     overflow-y: auto;
     overflow-x: hidden;
+  }
+
+  .img-card:hover {
+    background-color: var(--color-translucent-pink);
+    cursor: pointer;
   }
 
   .query-not-found{
