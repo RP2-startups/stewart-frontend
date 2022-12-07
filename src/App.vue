@@ -6,16 +6,16 @@ import SideBar from "./components/SideBar.vue";
 </script>
 
 <template>
- 
+
   <div class="page">
     <SideBar />
     <NavBar />
   <div class="content">
     <RouterView />
   </div>
-  <FooterItem />
+  <FooterItem style="z-index: 9998;"/>
   </div>
-  
+
 </template>
 
 <style scoped>
