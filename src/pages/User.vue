@@ -1,8 +1,8 @@
 <template>
-    <section class="container mb-4" v-if="!dataLoaded">
-        <img src="https://freefrontend.com/assets/img/403-forbidden-html-templates/403-Forbidden-HTML.png"/>
+    <section class="container mb-4" v-if="!userLogged">
+        <img src="https://freefrontend.com/assets/img/403-forbidden-html-templates/403-Forbidden-HTML.png" />
     </section>
-    <section class="container" v-if="dataLoaded">
+    <section class="container" v-if="userLogged">
         <div class="row mt-5 mb-5">
             <div class="col-md-2 col-lg-2 text-center">
                 <img :src="user.profilePicture" class="img-thumbnail img-fruid" alt="icon">
@@ -75,7 +75,7 @@ export default defineComponent({
             nameValid: true,
             emailValid: true,
             updateSuccess: false,
-            dataLoaded: false,
+            userLogged: false,
             user: {
                 name: "",
                 email: "",
@@ -91,14 +91,11 @@ export default defineComponent({
                 this.user.email = response.data.user.email
                 this.user.about = response.data.user.about
                 this.user.profilePicture = response.data.user.profilePicture
-                this.dataLoaded = true
+                this.userLogged = true
             })
             .catch(e => {
-                this.dataLoaded = false
+                this.userLogged = false
             })
     },
-    methods: {
-        
-    }
 })
 </script>

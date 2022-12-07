@@ -31,7 +31,7 @@ import SearchBar from "./SearchBar.vue";
 
       <RouterLink to="/notifications" class="link">
         <p class="dropdown-item">
-        <div class="round">4</div>Notificações</p>
+        <div class="round">{{ countNotify }}</div>Notificações</p>
       </RouterLink>
       <hr />
       <p class="dropdown-item text-danger" @click="logout()"><b>Deslogar</b></p>
@@ -110,7 +110,7 @@ import SearchBar from "./SearchBar.vue";
   background-color: #082846f8;
   position: fixed;
   right: 0;
-
+  z-index: 999;
   padding: 1rem;
   margin-right: 0.5rem;
   border-radius: 1rem;
@@ -201,20 +201,30 @@ import SearchBar from "./SearchBar.vue";
 import { defineComponent } from "vue";
 import UserDataService from "@/services/UserDataService";
 import ProjectDataService from "@/services/ProjectDataService";
+
+type Notification = {
+  is_accepted: string;
+};
+
 export default defineComponent({
   components: { SearchBar },
   created() {
     window.addEventListener("scroll", this.handleScroll);
     UserDataService.getLogin()
-            .then(response => {
-                this.isLogged = true
-            })
-            .catch(e => {
-                this.isLogged = false
-            })
+      .then(response => {
+        this.isLogged = true
+        UserDataService
+        ProjectDataService.participations().then(response => {
+          this.countNotify = response.data.filter((notification: Notification) => notification.is_accepted == "pending").length
+        })
+      })
+      .catch(e => {
+        this.isLogged = false
+      })
   },
   data() {
     return {
+      countNotify: 0,
       sliderPosition: 0,
       selectedElementWidth: 0,
       selectedIndex: 0,

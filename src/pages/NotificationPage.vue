@@ -5,20 +5,20 @@
         <img src="@/assets/icons/user-circle-outline.svg" class="item-pic" />
         <div class="item-title">
           <div class="d-flex w-100">
-            <h5>{{ item.name }}</h5>
+            <h5>Projeto {{ item.project_id }}</h5>
           </div>
           <p class="mb-1 item-desc">
             {{ item.message }}
           </p>
         </div>
-        <div class="item-buttons">
+        <div class="item-buttons" v-if="(item.is_accepted == 'pending')">
           <img
             src="@/assets/icons/correct.svg"
-            @click="inviteResponse(true,item.id)"
+            @click="inviteResponse(true,item.project_id)"
           />
           <img
             src="@/assets/icons/alpha-x-circle-outline.svg"
-            @click="inviteResponse(false,item.id)"
+            @click="inviteResponse(false,item.project_id)"
           />
         </div>
       </li>
@@ -86,59 +86,43 @@
 <script lang="ts">
 import ProjectDataService from "@/services/ProjectDataService";
 import { defineComponent } from "vue";
+
+type Notification = {
+  project_id: number,
+  message: string;
+  is_accepted: string;
+};
+
 export default defineComponent({
+  created() {
+    ProjectDataService.participations()
+    .then(response => {
+      response.data.forEach((notify: Notification) => {
+        this.itens.push(notify)
+      });
+      
+    })
+  },
   data() {
     return {
-      itens: [
-        {
-          id: 1,
-          name: "blabla",
-          pic: "`../assets/icons/user-circle-outline.svg",
-          message: "blabala",
-        },
-        {
-          id: 2,
-          name: "bla",
-          pic: "`../assets/icons/user-circle-outline.svg",
-          message:
-            "blaasdsadsaddadsadasasdasddfjsdfsdfhyusdfsblaasdsadsaddadsadasasdasddfjsdfsdfhyusdfsdfusdfvgfvgfbvcvgfnjunhjucxcvhudfhusdvdvhuvfhuvfdfssdsdfhuhusdvhusdcdhusddshudfhudshudduhbladfusdfvgfvgfbvcvgfnjunhjucxcvhudfhusdvdvhuvfhuvfdfssdsdfhuhusdvhusdcdhusddshudfhudshudduhbla",
-        },
-        {
-          id: 3,
-          name: "blala",
-          pic: "`../assets/icons/user-circle-outline.svg",
-          message: "blabla",
-        },
-        {
-          id: 4,
-          name: "ba",
-          pic: "`../assets/icons/user-circle-outline.svg",
-          message: "blabla",
-        },
-        {
-          id: 5,
-          name: "blla",
-          pic: "`../assets/icons/user-circle-outline.svg",
-          message: "bbla",
-        },
-      ],
+      itens: [] as Notification[]
     };
   },
   methods : {
     inviteResponse(isAccepted : boolean, projectId : number){
         const project = {project_id: projectId}
         if(isAccepted){
-            ProjectDataService.accept(project).
-            then(resp => { 
-
+            ProjectDataService.accept(project)
+            .then(resp => { 
+              location.reload()
             })
             .catch(e =>{ 
                 console.log(e)
             })
         } else{
-            ProjectDataService.reject(project).
-            then(resp => { 
-
+            ProjectDataService.reject(project)
+            .then(resp => { 
+              location.reload()
             })
             .catch(e =>{ 
                 console.log(e)

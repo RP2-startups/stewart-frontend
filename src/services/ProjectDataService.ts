@@ -25,6 +25,10 @@ class ProjectDataService {
   participations() {
     return http.get("/projectParticipation");
   }
+
+  getCategories() {
+    return http.get("/projectCategories")
+  }
 }
 
 export default new ProjectDataService();
