@@ -98,7 +98,7 @@ import ImageCardCollapsableDisplay from "../components/ImageCardCollapsableDispl
         <ImageCardCollapsableDisplay class="image-card-display" :cardWidth="240" :cardHeight="300" v-if="reRender"
           :cardsProp="userList" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" @cardClicked="handleClick"/>
       </div>
-      <b-alert :show="(!nameValid || !aboutValid)" dismissible variant="danger">Nome e descrição são obrigatórios!</b-alert>
+      <b-alert :show="(!nameValid || !aboutValid || !categoryValid)" dismissible variant="danger">Nome, descrição e categoria são obrigatórios!</b-alert>
       <b-alert :show="registerSuccess" dismissible variant="success">Projeto cadastrado com sucesso!</b-alert>
       <button class="btn-register mt-2 mb-4" @click="registerProject">CADASTRAR</button>
     </div>
@@ -208,9 +208,10 @@ export default defineComponent({
     return {
       nameValid: true,
       aboutValid: true,
+      categoryValid: true,
       registerSuccess: false,
       category: {
-        id: 0,
+        id: -1,
         name: "Categoria"
       },
       userLogged: false,
@@ -248,8 +249,9 @@ export default defineComponent({
     registerProject() {
       this.project.name == "" ? (this.nameValid = false) : (this.nameValid = true);
       this.project.description == "" ? (this.aboutValid = false) : (this.aboutValid = true);
+      this.category.id == -1 ? (this.categoryValid = false) : (this.categoryValid = true);
 
-      if (!this.nameValid || !this.aboutValid) return;
+      if (!this.nameValid || !this.aboutValid || !this.categoryValid) return;
 
       let user_id = [] as Participant[]
       this.participants.forEach((element: User) => {
@@ -272,7 +274,7 @@ export default defineComponent({
           this.project.project_picture = ""
           this.participants = [] as User[]
           this.userList = [] as User[]
-          this.category = { id: 0, name: "Categoria"}
+          this.category = { id: -1, name: "Categoria"}
           this.picture_src = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
           this.project_src = "https://i.seadn.io/gae/0A54WU7el_5PyPxVWe5MQWkZqTXyRulMMyVLFbbaoEsIiTDg1dbJO-2HEM3t8GSP0qjYBZA78lsO1kCq18cI0Sy9BnZuQxe555Cf?auto=format&w=1920"
           this.registerSuccess = true
@@ -300,6 +302,7 @@ export default defineComponent({
     changeCategory(id: number, category: string) {
       this.category.id = id,
       this.category.name = category
+      
     },
     handleClick(card: any) {
       if (!this.participants.includes(card)) this.participants.push(card)
