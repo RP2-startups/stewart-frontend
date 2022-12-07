@@ -14,7 +14,7 @@
         <slide v-for="(card, index) in cards" :key="index" slideWidth="100px">
           <div class="section-items row">
             <div class="col">
-              <ImageCard class="pt-1" :width="cardWidth" :height="cardHeight"
+              <ImageCard @click="emitClicked(card)" class="img-card pt-1" :width="cardWidth" :height="cardHeight"
                 :title="card.name" :body="card.desc" :source="card.icon" image-border />
             </div>
           </div>
@@ -57,6 +57,11 @@
     overflow-y: clip;
     overflow-x: hidden;
   }
+
+  .img-card:hover {
+    background-color: var(--color-translucent-pink);
+    cursor: pointer;
+  }
 </style>
 
 <script lang="ts">
@@ -88,7 +93,7 @@
       return {
         isCollapsed: false,
         cardsPerRow: 1,
-        cards: [{name: "", desc: "", icon: ""}],
+        cards: [{ id: "", name: "", desc: "", icon: "" }],
       };
     },
     created() {
@@ -99,6 +104,9 @@
       window.addEventListener("resize", this.calcCardsPerRow);
     },
     methods: {
+      emitClicked(card: Object) {
+        this.$emit("cardClicked", card);
+      },
       calcCardsPerRow() {
         let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let sectionEl = this.$refs.section as Element;

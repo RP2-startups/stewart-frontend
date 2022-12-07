@@ -73,9 +73,7 @@ export default defineComponent({
     methods: {
       handleClick(card: any) {
         this.cardObj = card;
-        this.$router.push(
-        `/project/${card.id}/posts`
-      )
+        this.$router.push(`/project/${card.id}/posts`)
       },
       getFilters() {
         ProjectDataService.getCategories()
