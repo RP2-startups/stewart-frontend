@@ -1,4 +1,4 @@
-<template name="" funtion="">
+<template>
     <div class="person-card-container">
         <img src="https://avatars.githubusercontent.com/u/88856792?v=4" alt="Avatar" class="person-card-image">
         <div class="person-card-overlay">
@@ -13,13 +13,11 @@
     position: relative;
     width: 20vw;
 }
-
 .person-card-image {
     display: block;
     width: 20vw;
     height: auto;
 }
-
 .person-card-overlay {
     position: absolute;
     top: 70%;
@@ -32,11 +30,9 @@
     transition: .5s ease;
     background-color: #008CBA;
 }
-
 .person-card-container:hover .person-card-overlay {
     opacity: 1;
 }
-
 .person-card-name {
     color: white;
     font-size: 20px;
@@ -63,10 +59,10 @@
 </style>
 
 <script lang="ts">
-export default {
-    props: [
-        'name',
-        'func'
-    ]
-}
+    export default {
+        props: [
+            'name',
+            'func'
+        ]
+    }
 </script>
