@@ -102,7 +102,7 @@
       calcCardsPerRow() {
         let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let sectionEl = this.$refs.section as Element;
-        let availableWidth = sectionEl.clientWidth - 16*remSize;
+        let availableWidth = sectionEl.clientWidth - 19*remSize;
         this.cardsPerRow = Math.floor(availableWidth/this.cardWidth);
       },
     },
