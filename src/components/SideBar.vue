@@ -1,11 +1,11 @@
 <template v-if="open">
   <div class="wrapper" :class="`${is_expanded ? 'expanded' : ''}`">
     <div class="header">
-      <!--<h5 class="title" :class="`${is_expanded ? '' : 'hide'}`">STEWART</h5>-->
+      <h5 class="title" :class="`${is_expanded ? '' : 'hide'}`">STEWART</h5>
       <div class="toggle">
         <button
           class="menu-toggle-wrap"
-          :class="`${is_expanded ? '' : 'rotate'}`"
+          :class="`${is_expanded ? 'rotate' : ''}`"
           @click="toogleMenu()"
         >
           <img
@@ -49,7 +49,7 @@
   overflow: hidden;
   left: 0;
   width: calc(2rem + 40px);
-  background: radial-gradient(#0F3460, #071c35);
+  background-color: var(--color-background-dark-hover);
   transition: 0.3s ease-out;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .menu-toggle-wrap {
-  background: transparent;
+  background-color: var(--color-background-dark-hover);
   margin-bottom: 1rem;
   border: 0px;
   transition: 0.5 ease-out;

@@ -97,6 +97,24 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
+    list: {
+      default: [
+        {
+          name: "Início",
+          icon: "jore",
+          comp: "/",
+        },
+        {
+          name: "Projeto",
+          icon: "jore",
+          comp: "/project/posts",
+        },
+      ],
+    },
+    currentPage: {
+      type: Number,
+      default: 0,
+    },
     visibility: {
       type: Boolean,
       default: true,
