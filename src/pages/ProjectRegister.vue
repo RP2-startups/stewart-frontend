@@ -83,7 +83,7 @@ import ImageCardCollapsableDisplay from "../components/ImageCardCollapsableDispl
       <div class="mb-5">
         <div class="row justify-content-center">
         <article class="mb-2 col-md-1 me-2">Participantes:</article>
-        <ul class="list-group mb-3 col-md-5">
+        <ul class="list-group mb-5 col-md-5">
           <li v-for="item in participants" class="list-group-item list-group-item-primary">{{ item.name }}</li>
         </ul>
       </div>
@@ -96,8 +96,9 @@ import ImageCardCollapsableDisplay from "../components/ImageCardCollapsableDispl
           <button class="btn-register col-md-1" @click="searchEnter()">Pesquisar</button>
         </div>
         <ImageCardCollapsableDisplay class="image-card-display" :cardWidth="240" :cardHeight="300" v-if="reRender"
-          :cardsProp="userList" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" />
+          :cardsProp="userList" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" @cardClicked="handleClick"/>
       </div>
+      <b-alert :show="(!nameValid || !aboutValid)" dismissible variant="danger">Nome e descrição são obrigatórios!</b-alert>
       <b-alert :show="registerSuccess" dismissible variant="success">Projeto cadastrado com sucesso!</b-alert>
       <button class="btn-register mt-2 mb-4" @click="registerProject">CADASTRAR</button>
     </div>
@@ -198,6 +199,10 @@ type User = {
   icon: string
 };
 
+type Participant = {
+  user_id: number
+};
+
 export default defineComponent({
   data() {
     return {
@@ -246,21 +251,30 @@ export default defineComponent({
 
       if (!this.nameValid || !this.aboutValid) return;
 
+      let user_id = [] as Participant[]
+      this.participants.forEach((element: User) => {
+        user_id.push(element.id)
+      });
+      console.log(user_id)
+      console.log(JSON.stringify(user_id))
       const project = JSON.stringify({ name: this.project.name, description: this.project.description })
       const data = new FormData();
       data.append("project", project);
       data.append("picture", this.project.project_picture);
       data.append("background_picture", this.project.background_picture)
-      data.append("projectParticipations", JSON.stringify([{}])); //"user_id": this.user_id 
+      data.append("projectParticipations", JSON.stringify(user_id)); //"user_id": this.user_id 
       data.append("categories", JSON.stringify([{"project_category_id": this.category.id }]))
       ProjectDataService.create(data)
         .then(response => {
-          this.project.name = "",
-          this.project.description = "",
-          this.project.background_picture = "",
-          this.project.project_picture = "",
-          this.picture_src = ""
-          this.project_src = ""
+          this.project.name = ""
+          this.project.description = ""
+          this.project.background_picture = ""
+          this.project.project_picture = ""
+          this.participants = [] as User[]
+          this.userList = [] as User[]
+          this.category = { id: 0, name: "Categoria"}
+          this.picture_src = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+          this.project_src = "https://i.seadn.io/gae/0A54WU7el_5PyPxVWe5MQWkZqTXyRulMMyVLFbbaoEsIiTDg1dbJO-2HEM3t8GSP0qjYBZA78lsO1kCq18cI0Sy9BnZuQxe555Cf?auto=format&w=1920"
           this.registerSuccess = true
         })
         .catch((e: any) => {
@@ -273,8 +287,10 @@ export default defineComponent({
 
           for (let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: r.profile_picture };
-            this.userList.push(cardObj);
+            if (r.id != this.user_id) {
+              let cardObj = { id: r.id, name: r.name, desc: r.about, icon: r.profile_picture };
+              this.userList.push(cardObj);
+            }
           }
         })
         .catch((e) => {
@@ -284,7 +300,10 @@ export default defineComponent({
     changeCategory(id: number, category: string) {
       this.category.id = id,
       this.category.name = category
-    }
+    },
+    handleClick(card: any) {
+      if (!this.participants.includes(card)) this.participants.push(card)
+      },
   },
   mounted() {
     ProjectDataService.getCategories()

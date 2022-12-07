@@ -1,36 +1,35 @@
 <script setup lang="ts">
   import ImageCard from "../components/ImageCard.vue";
+  import 'vue3-carousel/dist/carousel.css'
+  import { Carousel, Slide } from 'vue3-carousel'
 </script>
 
 <template>
   <div ref="section" class="section">
-    <div class="d-flex section-title" @click="isCollapsed = !isCollapsed" data-bs-toggle="collapse"
-    role="button" :data-bs-target="'#'+collapseId" aria-expanded="true" :aria-controls="collapseId">
+    <div class="d-flex section-title">
       <p class="flex-fill"> {{ title }} </p>
-      <img src="../assets/images/arrow-back-white.png" class="collapse-arrow" :class="{'collapsed-arrow': isCollapsed}">
     </div>
-    <div class="boxCollapse collapse show section-hovered" :id="collapseId">
-      <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
-        <div class="col" v-for="card in cards">
-          <ImageCard @click="emitClicked(card)" class="pt-1" :width="cardWidth" :height="cardHeight"
-            :title="card.name" :body="card.desc" :source="('http://localhost:3001'+ card.icon.replace('.', ''))" image-border />
-        </div>
-      </div>
-      <div v-else class="query-not-found">
-        {{ notFoundText }}
-      </div>
+    <div class="d-flex section-hovered" id="box">
+      <carousel style="width: 100%" :items-to-show="cardsPerRow+0.6" wrap-around snapAlign="start">
+        <slide v-for="(card, index) in cards" :key="index" slideWidth="100px">
+          <div class="section-items row">
+            <div class="col">
+              <ImageCard class="pt-1" :width="cardWidth" :height="cardHeight"
+                :title="card.name" :body="card.desc" :source="card.icon" image-border />
+            </div>
+          </div>
+        </slide>
+      </carousel>
     </div>
   </div>
 </template>
 
 <style>
   @import "../assets/styles/base.css";
-
   .section {
     font-family: 'Jost';
     font-weight: bolder;
   }
-
   .section-title {
     background-color: var(--color-purple-dark);
     font-size: 2rem;
@@ -46,38 +45,17 @@
     border-color: var(--color-translucenter-pink) !important;
   }
 
-  .collapse-arrow {
-    margin-top: 0.3rem;
-    width: 1.92rem;
-    height: 2.5rem;
-    transform: rotate(270deg);
-    transition: transform 0.1s ease;
-  }
-  .collapsed-arrow {
-    margin-top: 0.25rem;
-    transform: rotate(180deg);
-  }
-
   .section-items {
-    padding-top: 1rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    height: 800px;
+    max-height: 450px;
   }
-  .boxCollapse {
+  #box {
     background-color: var(--color-translucent-background-dark);
     border-width: 2px;
     border-top-width: 0px;
     border-style: solid;
     border-color: var(--color-purple-dark);
-    overflow-y: auto;
+    overflow-y: clip;
     overflow-x: hidden;
-  }
-
-  .query-not-found{
-    padding: 3rem;
-    font-size: 3rem;
-    text-align: center;
   }
 </style>
 
@@ -95,7 +73,7 @@
       },
       cardsProp: {
         type: Array,
-        required: true
+        //required: true
       },
       title: {
         type: String,
@@ -104,17 +82,13 @@
       notFoundText: {
         type: String,
         required: true
-      },
-      collapseId: {
-        type: String,
-        required: true
-      },
+      }
     },
     data() {
       return {
         isCollapsed: false,
-        cards: [{ id: "", name: "", desc: "", icon: "" }],
-        rowColsClass: 'row-cols-1',
+        cardsPerRow: 1,
+        cards: [{name: "", desc: "", icon: ""}],
       };
     },
     created() {
@@ -125,15 +99,11 @@
       window.addEventListener("resize", this.calcCardsPerRow);
     },
     methods: {
-      emitClicked(card: Object) {
-        this.$emit("cardClicked", card);
-      },
       calcCardsPerRow() {
         let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let sectionEl = this.$refs.section as Element;
-        let availableWidth = sectionEl.clientWidth - 6*remSize;
-        let cardsPerRow = Math.floor(availableWidth/this.cardWidth);
-        this.rowColsClass = (cardsPerRow <= 6) ? "row-cols-" + cardsPerRow : "row-cols-6"
+        let availableWidth = sectionEl.clientWidth - 19*remSize;
+        this.cardsPerRow = Math.floor(availableWidth/this.cardWidth);
       },
     },
   });

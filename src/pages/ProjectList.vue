@@ -3,10 +3,10 @@
 </script>
 
 <template>
-  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight"
-  :cardsProp="cardsProjs" title="Projetos:" notFoundText="Nenhum projeto encontrado." collapseId="collapseProj" />
-  <ImageCardCollapsableDisplay class="image-card-display" v-if="reRender" :cardWidth="cardWidth" :cardHeight="cardHeight"
-  :cardsProp="cardsUsers" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" />
+  <ImageCardCollapsableDisplay @cardClicked="handleClick" class="image-card-display" v-if="reRender" :cardWidth="cardWidth"
+  :cardHeight="cardHeight" :cardsProp="cardsProjs" title="Projetos:" notFoundText="Nenhum projeto encontrado." collapseId="collapseProj" />
+  <ImageCardCollapsableDisplay @cardClicked="handleClick" class="image-card-display" v-if="reRender" :cardWidth="cardWidth"
+  :cardHeight="cardHeight" :cardsProp="cardsUsers" title="Usuários:" notFoundText="Nenhum usuário encontrado." collapseId="collapseUser" />
 </template>
 
 <style>
@@ -34,18 +34,22 @@ export default defineComponent({
         cardHeight: 400,
         cardsProjs: [] as Object[],
         cardsUsers: [] as Object[],
+        cardObj: { id: "", name: "", desc: "", icon: "" },
         reRender: true,
       };
     },
     methods: {
+      handleClick(card: any) {
+        this.cardObj = card;
+      },
       query() {
         this.cardsProjs = [];
         ProjectDataService.search(this.$route.params.input as string)
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            let cardObj = { name: r.name, desc: r.description, icon: r.picture };
-            this.cardsProjs.push(cardObj);
+            this.cardObj = { id: r.id, name: r.name, desc: r.description, icon: r.picture };
+            this.cardsProjs.push(this.cardObj);
           }
         })
         .catch((e) => {
@@ -55,10 +59,9 @@ export default defineComponent({
         this.cardsUsers = [];
         UserDataService.search(this.$route.params.input as string)
         .then(response => {
-          console.log(response.data);
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            let cardObj = { name: r.name, desc: r.about, icon: r.profile_picture };
+            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: r.profile_picture };
             this.cardsUsers.push(cardObj);
           }
         })

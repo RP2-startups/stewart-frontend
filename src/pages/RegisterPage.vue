@@ -194,7 +194,7 @@ export default defineComponent({
             this.user.email = ""
             this.user.password = ""
             this.user.profile_picture = ""
-            this.profile_src = ""
+            this.profile_src = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
             this.user.about = ""
             this.registerSuccess = true
         })
