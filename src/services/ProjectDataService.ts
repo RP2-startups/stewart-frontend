@@ -26,6 +26,10 @@ class ProjectDataService {
     return http.get("/projectParticipation");
   }
 
+  getRequestsParticipations() {
+    return http.get("/projectParticipation/adm")
+  }
+
   getCategories() {
     return http.get("/projectCategories")
   }

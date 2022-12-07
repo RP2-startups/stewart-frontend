@@ -25,7 +25,7 @@ import SearchBar from "./SearchBar.vue";
         <p class="dropdown-item">Meu Perfil</p>
       </RouterLink>
 
-      <RouterLink to="/project" class="link">
+      <RouterLink to="/my-projects" class="link">
         <p class="dropdown-item">Meus Projetos</p>
       </RouterLink>
 

@@ -12,16 +12,6 @@
             {{ item.message }}
           </p>
         </div>
-        <div class="item-buttons" v-if="(item.is_accepted == 'pending')">
-          <img
-            src="@/assets/icons/correct.svg"
-            @click="inviteResponse(true,item.project.id)"
-          />
-          <img
-            src="@/assets/icons/alpha-x-circle-outline.svg"
-            @click="inviteResponse(false,item.project.id)"
-          />
-        </div>
       </li>
     </ul>
   </div>
@@ -105,15 +95,10 @@ export default defineComponent({
     ProjectDataService.participations()
     .then(response => {
       response.data.forEach((notify: Notification) => {
-        if (notify.is_accepted == "pending") this.itens.push(notify)
+        if (notify.is_accepted == "accepted") this.itens.push(notify)
       });
       
     })
-    ProjectDataService.getRequestsParticipations()
-    .then(response =>
-    response.data.forEach((notify: Notification) => {
-      this.itens.push(notify)
-    }))
   },
   data() {
     return {

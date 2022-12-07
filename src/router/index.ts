@@ -11,6 +11,7 @@ import Contact from "@/pages/Contact.vue";
 import ProjectList from "@/pages/ProjectList.vue";
 import UserProfile from "@/pages/User.vue";
 import Notification from "@/pages/NotificationPage.vue"
+import MyProject from "@/pages/MyProject.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -83,6 +84,11 @@ const router = createRouter({
       path: "/user",
       name: "UserProfile",
       component: UserProfile
+    },
+    {
+      path: "/my-projects",
+      name: "My Project",
+      component: MyProject
     }
     // {
     //   path: "/about",
