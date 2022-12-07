@@ -1,9 +1,9 @@
 <template>
     <div class="person-card-container">
-        <img src="https://avatars.githubusercontent.com/u/88856792?v=4" alt="Avatar" class="person-card-image">
+        <img :src="pic" alt="Avatar" class="person-card-image">
         <div class="person-card-overlay">
             <div class="person-card-name">{{ name }}</div>
-            <div class="person-card-function">{{ func }}</div>
+            <div class="person-card-function">{{ role }}</div>
         </div>
     </div>
 </template>
@@ -49,6 +49,7 @@
     color: white;
     font-size: 20px;
     position: absolute;
+    margin-top: 0.5rem;
     top: 60%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
@@ -62,7 +63,19 @@
     export default {
         props: [
             'name',
-            'func'
-        ]
+            'func',
+            'pic'
+        ],
+        computed :{
+            role(){
+                if(this.func){
+                    return "Admin"
+                }
+                return "Membro"
+            }
+        },
+        mounted(){
+            console.log(this.pic)
+        }
     }
 </script>

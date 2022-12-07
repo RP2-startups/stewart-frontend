@@ -57,11 +57,11 @@ import ImageCardCollapsableDisplay from "../components/ImageCardCollapsableDispl
                 <div class="dropdown col-md-2">
                   <button class="btn ms-2 dropdown-toggle" style="color: white; background-color: #533483" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ category.name }}
+                    {{ category.name.toUpperCase() }}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <a v-for="cat in categoryList" class="dropdown-item" @click="changeCategory(cat.id, cat.name)">
-                      <li> {{ cat.name }} </li>
+                      <li> {{ cat.name.toUpperCase() }} </li>
                     </a>
                   </ul>
                 </div>
@@ -302,7 +302,7 @@ export default defineComponent({
     changeCategory(id: number, category: string) {
       this.category.id = id,
       this.category.name = category
-      
+
     },
     handleClick(card: any) {
       if (!this.participants.includes(card)) this.participants.push(card)
