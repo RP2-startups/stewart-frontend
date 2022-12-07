@@ -13,7 +13,7 @@ import SideBar from "./components/SideBar.vue";
   <div class="content">
     <RouterView />
   </div>
-  <FooterItem style="z-index: 9998;"/>
+  <FooterItem style="z-index: 100;"/>
   </div>
 
 </template>
