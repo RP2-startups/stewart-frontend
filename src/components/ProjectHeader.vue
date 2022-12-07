@@ -1,20 +1,10 @@
 <template>
   <div id="proj-header-top">
     <!--banner-->
-    <img
-        :src="banner"
-      class="img-fluid w-100"
-      id="proj-banner"
-      alt="banner"
-    />
+    <img :src="banner" class="img-fluid w-100" id="proj-banner" alt="banner" />
 
     <!--icone do projeto-->
-    <img
-    :src="projectPic"
-      class="img-thumbnail rounded"
-      id="proj-icon"
-      alt="icon"
-    />
+    <img :src="projectPic" class="img-thumbnail rounded" id="proj-icon" alt="icon" />
   </div>
   <!--nome do projeto-->
   <div id="proj-header-bottom">
@@ -28,6 +18,9 @@
       <div class="col d-flex justify-content-end">
         <ul id="proj-stats" class="d-inline-flex">
           <li class="proj-stat text-center ms-4">
+            <button v-if="request" class="btn btn-primary" @click="sendInvite">Pedir para participar</button>
+          </li>
+          <li class="proj-stat text-center ms-4">
             <p class="proj-stat-num fs-2">
               20
             </p>
@@ -37,7 +30,7 @@
           </li>
           <li class="proj-stat text-center ms-4">
             <p class="proj-stat-num fs-2">
-              {{members}}
+              {{ members }}
             </p>
             <p class="proj-stat-desc fs-5">
               Membros
@@ -61,7 +54,7 @@
 
 #proj-banner {
   display: block;
-  max-height: 500px!important;
+  max-height: 500px !important;
 }
 
 #proj-icon {
@@ -91,15 +84,42 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import ProjectDataService from "@/services/ProjectDataService";
+import UserDataService from "@/services/UserDataService";
 export default defineComponent({
-  props: ["members", "banner", "projectPic", "postQtd", "title", "desc"],
+  props: ["project_id", "members", "banner", "projectPic", "postQtd", "title", "desc"],
 
-  data() {},
-  methods: {
-    getUrl(path : String){
-          return new URL(`../assets/images/${path}`,import.meta.url).href
-      }
+  data() {
+    return {
+      user_id: "",
+      request: true
+    }
   },
-  mounted() {},
+  methods: {
+    sendInvite() {
+      UserDataService.getLogin()
+        .then(response => {
+          this.user_id = response.data.user.id
+          const invite = {
+            user_id: this.user_id,
+            project_id: this.project_id,
+            is_accepted: "request_to_adm"
+          }
+
+          ProjectDataService.invite(invite)
+            .then(response => {
+                this.request = false
+            })
+            .catch((e: any) => {
+            });
+        })
+        .catch(e => {
+        })
+
+    }
+  },
+  mounted() { 
+    //pesquisar projeto e ver se user_id está no projeto
+  },
 });
 </script>

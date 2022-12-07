@@ -22,6 +22,10 @@ class ProjectDataService {
     return http.post("/projectParticipation/accept", data);
   }
 
+  acceptRequest(data: {}) {
+    return http.post("/projectParticipation/accept-adm", data);
+  }
+
   participations() {
     return http.get("/projectParticipation");
   }

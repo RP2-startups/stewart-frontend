@@ -5,14 +5,15 @@
         <img :src="('http://localhost:3001'+ item.project.picture.replace('.', ''))" class="item-pic" />
         <div class="item-title">
           <div class="d-flex w-100">
-            <h5>{{ item.project.name }}</h5>
+            <h5 v-if="item.is_accepted=='pending'">{{ item.project.name }}</h5>
+            <h5 v-else>{{ item.name + " deseja participar do projeto " + item.project.name }}</h5>
             
           </div>
           <p class="mb-1 item-desc">
             {{ item.message }}
           </p>
         </div>
-        <div class="item-buttons" v-if="(item.is_accepted == 'pending')">
+        <div class="item-buttons" v-if="item.is_accepted == 'pending'">
           <img
             src="@/assets/icons/correct.svg"
             @click="inviteResponse(true,item.project.id)"
@@ -20,6 +21,17 @@
           <img
             src="@/assets/icons/alpha-x-circle-outline.svg"
             @click="inviteResponse(false,item.project.id)"
+          />
+        </div>
+
+        <div class="item-buttons" v-else>
+          <img
+            src="@/assets/icons/correct.svg"
+            @click="inviteRequest(true,item.project.id, item.project.projectParticipations[0].user_id)"
+          />
+          <img
+            src="@/assets/icons/alpha-x-circle-outline.svg"
+            @click="inviteRequest(false,item.project.id, item.project.projectParticipations[0].user_id)"
           />
         </div>
       </li>
@@ -86,15 +98,19 @@
 
 <script lang="ts">
 import ProjectDataService from "@/services/ProjectDataService";
+import UserDataService from "@/services/UserDataService";
 import { defineComponent } from "vue";
 
 type Notification = {
-  user_id: number,
+  name: string,
   project: {
     id: number,
     name: string,
     description: string
     picture: string
+    projectParticipations: [{
+      user_id: number
+    }]
   },
   message: string;
   is_accepted: string;
@@ -112,7 +128,15 @@ export default defineComponent({
     ProjectDataService.getRequestsParticipations()
     .then(response =>
     response.data.forEach((notify: Notification) => {
-      this.itens.push(notify)
+      UserDataService.getUsers()
+      .then((response => {
+        response.data.forEach((element: any) => {
+          if (element.id == notify.project.projectParticipations[0].user_id) {
+            notify.name = element.name
+            this.itens.push(notify)
+          }
+        });
+      }))
     }))
   },
   data() {
@@ -134,6 +158,26 @@ export default defineComponent({
         } else{
             ProjectDataService.reject(project)
             .then(resp => { 
+              location.reload()
+            })
+            .catch(e =>{ 
+                console.log(e)
+            })
+        }
+    },
+    inviteRequest(isAccepted : boolean, projectId : number, userId: number){
+        const project = {project_id: projectId, user_id: userId}
+        if(isAccepted){
+            ProjectDataService.acceptRequest(project)
+            .then(resp => {
+              location.reload()
+            })
+            .catch(e =>{ 
+                console.log(e)
+            })
+        } else{
+            ProjectDataService.reject(project)
+            .then(resp => {
               location.reload()
             })
             .catch(e =>{ 

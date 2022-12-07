@@ -7,7 +7,7 @@ import ProjectMenu from "@/components/ProjectMenu.vue";
 <template>
   <div id="proj-page-wrapper">
     <!--topo da pagina do projeto (contem o banner, icone, estatisticas e descricao)-->
-    <ProjectHeader :banner="banner" :desc="desc" :title="title" :project-pic="projectPic" :members="membersCount" />
+    <ProjectHeader :project_id="project_id" :banner="banner" :desc="desc" :title="title" :project-pic="projectPic" :members="membersCount" />
 
     <!--permite navegação para as páginas publicações, integrantes e documentos-->
     <ProjectMenu />
@@ -36,6 +36,7 @@ interface Pending {
 export default defineComponent({
   data() {
     return {
+      project_id: 0,
       banner: "",
       projectPic: "",
       membersCount: 0,
@@ -49,6 +50,7 @@ export default defineComponent({
     ProjectDataService.get(this.$route.params.id.toString())
       .then((response) => {
         let r = response.data;
+        this.project_id = r.id,
         this.projectPic = r.picture.replace(".", "http://localhost:3001");
         this.banner = r.background_picture.replace(
           ".",
