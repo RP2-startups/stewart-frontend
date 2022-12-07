@@ -111,8 +111,7 @@ export default defineComponent({
         .then(response => {
           for(let i = 0; i < response.data.length; i++) {
             let r = response.data[i];
-            let profPath = r.profile_picture.replace(".","http://localhost:3001")
-            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: profPath };
+            let cardObj = { id: r.id, name: r.name, desc: r.about, icon: r.profile_picture };
             this.cardsUsers.push(cardObj);
           }
         })

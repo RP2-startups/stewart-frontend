@@ -31,10 +31,10 @@
       </ul>
     </div>
   </template>
-  
+
   <style scoped>
   @import "@/assets/styles/base.css";
-  
+
   .menu {
     padding: 0;
     margin: 0;
@@ -44,13 +44,13 @@
     display: flex;
     align-items: center;
   }
-  
+
   .menu-link {
     align-items: center;
     text-decoration: none;
     color: var(---color-text-light);
   }
-  
+
   .menu-item {
     padding: 0.625rem;
     height: 100%;
@@ -61,12 +61,12 @@
     user-select: none;
     -webkit-user-select: none;
   }
-  
+
   .menu .active {
     margin-inline: -0.625rem;
     padding: 0.625rem;
   }
-  
+
   .menu-slider {
     background-color: var(--color-pink);
     position: absolute;
@@ -75,13 +75,13 @@
     transition: all ease 0.3s;
     margin-top: 3rem;
   }
-  
+
   .item-social {
     position: absolute;
     right: min(10vw, 100px);
   }
   .item-social ul {
-      display: inline-block; 
+      display: inline-block;
       list-style: none;
   }
   .item-social img {
@@ -89,7 +89,7 @@
     height: 30px;
   }
   </style>
-  
+
   <script lang="ts">
   import { defineComponent } from "vue";
   export default defineComponent({
@@ -123,12 +123,12 @@
         items: [
           {
             id: 1,
-            name: "Publicações",
-            comp: "posts",
+            name: "Integrantes",
+            comp: "members",
           },
           {
             id: 2,
-            name: "Integrantes",
+            name: "Posts",
             comp: "members",
           },
           {
@@ -172,12 +172,12 @@
         this.sliderIndicator(id);
       },
       sliderIndicator(id: number) {
-        
+
         let element = (this.$refs[`menu-item_${id}`] as any)[0];
         this.sliderPosition = element.offsetLeft;
         this.selectedElementWidth = element.offsetWidth;
         this.selectedIndex = id;
-  
+
       },
       getUrl(path : String){
           return new URL(`../assets/images/${path}`,import.meta.url).href
@@ -204,4 +204,3 @@
     },
   });
   </script>
-  

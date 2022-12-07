@@ -15,7 +15,7 @@
           <div class="section-items row">
             <div class="col">
               <ImageCard @click="emitClicked(card)" class="img-card pt-1" :width="cardWidth" :height="cardHeight"
-                :title="card.name" :body="card.desc" :source="card.icon" image-border />
+                :title="card.name" :body="card.desc" :source="('http://localhost:3001'+ card.icon.replace('.', ''))" image-border />
             </div>
           </div>
         </slide>
