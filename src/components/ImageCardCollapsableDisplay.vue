@@ -12,7 +12,7 @@
     <div class="boxCollapse collapse show section-hovered" :id="collapseId">
       <div v-if="cards.length > 0" class="section-items row" :class="rowColsClass">
         <div class="col" v-for="card in cards">
-          <ImageCard class="pt-1" :width="cardWidth" :height="cardHeight"
+          <ImageCard @click="emitClicked(card)" class="pt-1" :width="cardWidth" :height="cardHeight"
             :title="card.name" :body="card.desc" :source="card.icon" image-border />
         </div>
       </div>
@@ -108,12 +108,12 @@
       collapseId: {
         type: String,
         required: true
-      }
+      },
     },
     data() {
       return {
         isCollapsed: false,
-        cards: [{ name: "", desc: "", icon: "" }],
+        cards: [{ id: "", name: "", desc: "", icon: "" }],
         rowColsClass: 'row-cols-1',
       };
     },
@@ -125,6 +125,9 @@
       window.addEventListener("resize", this.calcCardsPerRow);
     },
     methods: {
+      emitClicked(card: Object) {
+        this.$emit("cardClicked", card);
+      },
       calcCardsPerRow() {
         let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let sectionEl = this.$refs.section as Element;
