@@ -65,6 +65,7 @@
 }
 
 .expanded {
+  background-color: #071f3581;
   width: 240px;
 }
 

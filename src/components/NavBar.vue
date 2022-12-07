@@ -92,7 +92,7 @@ import SearchBar from "./SearchBar.vue";
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #071f35f8;
+  background-color: #071f3581;
 }
 
 .down {
