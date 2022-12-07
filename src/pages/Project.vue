@@ -29,12 +29,16 @@ import ProjectMenu from "@/components/ProjectMenu.vue";
 import { defineComponent } from "vue";
 import ProjectDataService from "@/services/ProjectDataService";
 
+interface Pending {
+  is_accepted: string;
+}
+
 export default defineComponent({
   data() {
     return {
       banner: "",
       projectPic: "",
-      membersCount: "",
+      membersCount: 0,
       postQtd: "",
       title: "",
       desc: ""
@@ -52,7 +56,13 @@ export default defineComponent({
         );
         this.desc = r.description
         this.title = r.name,
-        this.membersCount = r.projectParticipations.length
+        r.projectParticipations.forEach((element : Pending) => {
+          if(element.is_accepted == "accepted"){
+            this.membersCount++
+          }
+        });
+        
+        
       })
       .catch((e) => {
         console.log(e);
