@@ -59,7 +59,8 @@
   overflow: hidden;
   left: 0;
   width: calc(2rem + 40px);
-  background-color: var(--color-background-dark-hover);
+  /*background-color: var(--color-background-dark-hover);*/
+  background-color: transparent;
   transition: 0.3s ease-out;
 }
 
@@ -78,7 +79,8 @@
 }
 
 .menu-toggle-wrap {
-  background-color: var(--color-background-dark-hover);
+  /*background-color: var(--color-background-dark-hover);*/
+  background-color: transparent;
   margin-bottom: 1rem;
   border: 0px;
   transition: 0.5 ease-out;
