@@ -62,7 +62,10 @@
   font-family: "Jost", sans-serif;
   background-color: var(--color-cream);
   color: #16213e;
-  
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
 }
 
 .item {
@@ -79,10 +82,6 @@ ul {
 .item strong {
   font-size: medium;
   margin-left: 30px;
-}
-
-.footer-body {
-  border-bottom: 0.12rem solid #16213e;
 }
 
 .item-social img {
